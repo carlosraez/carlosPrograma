@@ -1,0 +1,18 @@
+.inputOculto {
+  display: none;
+}
+
+.verInput {
+  margin-left: 10px;
+  display: initial;
+  }
+
+.botonModificar {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.conversacion {
+  font-size: 14px;
+}
