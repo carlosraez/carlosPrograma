@@ -26,7 +26,6 @@ class Dashboard  extends Component {
     marca:'',
     mantenedor:'',
     oca:'',
-    historicoConver:[],
     proxVisita: '',
     ascensor: [],
     textoInfoVista: '',
@@ -40,55 +39,8 @@ class Dashboard  extends Component {
   }
 
    handleClickTerminarVisita = () => {
-     this.nuevaConversacion()
-     console.log(this.state.historicoConver);
-     const ref  = firebaseApp.database().ref('usuarios')
-     const user = firebaseApp.auth().currentUser;
-     const nuevaVisita = {
-       calle: this.state.calle,
-       poblacion: this.state.poblacion,
-       postal:this.state.postal,
-       interes:this.state.interes,
-       nombrePresidente:this.state.nombrePresidente,
-       telefonoPresidente:this.state.telefonoPresidente,
-       emailPresidente:this.state.emailPresidente,
-       tipoPresupuesto:this.state.tipoPresupuesto,
-       nombreAdministrador:this.state.nombreAdministrador,
-       marca:this.state.marca,
-       ascensor:this.state.ascensor,
-       mantenedor:this.state.mantenedor,
-       proxVisita:this.state.proxVisita,
-       oca:this.state.oca,
-       conversacion:this.state.historicoConver
-     }
-     ref.child(user.uid).child('visita').push(nuevaVisita)
-     swal('Se ha guardado , ahora realiza un buen seguimiento para poder cerrar la venta')
-     this.setState({
-       usuarioMakeVisita:false,
-       calle: '',
-       poblacion:'',
-       postal:'',
-       interes:'Medio Interesados',
-       nombrePresidente:'',
-       telefonoPresidente:'',
-       emailPresidente:'',
-       tipoPresupuesto:'Mantenimiento',
-       horaVisita:{value: 'Preferiblemente por la Mañana'},
-       nombreAdministrador:'',
-       marca:'',
-       mantenedor:'',
-       oca:'',
-       proxVisita: '',
-       ascensor: [],
-       historicoConver:[],
-       textoInfoVista: '',
-       observacionAscensor:'',
-       paradas: '',
-       personas:'',
-       rae:'',
-       embarques:'',
-       observacionAscensorSinAscensor:'',
-     })
+     this.guardarVisita()
+
    }
    handleClickVisitas = () => {
      this.setState({
@@ -135,7 +87,6 @@ class Dashboard  extends Component {
        rae:'',
        embarques:'',
        observacionAscensorSinAscensor:'',
-       historicoConver:[],
      })
    }
 
@@ -215,13 +166,61 @@ class Dashboard  extends Component {
      })
    }
 
-   nuevaConversacion(){
-     let actualConversacion = [{
-       fechaConversacionAntigua: this.state.proxVisita || '',
-       antiguaConversacion: this.state.textoInfoVista || '',
-      }];
-      this.setState({
-       historicoConver: this.state.historicoConver.concat(actualConversacion)
+   guardarVisita = () => {
+     const ref  = firebaseApp.database().ref('usuarios')
+     const user = firebaseApp.auth().currentUser;
+     const nuevaVisita = {
+       calle: this.state.calle,
+       poblacion: this.state.poblacion,
+       postal:this.state.postal,
+       interes:this.state.interes,
+       nombrePresidente:this.state.nombrePresidente,
+       telefonoPresidente:this.state.telefonoPresidente,
+       emailPresidente:this.state.emailPresidente,
+       tipoPresupuesto:this.state.tipoPresupuesto,
+       nombreAdministrador:this.state.nombreAdministrador,
+       marca:this.state.marca,
+       ascensor:this.state.ascensor,
+       mantenedor:this.state.mantenedor,
+       proxVisita:this.state.proxVisita,
+       oca:this.state.oca,
+     }
+     ref.child(user.uid).child('visita').push(nuevaVisita)
+     const idVisita = []
+     ref.child(user.uid).child('visita').on('child_added', (sanpshot) =>{
+       idVisita.push(sanpshot.key)
+     })
+     const visitaRegistrada = idVisita.pop()
+     const nuevaConversacion = [{
+       proxVisita:this.state.proxVisita,
+       textoInfoVista:this.state.textoInfoVista
+     }]
+     ref.child(user.uid).child('visita').child(visitaRegistrada).child('conversacion').set(nuevaConversacion)
+     swal('Se ha guardado , ahora realiza un buen seguimiento para poder cerrar la venta')
+     this.setState({
+       usuarioMakeVisita:false,
+       calle: '',
+       poblacion:'',
+       postal:'',
+       interes:'Medio Interesados',
+       nombrePresidente:'',
+       telefonoPresidente:'',
+       emailPresidente:'',
+       tipoPresupuesto:'Mantenimiento',
+       horaVisita:{value: 'Preferiblemente por la Mañana'},
+       nombreAdministrador:'',
+       marca:'',
+       mantenedor:'',
+       oca:'',
+       proxVisita: '',
+       ascensor: [],
+       textoInfoVista: '',
+       observacionAscensor:'',
+       paradas: '',
+       personas:'',
+       rae:'',
+       embarques:'',
+       observacionAscensorSinAscensor:'',
      })
    }
 

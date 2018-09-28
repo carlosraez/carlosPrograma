@@ -1,9 +1,6 @@
 import React from 'react';
 import './terminarVisita.css'
 
-
-
-
 function TerminarVisita(props) {
    return (
      <div>
@@ -43,7 +40,7 @@ function TerminarVisita(props) {
           </div>
            <div className="row">
           <div className="col md-6">
-           <button onClick={props.guardarYTerminar} className="btn btn-success btn-block">Terminar y Terminar</button>
+           <button onClick={props.guardarYTerminar} className="btn btn-success btn-block">Terminar</button>
            </div>
        </div>
      </div>

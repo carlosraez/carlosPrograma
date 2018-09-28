@@ -3,7 +3,7 @@ import Visita from './visitaList.js'
 import ModalContainer from '../../widgets/container/modal-container.js'
 import swal from 'sweetalert';
 import { firebaseApp } from '../../index.js'
-import HistoricoConversacion from '../../widgets/components/historicoConversacion.js'
+import ModalHistoricoConversacion from '../../widgets/components/historicoConversacion.js'
 import ModalVisita from '../../widgets/components/modalVisita.js'
 import ModalAscensor from '../../widgets/components/modalAscensor.js'
 import './modal.css'
@@ -194,6 +194,10 @@ class ListarVisitaCompleta extends Component {
 
   render () {
     const listaCompleta =  this.state.listaCompleta
+    const pulsada = this.state.vistitaPulsada
+    const listaActual = listaCompleta[pulsada] || []
+    const listaConversacion = listaActual.conversacion || []
+
     if (this.state.modalVisible) {
       return (
         <ModalContainer>
@@ -222,9 +226,16 @@ class ListarVisitaCompleta extends Component {
               />
               :
               this.state.historico ?
-              <HistoricoConversacion
-              handleClickVolverModal={this.handleClickVolverModal}
-              />
+              listaConversacion.map( (item,i) => {
+                 return (
+                   <ModalHistoricoConversacion
+                   key={i}
+                   handleClickVolverModal={this.handleClickVolverModal}
+                   fechaConversacionAntigua={item.proxVisita}
+                   conversacionAntigua={item.textoInfoVista}
+                   />
+                 )
+              })
               :
               <ModalVisita
                historicoConversacion={this.historicoConversacion}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DatosVisita from '../components/datosVisita.js'
 import SmartAscensor from '../components/smartAscensor.js'
 import TerminarVisita from '../components/terminarVisita.js'
+import VisitaLayout from '../components/visitaLayout.js'
 import swal from 'sweetalert';
 
 
@@ -59,14 +60,9 @@ handleClickContinuar = () => {
 
   render() {
     return (
-        <div id="App" className="row">
-           <div className="col md-12">
-              <div className="card">
-                <div className="card-header">
-                  <h4>Completa tu Visita</h4>
-                   <button type="button"  onClick={this.props.handleClickDash} className="btn btn-info">Menu Principal</button>
-                </div>
-                <div className="card-body">
+              <VisitaLayout
+               handleClickDash={this.props.handleClickDash}
+              >
                   {
                   this.state.mostrarDatosVisita ?
                   <DatosVisita
@@ -90,10 +86,7 @@ handleClickContinuar = () => {
                       guardarYTerminar={this.props.handleClickTerminarVisita}
                       />
                   }
-                   </div>
-              </div>
-           </div>
-         </div>
+            </VisitaLayout>
     );
   }
 }
