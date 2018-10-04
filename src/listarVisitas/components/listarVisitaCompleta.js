@@ -16,10 +16,9 @@ class ListarVisitaCompleta extends Component {
     listaCompleta: [],
     idTodasVisitas:[],
     historicoConver:[],
-    calleModificada:'',
     cssEdicion:'inputOculto',
-    textoInfoVista:'',
     proxVisita:'',
+    textoInfoVisita:'',
     historico:false,
     modalVisita:true,
     modalAscensor:false,
@@ -33,7 +32,6 @@ class ListarVisitaCompleta extends Component {
         return {numeroAscensor: state.numeroAscensor + 1}
       })
     }
-    console.log(this.state.numeroAscensor);
   }
 
     handleChangeAnteriorAscensor = () => {
@@ -45,11 +43,19 @@ class ListarVisitaCompleta extends Component {
        }
 
     handleVerClickVerListaCompleta = (event) => {
-    const numeroPulsadoTipoPresupuesto = event.target.id
+    const numeroVisitaPulsada = event.target.id
+    const { listaCompleta } = this.state
+    const conversacion = listaCompleta[numeroVisitaPulsada].conversacion
+    const ultimaConversacion = conversacion[conversacion.length - 1];
+    const fecha = ultimaConversacion.proxVisita
+    const accionUltima = ultimaConversacion.textoInfoVisita
     this.setState({
       modalVisible:true,
-      vistitaPulsada: numeroPulsadoTipoPresupuesto
+      vistitaPulsada: numeroVisitaPulsada,
+      proxVisita: fecha,
+      textoInfoVisita: accionUltima
     })
+
   }
 
   handleCerrarModal = () =>{
@@ -58,7 +64,7 @@ class ListarVisitaCompleta extends Component {
     })
   }
 
-  handleBorrarModal = () =>{
+  handleBorrarVisita = () =>{
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
     swal({
@@ -95,10 +101,11 @@ class ListarVisitaCompleta extends Component {
     const listaBaseDatos = []
     const idVisitas = []
     ref.child(user.uid).child('visita').on('child_added', (sanpshot) =>{
-     listaBaseDatos.push(sanpshot.val())
+    listaBaseDatos.push(sanpshot.val())
     })
     this.setState({
       listaCompleta:listaBaseDatos
+
     })
     ref.child(user.uid).child('visita').on('child_added', (snapshot) => {
       idVisitas.push(snapshot.key)
@@ -116,7 +123,6 @@ class ListarVisitaCompleta extends Component {
     this.setState({
       [id]: value
     })
-    console.log(this.state.calleModificada);
  }
 
   handleModificarVisita = () => {
@@ -139,7 +145,7 @@ class ListarVisitaCompleta extends Component {
     const visitaAModificar = this.state.idTodasVisitas[this.state.vistitaPulsada]
     const antiguaConversacion = [{
        fechaConversacionAntigua: this.state.listaCompleta[this.state.vistitaPulsada].proxVisita,
-       antiguaConversacion: this.state.listaCompleta[this.state.vistitaPulsada].textoInfoVista
+       antiguaConversacion: this.state.listaCompleta[this.state.vistitaPulsada].textoInfoVisita
      }]
      this.setState({
        historicoConver: this.state.historicoConver.concat(antiguaConversacion)
@@ -152,7 +158,7 @@ class ListarVisitaCompleta extends Component {
     const user = firebaseApp.auth().currentUser;
     const visitaAModificar = this.state.idTodasVisitas[this.state.vistitaPulsada]
     const nuevaConversacion = {
-      textoInfoVista:this.state.textoInfoVista,
+      textoInfoVista:this.state.textoInfoVisita,
       proxVisita:this.state.proxVisita,
     }
    ref.child(user.uid).child('visita').child(visitaAModificar).update(nuevaConversacion)
@@ -193,6 +199,7 @@ class ListarVisitaCompleta extends Component {
   }
 
   render () {
+    console.log('soy el render');
     const listaCompleta =  this.state.listaCompleta
     const pulsada = this.state.vistitaPulsada
     const listaActual = listaCompleta[pulsada] || []
@@ -232,7 +239,7 @@ class ListarVisitaCompleta extends Component {
                    key={i}
                    handleClickVolverModal={this.handleClickVolverModal}
                    fechaConversacionAntigua={item.proxVisita}
-                   conversacionAntigua={item.textoInfoVista}
+                   conversacionAntigua={item.textoInfoVisita}
                    />
                  )
               })
@@ -252,8 +259,8 @@ class ListarVisitaCompleta extends Component {
                administrador={this.state.listaCompleta[this.state.vistitaPulsada].nombreAdministrador}
                marcaAscensor={this.state.listaCompleta[this.state.vistitaPulsada].marca}
                mantenedor={this.state.listaCompleta[this.state.vistitaPulsada].mantenedor}
-               conversacion={this.state.listaCompleta[this.state.vistitaPulsada].textoInfoVista}
-               fechaConversacion={this.state.listaCompleta[this.state.vistitaPulsada].proxVisita}
+               conversacion={this.state.textoInfoVisita}
+               fechaConversacion={this.state.proxVisita}
                numeroAscensores={this.state.listaCompleta[this.state.vistitaPulsada].numeroAscensores}
                handleChange={this.handleChange}
                handleModificarVisita={this.handleModificarVisita}
@@ -263,7 +270,7 @@ class ListarVisitaCompleta extends Component {
               />
             }
             <div>
-            <button type="button" onClick={this.handleBorrarModal} className="btn btn-danger botonBorrar">Borrar Visita</button>
+            <button type="button" onClick={this.handleBorrarVisita} className="btn btn-danger botonBorrar">Borrar Visita</button>
             </div>
             <div>
              <button type="button " className="Modal-close" onClick={this.handleCerrarModal} ></button>
@@ -275,6 +282,9 @@ class ListarVisitaCompleta extends Component {
     }
     return (
          listaCompleta.map((item, i) => {
+          const listaConversaciones = item.conversacion
+          const ultimalistaConversaciones = listaConversaciones[listaConversaciones.length -1]
+          const proxVisitaMostrar = ultimalistaConversaciones.proxVisita
           let contador  = i + 1
           return (
           <Visita
@@ -285,7 +295,7 @@ class ListarVisitaCompleta extends Component {
         tipoPresupuesto={item.tipoPresupuesto}
         importancia={item.interes}
         administrador={item.nombreAdministrador}
-        proxVisita={item.proxVisita}
+        proxVisita={proxVisitaMostrar}
         key={i}
         contador={contador}
         handleVerClick={this.handleVerClickVerListaCompleta}

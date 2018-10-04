@@ -80,7 +80,7 @@ class Dashboard  extends Component {
        oca:'',
        proxVisita: '',
        ascensor: [],
-       textoInfoVista: '',
+       textoInfoVisita: '',
        observacionAscensor:'',
        paradas: '',
        personas:'',
@@ -182,7 +182,6 @@ class Dashboard  extends Component {
        marca:this.state.marca,
        ascensor:this.state.ascensor,
        mantenedor:this.state.mantenedor,
-       proxVisita:this.state.proxVisita,
        oca:this.state.oca,
      }
      ref.child(user.uid).child('visita').push(nuevaVisita)
@@ -193,7 +192,7 @@ class Dashboard  extends Component {
      const visitaRegistrada = idVisita.pop()
      const nuevaConversacion = [{
        proxVisita:this.state.proxVisita,
-       textoInfoVista:this.state.textoInfoVista
+       textoInfoVisita:this.state.textoInfoVisita
      }]
      ref.child(user.uid).child('visita').child(visitaRegistrada).child('conversacion').set(nuevaConversacion)
      swal('Se ha guardado , ahora realiza un buen seguimiento para poder cerrar la venta')

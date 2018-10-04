@@ -35,7 +35,7 @@ function TerminarVisita(props) {
          </div>
          <div className="form-group">
          <label >¿Como has quedado?</label>
-          <textarea className="form-control" onChange={props.handleChange} id="textoInfoVista" rows="3"></textarea>
+          <textarea className="form-control" onChange={props.handleChange} id="textoInfoVisita" rows="3"></textarea>
           </div>
           </div>
            <div className="row">
