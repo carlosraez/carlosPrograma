@@ -15,8 +15,9 @@ class ListarVisitaCompleta extends Component {
     numeroAscensor: 0,
     listaCompleta: [],
     idTodasVisitas:[],
-    historicoConver:[],
     cssEdicion:'inputOculto',
+    textoNuevaVisita:'',
+    proxNuevaVisita:'',
     proxVisita:'',
     textoInfoVisita:'',
     historico:false,
@@ -139,39 +140,18 @@ class ListarVisitaCompleta extends Component {
     swal("La visita ha sido Modificada")
   }
 
-  guardarAntiguaConversacion = () => {
+    handleNuevaConversacion = () => {
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
     const visitaAModificar = this.state.idTodasVisitas[this.state.vistitaPulsada]
-    const antiguaConversacion = [{
-       fechaConversacionAntigua: this.state.listaCompleta[this.state.vistitaPulsada].proxVisita,
-       antiguaConversacion: this.state.listaCompleta[this.state.vistitaPulsada].textoInfoVisita
-     }]
-     this.setState({
-       historicoConver: this.state.historicoConver.concat(antiguaConversacion)
-     })
-    ref.child(user.uid).child('visita').child(visitaAModificar).se(this.state.historicoConver)
+    const nuevaConversacion = [{
+      textoInfoVista:this.state.textoNuevaVisita,
+      proxVisita:this.state.proxNuevaVisita,
+    }]
+     ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').push(nuevaConversacion)
+     swal('Se ha añadido nueva Accion')
    }
 
-  handleNuevaConversacion = () => {
-    const ref  = firebaseApp.database().ref('usuarios')
-    const user = firebaseApp.auth().currentUser;
-    const visitaAModificar = this.state.idTodasVisitas[this.state.vistitaPulsada]
-    const nuevaConversacion = {
-      textoInfoVista:this.state.textoInfoVisita,
-      proxVisita:this.state.proxVisita,
-    }
-   ref.child(user.uid).child('visita').child(visitaAModificar).update(nuevaConversacion)
-   swal('Se ha añadido nueva Accion')
-   let despuesModificacionConversacion = []
-   ref.child(user.uid).child('visita').on('child_added', (sanpshot) =>{
-    despuesModificacionConversacion.push(sanpshot.val())
-   })
-   this.setState({
-     listaCompleta:despuesModificacionConversacion,
-   })
-  this.guardarAntiguaConversacion()
-  }
 
   historicoConversacion = () => {
     this.setState({

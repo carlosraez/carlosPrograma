@@ -44,8 +44,8 @@ function ModalVisita(props) {
      <ul className="list-group">
        <li className="conversacion list-group-item">{props.fechaConversacion}: {props.conversacion}</li>
       <label>Fecha de La Proxima Accion</label>
-      <input type="date" id="proxVisita" onChange={props.handleChange}  className="form-control" />
-      <textarea className="form-control" onChange={props.handleChange} id="textoInfoVista" rows="3"></textarea>
+      <input type="date" id="proxNuevaVisita" onChange={props.handleChange}  className="form-control" />
+      <textarea className="form-control" onChange={props.handleChange} id="textoNuevaVisita" rows="3"></textarea>
       <button type="button" onClick={props.handleNuevaConversacion} className="btn btn-info btn-sm">Subir Conversacion</button>
      </ul>
     </div>

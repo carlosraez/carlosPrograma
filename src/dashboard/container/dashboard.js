@@ -189,7 +189,7 @@ class Dashboard  extends Component {
      ref.child(user.uid).child('visita').on('child_added', (sanpshot) =>{
        idVisita.push(sanpshot.key)
      })
-     const visitaRegistrada = idVisita.pop()
+     const visitaRegistrada = idVisita[idVisita.length - 1]
      const nuevaConversacion = [{
        proxVisita:this.state.proxVisita,
        textoInfoVisita:this.state.textoInfoVisita
