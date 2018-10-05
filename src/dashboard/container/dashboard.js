@@ -183,18 +183,14 @@ class Dashboard  extends Component {
        ascensor:this.state.ascensor,
        mantenedor:this.state.mantenedor,
        oca:this.state.oca,
+      conversacion:{
+             numero1 :{
+             proxVisita:this.state.proxVisita,
+             textoInfoVisita:this.state.textoInfoVisita
+            }
+        }
      }
      ref.child(user.uid).child('visita').push(nuevaVisita)
-     const idVisita = []
-     ref.child(user.uid).child('visita').on('child_added', (sanpshot) =>{
-       idVisita.push(sanpshot.key)
-     })
-     const visitaRegistrada = idVisita[idVisita.length - 1]
-     const nuevaConversacion = [{
-       proxVisita:this.state.proxVisita,
-       textoInfoVisita:this.state.textoInfoVisita
-     }]
-     ref.child(user.uid).child('visita').child(visitaRegistrada).child('conversacion').set(nuevaConversacion)
      swal('Se ha guardado , ahora realiza un buen seguimiento para poder cerrar la venta')
      this.setState({
        usuarioMakeVisita:false,

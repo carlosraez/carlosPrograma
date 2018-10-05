@@ -1,13 +1,27 @@
 import React from 'react'
 import './historicoConversacion.css'
+import ListaHistorico from './listaHistorico.js'
 
 
-function ModalHistoricoConversacion({ handleClickVolverModal, fechaConversacionAntigua, conversacionAntigua}) {
+function ModalHistoricoConversacion(props) {
+  const { handleClickVolverModal, arrayConversacion} = props
   return (
    <div>
     <button type="button" onClick={handleClickVolverModal}  className="btn btn-info botonVolverAModal">Volver A Visita</button><h3 className="tituloHistorico">Historico Conversaciones</h3>
     <ul className="list-group">
-      <li className="conversacion list-group-item">{fechaConversacionAntigua}: {conversacionAntigua}<span><button type="button" className="btn btn-danger btn-sm">Borrar</button></span></li>
+       {
+      arrayConversacion.map((item, i) => {
+      let contador = i + 1
+      return (
+           <ListaHistorico
+            key={i}
+            lista={contador}
+            fechaConversacionAntigua={item.proxVisita}
+            conversacionAntigua={item.textoInfoVisita}
+          />
+         )
+       })
+     }
      </ul>
    </div>
   )
