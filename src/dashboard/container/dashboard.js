@@ -184,7 +184,7 @@ class Dashboard  extends Component {
        mantenedor:this.state.mantenedor,
        oca:this.state.oca,
       conversacion:{
-             numero1 :{
+             0 :{
              proxVisita:this.state.proxVisita,
              textoInfoVisita:this.state.textoInfoVisita
             }

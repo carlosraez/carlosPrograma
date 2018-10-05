@@ -47,8 +47,8 @@ class ListarVisitaCompleta extends Component {
     const numeroVisitaPulsada = event.target.id
     const { listaCompleta } = this.state
     const visitaSeleccionada = listaCompleta[numeroVisitaPulsada]
-    const fecha = visitaSeleccionada.conversacion.numero1.proxVisita
-    const accionUltima = visitaSeleccionada.conversacion.numero1.textoInfoVisita
+    const fecha = visitaSeleccionada.conversacion[0].proxVisita
+    const accionUltima = visitaSeleccionada.conversacion[0].textoInfoVisita
     this.setState({
       modalVisible:true,
       vistitaPulsada: numeroVisitaPulsada,
@@ -107,12 +107,12 @@ class ListarVisitaCompleta extends Component {
       listaCompleta:listaBaseDatos,
     })
     ref.child(user.uid).child('visita').on('child_added', (snapshot) => {
-      idVisitas.push(snapshot.key)
-        })
-       this.setState({
-       idTodasVisitas: idVisitas,
-       modalVisible:false,
-     })
+       idVisitas.push(snapshot.key)
+         })
+        this.setState({
+        idTodasVisitas: idVisitas,
+        modalVisible:false,
+      })
   }
 
  handleChange = (event) => {
@@ -142,14 +142,32 @@ class ListarVisitaCompleta extends Component {
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
     const visitaAModificar = this.state.idTodasVisitas[this.state.vistitaPulsada]
-    const nuevaConversacion = {
-        numero2: {
-          textoInfoVista:this.state.textoNuevaVisita,
-          proxVisita:this.state.proxNuevaVisita,
+    const listaTotalActual = this.state.listaCompleta[this.state.vistitaPulsada].conversacion
+    const longitudConversacion  = listaTotalActual.length
+    if (longitudConversacion === 1) {
+      let subirConversacion = 1
+        const nuevaConversacion = {
+              [subirConversacion] : {
+              textoInfoVista:this.state.textoNuevaVisita,
+              proxVisita:this.state.proxNuevaVisita,
+            }
         }
-  }
-     ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').update(nuevaConversacion)
-     swal('Se ha añadido nueva Accion')
+        ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').update(nuevaConversacion)
+    }
+   else {
+     let subirConversacion = longitudConversacion
+     console.log(subirConversacion);
+       const nuevaConversacion = {
+             [subirConversacion] : {
+             textoInfoVista:this.state.textoNuevaVisita,
+             proxVisita:this.state.proxNuevaVisita,
+           }
+       }
+       ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').update(nuevaConversacion)
+   }
+
+   swal('Se ha añadido nueva Accion')
+
    }
 
 
