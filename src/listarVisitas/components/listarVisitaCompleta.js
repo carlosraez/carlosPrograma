@@ -45,15 +45,15 @@ class ListarVisitaCompleta extends Component {
 
     handleVerClickVerListaCompleta = (event) => {
     const numeroVisitaPulsada = event.target.id
-    const { listaCompleta } = this.state
-    const visitaSeleccionada = listaCompleta[numeroVisitaPulsada]
-    const fecha = visitaSeleccionada.conversacion[0].proxVisita
-    const accionUltima = visitaSeleccionada.conversacion[0].textoInfoVisita
+    //  const { listaCompleta } = this.state
+    //const visitaSeleccionada = listaCompleta[numeroVisitaPulsada]
+   //  const fecha = visitaSeleccionada.conversacion[0].proxVisita
+  //  const accionUltima = visitaSeleccionada.conversacion[0].textoInfoVisita
     this.setState({
       modalVisible:true,
       vistitaPulsada: numeroVisitaPulsada,
-      proxVisita:fecha,
-      textoInfoVisita:accionUltima
+      proxVisita:'01/01/2018',
+      textoInfoVisita:'fue muy bien'
     })
 
   }
@@ -152,12 +152,11 @@ class ListarVisitaCompleta extends Component {
               proxVisita:this.state.proxNuevaVisita,
             }
         }
-        ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').update(nuevaConversacion)
+     ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').update(nuevaConversacion)
     }
    else {
      let subirConversacion = longitudConversacion
-     console.log(subirConversacion);
-       const nuevaConversacion = {
+     const nuevaConversacion = {
              [subirConversacion] : {
              textoInfoVista:this.state.textoNuevaVisita,
              proxVisita:this.state.proxNuevaVisita,
@@ -166,8 +165,8 @@ class ListarVisitaCompleta extends Component {
        ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').update(nuevaConversacion)
    }
 
-   swal('Se ha añadido nueva Accion')
-
+     swal('Se ha añadido nueva Accion')
+     this.componentDidMount()
    }
 
 
@@ -197,7 +196,6 @@ class ListarVisitaCompleta extends Component {
   }
 
   render () {
-    console.log('soy el render');
     const listaCompleta =  this.state.listaCompleta
     const pulsada = this.state.vistitaPulsada
     const listaActual = listaCompleta[pulsada] || []
