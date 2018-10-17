@@ -12,18 +12,34 @@ export class ModalPrincipal extends Component {
     modalVisita:true,
     modalAscensor:false,
     numeroAscensor: 0,
-    historicoConversacion: []
+    historicoConversacion: [],
+    numeroTotalAscensores: this.props.vistitaPulsada.ascensor.length,
+    numeroAscensorActual:1
   }
 
   handleClickSiguienteAscensor = () => {
-    const length = this.props.vistitaPulsada.ascensor.length
+    const length = this.state.numeroTotalAscensores
     const cantidadAscensoresActual = this.state.numeroAscensor
     if( cantidadAscensoresActual <  length  - 1) {
       this.setState((state) => {
-        return {numeroAscensor: state.numeroAscensor + 1}
+        return {
+          numeroAscensor: state.numeroAscensor + 1,
+          numeroAscensorActual: state.numeroAscensorActual + 1
+        }
       })
     }
   }
+
+  handleChangeAnteriorAscensor = () => {
+           if (this.state.numeroAscensor > 0 ){
+             this.setState((state) => {
+               return {
+                numeroAscensor: state.numeroAscensor - 1,
+                numeroAscensorActual: state.numeroAscensorActual - 1
+               }
+             })
+           }
+         }
 
     handleVerLosAscensores = () => {
       this.setState({
@@ -94,15 +110,6 @@ export class ModalPrincipal extends Component {
     }
 
 
-  handleChangeAnteriorAscensor = () => {
-           if (this.state.numeroAscensor > 0 ){
-             this.setState((state) => {
-               return {numeroAscensor: state.numeroAscensor - 1}
-             })
-           }
-         }
-
-
   handleVolverInformacion = () => {
     this.setState({
       modalAscensor: false,
@@ -135,53 +142,55 @@ componentDidMount = () => {
       {
         this.state.modalAscensor ?
         <ModalAscensor
-        handleVolverInformacion={this.handleVolverInformacion}
-        rae={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].rae}
-        paradas={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].paradas}
         anchoHueco={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].anchoHueco}
+        cssEdicion={this.state.cssEdicion}
+        embarques={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].embarques}
         fondoHueco={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].fondoHueco}
+        handleChange={this.handleChange}
+        handleChangeAnteriorAscensor={this.handleChangeAnteriorAscensor}
+        handleClickSiguienteAscensor={this.handleClickSiguienteAscensor}
+        handleGuardarModificacion={this.handleGuardarModificacion}
+        handleVolverInformacion={this.handleVolverInformacion}
+        maquina={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].maquina}
+        numeroAscensor={this.state.numeroAscensorActual}
+        observacionAscensor={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].observacionAscensor}
+        paradas={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].paradas}
         personas={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].personas}
         puertasCabina={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].puertasCabina}
         puertasPiso={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].puertasPiso}
-        maquina={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].maquina}
-        embarques={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].embarques}
-        observacionAscensor={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].observacionAscensor}
-        handleClickSiguienteAscensor={this.handleClickSiguienteAscensor}
-        handleChangeAnteriorAscensor={this.handleChangeAnteriorAscensor}
-        cssEdicion={this.state.cssEdicion}
-        handleChange={this.handleChange}
-        handleGuardarModificacion={this.handleGuardarModificacion}
+        rae={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].rae}
         />
         :
         this.state.historico ?
         <ModalHistoricoConversacion
-        handleClickVolverModal={this.handleClickVolverModal}
         arrayConversacion={arrayConversacion}
+        handleClickVolverModal={this.handleClickVolverModal}
           />
         :
         <ModalVisita
-         vistitaPulsada={this.props.vistitaPulsada}
-         idVisitaPulsada={this.props.idVisitaPulsada}
-         historicoConversacion={this.historicoConversacion}
-         handleVerLosAscensores={this.handleVerLosAscensores}
-         handleCerrarModal={this.handleCerrarModal}
-         tipoPresupuesto={this.props.vistitaPulsada.tipoPresupuesto}
-         poblacion={this.props.vistitaPulsada.poblacion}
-         codigoPostal={this.props.vistitaPulsada.postal}
-         direccion={this.props.vistitaPulsada.calle}
-         nombrePresidente={this.props.vistitaPulsada.nombrePresidente}
-         telefonoPresidente={this.props.vistitaPulsada.telefonoPresidente}
-         correElectronico={this.props.vistitaPulsada.emailPresidente}
-         horaVisita={this.props.vistitaPulsada.horaVisita}
          administrador={this.props.vistitaPulsada.nombreAdministrador}
-         marcaAscensor={this.props.vistitaPulsada.marca}
-         mantenedor={this.props.vistitaPulsada.mantenedor}
-         numeroAscensores={this.props.vistitaPulsada.numeroAscensores}
-         handleChange={this.handleChange}
-         handleModificarVisita={this.handleModificarVisita}
+         codigoPostal={this.props.vistitaPulsada.postal}
+         correElectronico={this.props.vistitaPulsada.emailPresidente}
          cssEdicion={this.state.cssEdicion}
+         direccion={this.props.vistitaPulsada.calle}
+         handleCerrarModal={this.handleCerrarModal}
+         handleChange={this.handleChange}
          handleGuardarModificacion={this.handleGuardarModificacion}
+         handleModificarVisita={this.handleModificarVisita}
          handleNuevaConversacion={this.handleNuevaConversacion}
+         handleVerLosAscensores={this.handleVerLosAscensores}
+         historicoConversacion={this.historicoConversacion}
+         horaVisita={this.props.vistitaPulsada.horaVisita}
+         idVisitaPulsada={this.props.idVisitaPulsada}
+         mantenedor={this.props.vistitaPulsada.mantenedor}
+         marcaAscensor={this.props.vistitaPulsada.marca}
+         nombrePresidente={this.props.vistitaPulsada.nombrePresidente}
+         numeroAscensores={this.props.vistitaPulsada.numeroAscensores}
+         numeroTotalAscensores={this.state.numeroTotalAscensores}
+         poblacion={this.props.vistitaPulsada.poblacion}
+         telefonoPresidente={this.props.vistitaPulsada.telefonoPresidente}
+         tipoPresupuesto={this.props.vistitaPulsada.tipoPresupuesto}
+         vistitaPulsada={this.props.vistitaPulsada}
         />
       }
       </div>

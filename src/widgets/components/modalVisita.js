@@ -41,7 +41,7 @@ function ModalVisita(props) {
       <p><strong>Empresa Mantenedora:</strong><input id="mantenedor" onChange={props.handleChange} className={props.cssEdicion} type="text"/> {props.mantenedor}</p>
     </div>
     <div className="col-12 col-md-6">
-       <p>En esta comunidad hay {props.numeroAscensores} ascensores</p>
+       <p>En esta comunidad hay {props.numeroTotalAscensores} ascensores</p>
        <h3 className="tituloDeConversacion">Conversacion  <button type="button" onClick={props.historicoConversacion} className="btn btn-info btn-sm">Historico Conversaciones</button></h3>
       <Conversacion
         vistitaPulsada={props.vistitaPulsada}

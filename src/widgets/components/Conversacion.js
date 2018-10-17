@@ -8,7 +8,9 @@ export class Conversacion extends Component {
     proxNuevaVisita:'',
     proxVisita:'',
     textoInfoVisita:'',
-    nuevaPosicionConversacion: 0
+    nuevaPosicionConversacion: 0,
+    ultimaProxVisita:'',
+    ultimoTextoInfoVisita:'',
   }
 
   handleChange = (event) => {
@@ -55,22 +57,25 @@ export class Conversacion extends Component {
    const ref  = firebaseApp.database().ref('usuarios')
    const user = firebaseApp.auth().currentUser;
     const visitaAModificar = this.props.idVisitaPulsada
-    const ListaConversacion = []
+    const listaConversacion = []
     ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').on('child_added', (sanpshot) =>{
-    ListaConversacion.push(sanpshot.val())
-    })
+    listaConversacion.push(sanpshot.val())
+  })
+    const ultimaConversacion = listaConversacion[listaConversacion.length - 1]
+    console.log(ultimaConversacion);
     this.setState({
-      nuevaPosicionConversacion: ListaConversacion.length
+      nuevaPosicionConversacion: listaConversacion.length,
+      ultimaProxVisita: ultimaConversacion.proxVisita,
+      ultimoTextoInfoVisita: ultimaConversacion.textoInfoVisita
     })
  }
 
 
 
   render() {
-    console.log(`soy la nueva nuevaPosicionConversacion ${this.state.nuevaPosicionConversacion}`);
      return(
       <ul className="list-group">
-      <li className="conversacion list-group-item">{this.props.fechaConversacion}: {this.props.conversacion}</li>
+      <li className="conversacion list-group-item">{this.state.ultimaProxVisita}: {this.state.ultimoTextoInfoVisita}</li>
       <label>Fecha de La Proxima Accion</label>
       <input type="date" id="proxNuevaVisita" onChange={this.handleChange}  className="form-control" />
       <textarea className="form-control" onChange={this.handleChange} id="textoNuevaVisita" rows="3"></textarea>
