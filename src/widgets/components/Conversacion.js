@@ -29,7 +29,7 @@ export class Conversacion extends Component {
     let subirConversacion = 1
       const nuevaConversacion = {
             [subirConversacion] : {
-            textoInfoVista:this.state.textoNuevaVisita,
+            textoInfoVisita:this.state.textoNuevaVisita,
             proxVisita:this.state.proxNuevaVisita,
           }
       }
@@ -40,7 +40,7 @@ export class Conversacion extends Component {
    console.log(subirConversacion)
    const nuevaConversacion = {
            [subirConversacion] : {
-           textoInfoVista:this.state.textoNuevaVisita,
+           textoInfoVisita:this.state.textoNuevaVisita,
            proxVisita:this.state.proxNuevaVisita,
          }
      }
