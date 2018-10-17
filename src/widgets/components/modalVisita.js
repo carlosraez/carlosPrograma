@@ -1,5 +1,7 @@
 import React from 'react'
 import './modalVisita.css'
+import { Conversacion } from './Conversacion.js'
+
 
 function ModalVisita(props) {
   return (
@@ -41,13 +43,11 @@ function ModalVisita(props) {
     <div className="col-12 col-md-6">
        <p>En esta comunidad hay {props.numeroAscensores} ascensores</p>
        <h3 className="tituloDeConversacion">Conversacion  <button type="button" onClick={props.historicoConversacion} className="btn btn-info btn-sm">Historico Conversaciones</button></h3>
-     <ul className="list-group">
-       <li className="conversacion list-group-item">{props.fechaConversacion}: {props.conversacion}</li>
-      <label>Fecha de La Proxima Accion</label>
-      <input type="date" id="proxNuevaVisita" onChange={props.handleChange}  className="form-control" />
-      <textarea className="form-control" onChange={props.handleChange} id="textoNuevaVisita" rows="3"></textarea>
-      <button type="button" onClick={props.handleNuevaConversacion} className="btn btn-info btn-sm">Subir Conversacion</button>
-     </ul>
+      <Conversacion
+        vistitaPulsada={props.vistitaPulsada}
+        idVisitaPulsada={props.idVisitaPulsada}
+        nuevaPosicionConversacion={props.nuevaPosicionConversacion}
+      />
     </div>
     </div>
     <div>
