@@ -13,8 +13,21 @@ export class ModalPrincipal extends Component {
     modalAscensor:false,
     numeroAscensor: 0,
     historicoConversacion: [],
-    numeroTotalAscensores: this.props.vistitaPulsada.ascensor.length,
-    numeroAscensorActual:1
+    numeroTotalAscensores: this.props.visitaPulsada.ascensor.length,
+    numeroAscensorActual:1,
+    poblacionModi:'',
+    postalModi:'',
+    calleModi:'',
+    nombrePresidenteModi:'',
+    telefonoPresidenteModi:'',
+    emailPresidenteModi:'',
+    horaVisitaModi:'',
+    nombreAdministradorModi:'',
+    tipoPresupuestoModi:'',
+    marcaModi:'',
+    mantenedorModi:'',
+    visitaModal:[],
+    visitaActual: this.props.numeroArrayPulsada
   }
 
   handleClickSiguienteAscensor = () => {
@@ -49,11 +62,65 @@ export class ModalPrincipal extends Component {
     }
 
   handleGuardarModificacion = () => {
-    this.setState({
-      cssEdicion:'inputOculto'
-    })
+    const ref  = firebaseApp.database().ref('usuarios')
+    const user = firebaseApp.auth().currentUser;
+    const visitaAModificar = this.props.idVisitaPulsada
+    const {
+       calleModi ,
+       postalModi,
+       poblacionModi,
+       nombrePresidenteModi,
+       telefonoPresidenteModi,
+       emailPresidenteModi,
+       horaVisitaModi,
+       nombreAdministradorModi,
+       tipoPresupuestoModi,
+       marcaModi,
+       mantenedorModi
+        } = this.state
+    const visitasModificadas = [
+      calleModi ,
+      postalModi ,
+      poblacionModi,
+      nombrePresidenteModi,
+      telefonoPresidenteModi,
+      emailPresidenteModi,
+      horaVisitaModi,
+      nombreAdministradorModi,
+      tipoPresupuestoModi,
+      marcaModi,
+      mantenedorModi,
+    ]
+    const clavesAModificar = [
+    'calle',
+    'postal',
+    'poblacion',
+    'nombePresidente',
+    'telefonoPresidente',
+    'emailPresidente',
+    'horaVisita',
+    'nombreAdministrador',
+    'tipoPresupuesto',
+    'marca',
+    'mantenedor'
+
+  ]
+    for (let i = 0; i < visitasModificadas.length; i++) {
+       if (visitasModificadas[i] === '') { }
+       else {
+        const nuevaModificacion = {
+          [clavesAModificar[i]]:visitasModificadas[i]
+        }
+        ref.child(user.uid).child('visita').child(visitaAModificar).update(nuevaModificacion)
+       }
+    }
 
     swal("La visita ha sido Modificada")
+
+   this.setState({
+     cssEdicion:'inputOculto'
+   })
+   this.componentDidMount()
   }
 
   handleModificarVisita = () => {
@@ -127,12 +194,19 @@ componentDidMount = () => {
   const user = firebaseApp.auth().currentUser;
    const visitaAModificar = this.props.idVisitaPulsada
    const ListaConversacion = []
-   ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').on('child_added', (sanpshot) =>{
+   const visitas = []
+   ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').on('child_added', (sanpshot) => {
    ListaConversacion.push(sanpshot.val())
    })
-   this.setState({
-     historicoConversacion: ListaConversacion
+   ref.child(user.uid).child('visita').on('child_added', (sanpshot) => {
+   visitas.push(sanpshot.val())
    })
+   const visitaActualModal = visitas[this.state.visitaActual]
+   this.setState({
+     historicoConversacion: ListaConversacion,
+     visitaModal: visitaActualModal
+   })
+
 }
 
   render() {
@@ -168,11 +242,11 @@ componentDidMount = () => {
           />
         :
         <ModalVisita
-         administrador={this.props.vistitaPulsada.nombreAdministrador}
-         codigoPostal={this.props.vistitaPulsada.postal}
-         correElectronico={this.props.vistitaPulsada.emailPresidente}
+         administrador={this.state.visitaModal.nombreAdministrador}
+         codigoPostal={this.state.visitaModal.postal}
+         correElectronico={this.state.visitaModal.emailPresidente}
          cssEdicion={this.state.cssEdicion}
-         direccion={this.props.vistitaPulsada.calle}
+         direccion={this.state.visitaModal.calle}
          handleCerrarModal={this.handleCerrarModal}
          handleChange={this.handleChange}
          handleGuardarModificacion={this.handleGuardarModificacion}
@@ -180,19 +254,24 @@ componentDidMount = () => {
          handleNuevaConversacion={this.handleNuevaConversacion}
          handleVerLosAscensores={this.handleVerLosAscensores}
          historicoConversacion={this.historicoConversacion}
-         horaVisita={this.props.vistitaPulsada.horaVisita}
+         horaVisita={this.state.visitaModal.horaVisita}
          idVisitaPulsada={this.props.idVisitaPulsada}
-         mantenedor={this.props.vistitaPulsada.mantenedor}
-         marcaAscensor={this.props.vistitaPulsada.marca}
-         nombrePresidente={this.props.vistitaPulsada.nombrePresidente}
-         numeroAscensores={this.props.vistitaPulsada.numeroAscensores}
+         mantenedor={this.state.visitaModal.mantenedor}
+         marcaAscensor={this.state.visitaModal.marca}
+         nombrePresidente={this.state.visitaModal.nombrePresidente}
+         numeroAscensores={this.state.visitaModal.numeroAscensores}
          numeroTotalAscensores={this.state.numeroTotalAscensores}
-         poblacion={this.props.vistitaPulsada.poblacion}
-         telefonoPresidente={this.props.vistitaPulsada.telefonoPresidente}
-         tipoPresupuesto={this.props.vistitaPulsada.tipoPresupuesto}
-         vistitaPulsada={this.props.vistitaPulsada}
+         poblacion={this.state.visitaModal.poblacion}
+         telefonoPresidente={this.state.visitaModal.telefonoPresidente}
+         tipoPresupuesto={this.state.visitaModal.tipoPresupuesto}
+         vistitaPulsada={this.state.visitaModal}
         />
       }
+      <div>
+      <button type="button" onClick={this.handleVerLosAscensores} className="btn btn-info">Ver los Ascensores</button>
+      <button type="button" onClick={this.handleModificarVisita} className="btn btn-info botonModificar">Modificar Visita</button>
+      <button type="button" onClick={this.handleGuardarModificacion} className="btn btn-primary botonModificar">Guardar Modificacion</button>
+      </div>
       </div>
     )
   }

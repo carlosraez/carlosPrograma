@@ -7,7 +7,7 @@ function ModalAscensor(props) {
   <div>
     <div className="row">
         <div className="col-6">
-            <h3>Estas en el ascensor nº: {props.numeroAscensor}</h3>
+            <h5>Estas en el ascensor nº: {props.numeroAscensor}</h5>
             <p><strong>Rae:</strong><input id="rae" onChange={props.handleChange} className={props.cssEdicion} type="number"/> {props.rae}</p>
             <p><strong>Paradas:</strong><input id="paradas" onChange={props.handleChange} className={props.cssEdicion} type="number"/> {props.paradas}</p>
             <p><strong>Ancho de Hueco:</strong><input id="anchoHueco" onChange={props.handleChange} className={props.cssEdicion} type="number"/> {props.anchoHueco}</p>

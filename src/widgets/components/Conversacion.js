@@ -39,7 +39,6 @@ export class Conversacion extends Component {
   }
  else {
    let subirConversacion = this.state.nuevaPosicionConversacion
-   console.log(subirConversacion)
    const nuevaConversacion = {
            [subirConversacion] : {
            textoInfoVisita:this.state.textoNuevaVisita,
@@ -62,7 +61,6 @@ export class Conversacion extends Component {
     listaConversacion.push(sanpshot.val())
   })
     const ultimaConversacion = listaConversacion[listaConversacion.length - 1]
-    console.log(ultimaConversacion);
     this.setState({
       nuevaPosicionConversacion: listaConversacion.length,
       ultimaProxVisita: ultimaConversacion.proxVisita,

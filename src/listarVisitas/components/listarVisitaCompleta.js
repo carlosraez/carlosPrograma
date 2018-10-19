@@ -56,8 +56,9 @@ class ListarVisitaCompleta extends Component {
             <div className="container">
              <h1 className="tituloPrincipal">Descripcion de la visita Realizada</h1>
              <ModalPrincipal
-             vistitaPulsada={this.state.listaCompleta[this.state.vistitaPulsada]}
+             visitaPulsada={this.state.listaCompleta[this.state.vistitaPulsada]}
              idVisitaPulsada={this.state.idTodasVisitas[this.state.vistitaPulsada]}
+             numeroArrayPulsada={this.state.vistitaPulsada}
              />
             <div>
             <button type="button" onClick={this.handleBorrarVisita} className="btn btn-danger botonBorrar">Borrar Visita</button>
@@ -75,18 +76,18 @@ class ListarVisitaCompleta extends Component {
           let contador  = i + 1
           return (
           <Visita
-        direccion={item.calle}
-        poblacion={item.poblacion}
-        mantenedor={item.mantenedor}
-        codigoPostal={item.postal}
-        tipoPresupuesto={item.tipoPresupuesto}
-        importancia={item.interes}
         administrador={item.nombreAdministrador}
-        proxVisita={'probando'}
-        key={i}
+        codigoPostal={item.postal}
         contador={contador}
+        direccion={item.calle}
         handleVerClick={this.handleVerModal}
+        importancia={item.interes}
+        key={i}
+        mantenedor={item.mantenedor}
         numeroDeVisita={i}
+        poblacion={item.poblacion}
+        proxVisita={'probando'}
+        tipoPresupuesto={item.tipoPresupuesto}
           />
         )
       })
