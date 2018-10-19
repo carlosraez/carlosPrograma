@@ -18,6 +18,8 @@ function ModalHistoricoConversacion(props) {
             lista={contador}
             fechaConversacionAntigua={item.proxVisita}
             conversacionAntigua={item.textoInfoVisita}
+            handleBorrarAccion={props.handleBorrarAccion}
+            id={i}
           />
          )
        })

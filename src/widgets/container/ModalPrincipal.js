@@ -123,38 +123,48 @@ export class ModalPrincipal extends Component {
    this.componentDidMount()
   }
 
-  handleModificarVisita = () => {
+   handleModificarVisita = () => {
     this.setState({
       cssEdicion:'verInput',
     })
-  }
-
-   historicoConversacion = () => {
-    this.setState({
-      historico:true
-    })
    }
 
+    historicoConversacion = () => {
+    this.setState({
+      historico:true
+     })
+    }
 
-   handleChange = (event) => {
+
+    handleChange = (event) => {
      const target = event.target
       const value = target.value
       const id = target.id
       this.setState({
         [id]: value
       })
-   }
+    }
+
+    handleBorrarAccion = (event) => {
+      const ref  = firebaseApp.database().ref('usuarios')
+      const user = firebaseApp.auth().currentUser;
+      const idVisitaPulsada = this.props.idVisitaPulsada
+      const idAccion = event.target.id
+      ref.child(user.uid).child('visita').child(idVisitaPulsada).child('conversacion').child(idAccion).remove()
+      swal('La Accion ha sido borrada')
+      this.componentDidMount()
+    }
 
     handleBorrarVisita = () =>{
       const ref  = firebaseApp.database().ref('usuarios')
       const user = firebaseApp.auth().currentUser;
       swal({
-       title: "¿Estas seguro que quieres borrar la visita?",
-       text: "Si pulsas la visita se eliminará para siempre",
-      icon: "warning",
-     buttons: true,
-     dangerMode: true,
-    })
+           title: "¿Estas seguro que quieres borrar la visita?",
+           text: "Si pulsas la visita se eliminará para siempre",
+           icon: "warning",
+           buttons: true,
+           dangerMode: true,
+       })
     .then((borrado) => {
      if (borrado) {
         const borrarVisita = this.props.idVisitaPulsada
@@ -175,7 +185,6 @@ export class ModalPrincipal extends Component {
      }
        });
     }
-
 
   handleVolverInformacion = () => {
     this.setState({
@@ -216,29 +225,30 @@ componentDidMount = () => {
       {
         this.state.modalAscensor ?
         <ModalAscensor
-        anchoHueco={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].anchoHueco}
+        anchoHueco={this.state.visitaModal.ascensor[this.state.numeroAscensor].anchoHueco}
         cssEdicion={this.state.cssEdicion}
-        embarques={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].embarques}
-        fondoHueco={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].fondoHueco}
+        embarques={this.state.visitaModal.ascensor[this.state.numeroAscensor].embarques}
+        fondoHueco={this.state.visitaModal.ascensor[this.state.numeroAscensor].fondoHueco}
         handleChange={this.handleChange}
         handleChangeAnteriorAscensor={this.handleChangeAnteriorAscensor}
         handleClickSiguienteAscensor={this.handleClickSiguienteAscensor}
         handleGuardarModificacion={this.handleGuardarModificacion}
         handleVolverInformacion={this.handleVolverInformacion}
-        maquina={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].maquina}
+        maquina={this.state.visitaModal.ascensor[this.state.numeroAscensor].maquina}
         numeroAscensor={this.state.numeroAscensorActual}
-        observacionAscensor={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].observacionAscensor}
-        paradas={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].paradas}
-        personas={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].personas}
-        puertasCabina={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].puertasCabina}
-        puertasPiso={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].puertasPiso}
-        rae={this.props.vistitaPulsada.ascensor[this.state.numeroAscensor].rae}
+        observacionAscensor={this.state.visitaModal.ascensor[this.state.numeroAscensor].observacionAscensor}
+        paradas={this.state.visitaModal.ascensor[this.state.numeroAscensor].paradas}
+        personas={this.state.visitaModal.ascensor[this.state.numeroAscensor].personas}
+        puertasCabina={this.state.visitaModal.ascensor[this.state.numeroAscensor].puertasCabina}
+        puertasPiso={this.state.visitaModal.ascensor[this.state.numeroAscensor].puertasPiso}
+        rae={this.state.visitaModal.ascensor[this.state.numeroAscensor].rae}
         />
         :
         this.state.historico ?
         <ModalHistoricoConversacion
         arrayConversacion={arrayConversacion}
         handleClickVolverModal={this.handleClickVolverModal}
+        handleBorrarAccion={this.handleBorrarAccion}
           />
         :
         <ModalVisita

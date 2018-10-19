@@ -6,7 +6,7 @@ function ListaHistorico (props) {
   const { lista, fechaConversacionAntigua, conversacionAntigua} = props
   return (
    <div>
-     <li className="conversacion list-group-item"><strong>{lista}</strong>: {fechaConversacionAntigua}: {conversacionAntigua}<span> <button type="button" className="btn btn-danger btn-sm">Borrar</button></span></li>
+     <li className="conversacion list-group-item"><strong>{lista}</strong>: {fechaConversacionAntigua}: {conversacionAntigua}<span> <button id={props.id} type="button" onClick={props.handleBorrarAccion} className="btn btn-danger btn-sm">Borrar</button></span></li>
    </div>
   )
 }

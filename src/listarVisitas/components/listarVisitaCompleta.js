@@ -74,20 +74,31 @@ class ListarVisitaCompleta extends Component {
     return (
          listaCompleta.map((item, i) => {
           let contador  = i + 1
+          const {
+            nombreAdministrador,
+            postal,
+            calle,
+            interes,
+            mantenedor,
+            poblacion,
+            tipoPresupuesto,
+            conversacion
+          } = item
+          const ultimaConversacion = conversacion[conversacion.length - 1].proxVisita
           return (
           <Visita
-        administrador={item.nombreAdministrador}
-        codigoPostal={item.postal}
+        administrador={nombreAdministrador}
+        postal={postal}
         contador={contador}
-        direccion={item.calle}
+        calle={calle}
         handleVerClick={this.handleVerModal}
-        importancia={item.interes}
+        importancia={interes}
         key={i}
-        mantenedor={item.mantenedor}
+        mantenedor={mantenedor}
         numeroDeVisita={i}
-        poblacion={item.poblacion}
-        proxVisita={'probando'}
-        tipoPresupuesto={item.tipoPresupuesto}
+        poblacion={poblacion}
+        proxVisita={ultimaConversacion}
+        tipoPresupuesto={tipoPresupuesto}
           />
         )
       })

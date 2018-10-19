@@ -69,7 +69,6 @@ export class Conversacion extends Component {
  }
 
 
-
   render() {
      return(
       <ul className="list-group">
