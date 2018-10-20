@@ -26,6 +26,16 @@ export class ModalPrincipal extends Component {
     tipoPresupuestoModi:'',
     marcaModi:'',
     mantenedorModi:'',
+    raeModi:'',
+    paradasModi:'',
+    anchoHuecoModi:'',
+    fondoHuecoModi:'',
+    personasModi:'',
+    puertasPisoModi:'',
+    puertasCabinaModi:'',
+    observacionAscensorModi:'',
+    maquinaModi:'',
+    embarquesModi:'',
     visitaModal:[],
     visitaActual: this.props.numeroArrayPulsada
   }
@@ -76,7 +86,17 @@ export class ModalPrincipal extends Component {
        nombreAdministradorModi,
        tipoPresupuestoModi,
        marcaModi,
-       mantenedorModi
+       mantenedorModi,
+       raeModi,
+       paradasModi,
+       anchoHuecoModi,
+       fondoHuecoModi,
+       personasModi,
+       puertasCabinaModi,
+       puertasPisoModi,
+       maquinaModi,
+       embarquesModi,
+       observacionAscensorModi,
         } = this.state
     const visitasModificadas = [
       calleModi ,
@@ -102,10 +122,10 @@ export class ModalPrincipal extends Component {
     'nombreAdministrador',
     'tipoPresupuesto',
     'marca',
-    'mantenedor'
-
+    'mantenedor',
   ]
-    for (let i = 0; i < visitasModificadas.length; i++) {
+
+  for (let i = 0; i < visitasModificadas.length; i++) {
        if (visitasModificadas[i] === '') { }
        else {
         const nuevaModificacion = {
@@ -113,7 +133,48 @@ export class ModalPrincipal extends Component {
         }
         ref.child(user.uid).child('visita').child(visitaAModificar).update(nuevaModificacion)
        }
+  }
+
+  const ascensorModificado = [
+    raeModi,
+    paradasModi,
+    anchoHuecoModi,
+    fondoHuecoModi,
+    personasModi,
+    puertasCabinaModi,
+    puertasPisoModi,
+    maquinaModi,
+    embarquesModi,
+    observacionAscensorModi,
+
+  ]
+
+  const clavesAscensorModificar = [
+  'rae',
+  'paradas',
+  'anchoHueco',
+  'fondoHueco',
+  'personas',
+  'puertasCabina',
+  'puertasPiso',
+  'maquina',
+  'embarques',
+  'observacionAscensor',
+  ]
+
+    for (let i = 0; i < ascensorModificado.length; i++) {
+      const posicionAscensorActualArray = this.state.numeroAscensorActual - 1
+       if (ascensorModificado[i] === '') { }
+       else {
+         console.log(clavesAscensorModificar[i], ascensorModificado[i]);
+         const modificacionAscensor = {
+           [clavesAscensorModificar[i]]: ascensorModificado[i]
+         }
+         ref.child(user.uid).child('visita').child(visitaAModificar).child('ascensor').child(posicionAscensorActualArray).update(modificacionAscensor)
+       }
     }
+
+
 
     swal("La visita ha sido Modificada")
 
