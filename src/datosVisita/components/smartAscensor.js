@@ -30,6 +30,7 @@ class SmartAscensor extends Component {
         />
         :
         <DatosAscensor
+        imagenesAscensor={this.props.imagenesAscensor}
         cantidadDeAscensoresIncluidos={this.props.cantidadDeAscensoresIncluidos}
         handleChange={this.props.handleChange }
         handleClickSiguienteAscensor={this.props.handleClickSiguienteAscensor}

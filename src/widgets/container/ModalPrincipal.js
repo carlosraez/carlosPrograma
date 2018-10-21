@@ -303,6 +303,8 @@ componentDidMount = () => {
         puertasCabina={this.state.visitaModal.ascensor[this.state.numeroAscensor].puertasCabina}
         puertasPiso={this.state.visitaModal.ascensor[this.state.numeroAscensor].puertasPiso}
         rae={this.state.visitaModal.ascensor[this.state.numeroAscensor].rae}
+        imagenesAscensor={this.state.visitaModal.ascensor[this.state.numeroAscensor].imagenesAscensor}
+
         />
         :
         this.state.historico ?

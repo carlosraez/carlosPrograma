@@ -65,7 +65,9 @@ function DatosAscensor(props) {
        </div>
        <div className="row rowFileUpload">
          <div className="col-12">
-             <FileUpload />
+             <FileUpload
+             imagenesAscensor={props.imagenesAscensor}
+             />
          </div>
        </div>
      </form>

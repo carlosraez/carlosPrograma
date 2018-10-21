@@ -1,29 +1,33 @@
 import React, { Component } from 'react';
-import ImagenAscensor from '../components/imagenAscensor.js'
 import { firebaseApp } from '../../index.js'
 import ForumularioSubirImagen from '../components/formularioUpload.js'
+import { ListaImagenesGuardar } from '../components/ListaImagenesGuardar.js'
+import swal from 'sweetalert';
 
 
 class FileUpload extends Component {
   state = {
     uploadValue: 0,
     imagenSrc:null,
-    listaImagenes: []
-
+    nombreImagen:'',
+    listaImagenes: this.props.imagenesAscensor
    }
 
    handleUpload = (event) => {
      const file = event.target.files[0]
      const storageRef = firebaseApp.storage().ref(`/imagenesAscensores/${file.name}`)
      const tarea = storageRef.put(file)
-
      tarea.on('state_changed' , snapshot => {
           let porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          let fileName = snapshot.ref.name
           this.setState({
             uploadValue: porcentaje,
+            nombreImagen: fileName
           })
-      console.log(porcentaje);
-    }, error => { console.log(error)},
+    },
+     error => {
+     swal('Ha habido un error, intenta subir la imagen mas tarde')
+     },
      () => {
        tarea.snapshot.ref.getDownloadURL()
      .then( (downloadURL) => {
@@ -31,44 +35,24 @@ class FileUpload extends Component {
          imagenSrc: downloadURL
        })
        const imagenAscensor = {
-         direccion: this.state.imagenSrc
+         nombreImagen: this.state.nombreImagen,
+         direccion: this.state.imagenSrc,
        }
-       console.log(imagenAscensor);
        this.state.listaImagenes.push(imagenAscensor)
        this.setState({
          listaImagenes: this.state.listaImagenes
        })
-      alert('Se ha subido la imagen Super Bien')
-      this.resetFormularioImagenes()
+      swal('La imagen se ha subido correctamente')
      })
-
    })
-
  }
 
-   resetFormularioImagenes () {
-     const inputUpload = document.getElementById('subirImagen')
-     console.log(inputUpload);
-   }
-
-   handleBorrar = (event) => {
-     alert('Me has pulsado')
+  handleClickBorrarImagen = (event) => {
+      const numeroImagen = event.target.id
+      console.log(numeroImagen);
    }
 
    render() {
-     const mostrarImgenes = this.state.listaImagenes.map((item , i) => {
-
-       return (
-         <ImagenAscensor
-         direccionSrcImagen={item.direccion}
-         key={i}
-         handleBorrar={this.handleBorrar}
-         />
-       )
-     })
-
-
-
      return (
        <div>
        <ForumularioSubirImagen
@@ -76,7 +60,11 @@ class FileUpload extends Component {
           uploadValue={this.state.uploadValue}
         />
        <br/>
-       {mostrarImgenes}
+        <ListaImagenesGuardar
+        listaImagenes={this.state.listaImagenes}
+        handleClickBorrarImagen={this.handleClickBorrarImagen}
+        direccion={this.direccion}
+        />
        </div>
      )
    }

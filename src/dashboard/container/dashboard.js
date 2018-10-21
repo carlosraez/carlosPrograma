@@ -28,6 +28,7 @@ class Dashboard  extends Component {
     oca:'',
     proxVisita: '',
     ascensor: [],
+    imagenesAscensor: [],
     textoInfoVista: '',
     observacionAscensor:'',
     paradas: '',
@@ -80,6 +81,7 @@ class Dashboard  extends Component {
        oca:'',
        proxVisita: '',
        ascensor: [],
+       imagenesAscensor:[],
        textoInfoVisita: '',
        observacionAscensor:'',
        paradas: '',
@@ -160,6 +162,7 @@ class Dashboard  extends Component {
         observacionAscensorSinAscensor: this.state.observacionAscensorSinAscenso || '',
         embarques:this.state.embarques || '',
         maquina:this.state.maquina || '',
+        imagenesAscensor:this.state.imagenesAscensor || '',
       }]
      this.setState({
        ascensor: this.state.ascensor.concat(actualAscensor)
@@ -170,23 +173,23 @@ class Dashboard  extends Component {
      const ref  = firebaseApp.database().ref('usuarios')
      const user = firebaseApp.auth().currentUser;
      const nuevaVisita = {
-       calle: this.state.calle,
-       poblacion: this.state.poblacion,
-       postal:this.state.postal,
-       interes:this.state.interes,
-       nombrePresidente:this.state.nombrePresidente,
-       telefonoPresidente:this.state.telefonoPresidente,
-       emailPresidente:this.state.emailPresidente,
-       tipoPresupuesto:this.state.tipoPresupuesto,
-       nombreAdministrador:this.state.nombreAdministrador,
-       marca:this.state.marca,
-       ascensor:this.state.ascensor,
-       mantenedor:this.state.mantenedor,
-       oca:this.state.oca,
-      conversacion:{
+       calle: this.state.calle || '',
+       poblacion: this.state.poblacion || '',
+       postal:this.state.postal || '',
+       interes:this.state.interes || '',
+       nombrePresidente:this.state.nombrePresidente || '',
+       telefonoPresidente:this.state.telefonoPresidente || '',
+       emailPresidente:this.state.emailPresidente || '',
+       tipoPresupuesto:this.state.tipoPresupuesto || '',
+       nombreAdministrador:this.state.nombreAdministrador || '',
+       marca:this.state.marca || '',
+       ascensor:this.state.ascensor || ''  ,
+       mantenedor:this.state.mantenedor || '',
+       oca:this.state.oca || '',
+       conversacion:{
              0 :{
-             proxVisita:this.state.proxVisita,
-             textoInfoVisita:this.state.textoInfoVisita
+             proxVisita:this.state.proxVisita || '',
+             textoInfoVisita:this.state.textoInfoVisita || ''
             }
         }
      }
@@ -230,6 +233,7 @@ class Dashboard  extends Component {
        {
          this.state.usuarioMakeVisita ?
          <Visita
+         imagenesAscensor={this.state.imagenesAscensor}
          handleClickfincaSinAscensor={this.handleClickfincaSinAscensor}
          handleClickTerminarVisita={this.handleClickTerminarVisita}
          handleChange={this.handleChange}

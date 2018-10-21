@@ -4,9 +4,12 @@ import './imagen.css'
 
 function ImagenAscensor(props) {
   return (
-    <div className="mostrarImgenes">
-    <img width="320"  className="img-thumbnail" src={props.direccionSrcImagen}  alt=''  />
-    </div>
+      <div className="card imagenNueva">
+         <img className="card-img-top" src={props.direccionSrcImagen}  alt="" />
+          <div className="card-body cuerpoCarta">
+          <button className="btn-danger btn-block" id={props.id} onClick={props.handleClickBorrarImagen}>Borrar</button>
+         </div>
+      </div>
   )
 }
 

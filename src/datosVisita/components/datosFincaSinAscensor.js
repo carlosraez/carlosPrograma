@@ -41,7 +41,9 @@ function FincaSinAscensor(props) {
           <textarea className="form-control" id="observacionAscensor" onChange={props.handleChange} rows="3"></textarea>
          </div>
        </div>
-        <FileUpload />
+        <FileUpload
+         imagenesAscensor={props.imagenesAscensor}
+        />
      </form>
      <div className="row">
     <div className="col md-6">

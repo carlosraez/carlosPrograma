@@ -1,4 +1,5 @@
 import React from 'react'
+import { FotosAscensores } from './FotosAscensores.js'
 import './modalAscensor.css'
 
 
@@ -6,7 +7,7 @@ function ModalAscensor(props) {
   return (
   <div>
     <div className="row">
-        <div className="col-6">
+        <div className="col-12 col-md-6">
             <h5>Estas en el ascensor nº: {props.numeroAscensor}</h5>
             <p><strong>Rae:</strong><input id="raeModi" onChange={props.handleChange} className={props.cssEdicion} type="number"/> {props.rae}</p>
             <p><strong>Paradas:</strong><input id="paradasModi" onChange={props.handleChange} className={props.cssEdicion} type="number"/> {props.paradas}</p>
@@ -29,18 +30,16 @@ function ModalAscensor(props) {
                  <option defaultValue="embarque90">Doble Embarque a 90 Grados</option>
                  <option defaultValue="embarque180">Doble Embarque a 180 Grados</option>
             </select> {props.embarques}</p>
+            <p><strong>Observaciones</strong><textarea className={props.cssEdicion} id="observacionAscensorModi" onChange={props.handleChange} rows="3"></textarea> {props.observacionAscensor}</p>
         </div>
-       <div className="col-6">
+       <div className="col-12 col-md-6">
           <p>Fotos</p>
+          <FotosAscensores
+          imagenesAscensor={props.imagenesAscensor}
+          />
         </div>
-    </div>
-    <div className="row">
-      <div className="col-6">
-        <p><strong>Observaciones</strong><textarea className={props.cssEdicion} id="observacionAscensorModi" onChange={props.handleChange} rows="3"></textarea> {props.observacionAscensor}</p>
-      </div>
-    <div className="col-6">
-    </div>
   </div>
+   <br /> 
     <div>
         <button type="button" onClick={props.handleClickSiguienteAscensor} className="btn btn-info botonVerSiguienteAscensor">Ver Siguiente Ascensor</button>
          <button type="button" onClick={props.handleChangeAnteriorAscensor} className="btn btn-info botonAnteriorAscensor">Anterior Ascensor</button>
