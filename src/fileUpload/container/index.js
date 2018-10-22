@@ -10,7 +10,7 @@ class FileUpload extends Component {
     uploadValue: 0,
     imagenSrc:null,
     nombreImagen:'',
-    listaImagenes: this.props.imagenesAscensor
+    listaImagenes: this.props.imagenesAscensor,
    }
 
    handleUpload = (event) => {
@@ -47,10 +47,28 @@ class FileUpload extends Component {
    })
  }
 
-  handleClickBorrarImagen = (event) => {
-      const numeroImagen = event.target.id
-      console.log(numeroImagen);
-   }
+  handleBorrarImagen = (event) => {
+    const numeroImagen = parseInt(event.target.id, 10)
+    const arrayActual = this.state.listaImagenes
+    const arrayElementoBorrar = arrayActual[numeroImagen]
+    const storageRef = firebaseApp.storage().ref(`/imagenesAscensores/${arrayElementoBorrar.nombreImagen}`)
+    storageRef.delete()
+    .then(() => {
+    swal('La Imagen ha sido borrada correctamente')
+    const nuevoArrayImagenes = arrayActual.filter((imagenes, i) => {
+    console.log(`soy el index ${i} y yo el imagen pulasada ${numeroImagen}`);
+    return i !== numeroImagen
+    })
+    console.log(nuevoArrayImagenes);
+    this.setState({
+      listaImagenes: nuevoArrayImagenes
+    })
+    })
+    .catch(function(error) {
+    console.log(error);
+    swal('Ha ocurrido un error vuelve a intentarlo mas tarde')
+  })
+  }
 
    render() {
      return (
@@ -61,8 +79,8 @@ class FileUpload extends Component {
         />
        <br/>
         <ListaImagenesGuardar
+        borrarImagen={this.handleBorrarImagen}
         listaImagenes={this.state.listaImagenes}
-        handleClickBorrarImagen={this.handleClickBorrarImagen}
         direccion={this.direccion}
         />
        </div>

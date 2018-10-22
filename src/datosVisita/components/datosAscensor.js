@@ -33,7 +33,7 @@ function DatosAscensor(props) {
          <div className="col-md-3">
            <div className="form-group">
                <label>Nº de Rae</label>
-              <input type="number" id="rae" onChange={props.handleChange} required placeholder="0000"  className="form-control" />
+              <input type="number" id="rae" onChange={props.handleChange}  placeholder="0000"  className="form-control" />
            </div>
          </div>
          <div className="col-md-3">

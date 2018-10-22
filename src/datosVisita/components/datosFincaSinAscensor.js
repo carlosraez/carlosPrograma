@@ -41,15 +41,15 @@ function FincaSinAscensor(props) {
           <textarea className="form-control" id="observacionAscensor" onChange={props.handleChange} rows="3"></textarea>
          </div>
        </div>
-        <FileUpload
-         imagenesAscensor={props.imagenesAscensor}
-        />
-     </form>
+       <FileUpload
+       imagenesAscensor={props.imagenesAscensor}
+       />
      <div className="row">
     <div className="col md-6">
        <input type="submit" onClick={props.handleClickSiguienteAscensor} className="btn btn-primary" value="Guarda los datos finca sin Ascensor" />
      </div>
    </div>
+</form>
     </div>
    )
 }

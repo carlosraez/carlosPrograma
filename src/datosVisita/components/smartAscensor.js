@@ -24,6 +24,7 @@ class SmartAscensor extends Component {
       {
         this.state.fincaSinAscensor ?
         <FincaSinAscensor
+        imagenesAscensor={this.props.imagenesAscensor}
         handleClickSiguienteAscensor={this.props.handleClickSiguienteAscensor}
         handleChange={this.props.handleChange }
         cantidadDeAscensoresIncluidos={this.props.cantidadDeAscensoresIncluidos}
