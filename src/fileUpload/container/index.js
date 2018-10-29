@@ -4,13 +4,12 @@ import ForumularioSubirImagen from '../components/formularioUpload.js'
 import { ListaImagenesGuardar } from '../components/ListaImagenesGuardar.js'
 import swal from 'sweetalert';
 
-
 class FileUpload extends Component {
   state = {
     uploadValue: 0,
     imagenSrc:null,
     nombreImagen:'',
-    listaImagenes: this.props.imagenesAscensor,
+    listaImagenes: this.props.imagenesAscensor
    }
 
    handleUpload = (event) => {
@@ -56,13 +55,11 @@ class FileUpload extends Component {
     .then(() => {
     swal('La Imagen ha sido borrada correctamente')
     const nuevoArrayImagenes = arrayActual.filter((imagenes, i) => {
-    console.log(`soy el index ${i} y yo el imagen pulasada ${numeroImagen}`);
     return i !== numeroImagen
     })
-    console.log(nuevoArrayImagenes);
     this.setState({
-      listaImagenes: nuevoArrayImagenes
-    })
+          listaImagenes: nuevoArrayImagenes
+        })
     })
     .catch(function(error) {
     console.log(error);
@@ -70,7 +67,17 @@ class FileUpload extends Component {
   })
   }
 
+  componentWillUpdate = (nextProps) => {
+    console.log('soy el componentWillUpdate', nextProps);
+    if (nextProps.imagenesAscensor !== this.props.imagenesAscensor) {
+        this.setState({
+          listaImagenes: []
+        })
+    }
+  }
+
    render() {
+     console.log(this.state.listaImagenes);
      return (
        <div>
        <ForumularioSubirImagen

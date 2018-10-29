@@ -67,6 +67,8 @@ function DatosAscensor(props) {
          <div className="col-12">
              <FileUpload
              imagenesAscensor={props.imagenesAscensor}
+             ascensorRellenado={props.cantidadDeAscensoresIncluidos}
+             onChange={props.handleChangeUpload}
              />
          </div>
        </div>

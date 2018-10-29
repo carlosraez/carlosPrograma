@@ -74,6 +74,7 @@ handleClickContinuar = () => {
                   :
                   this.state.mostradDatosAscensor ?
                   <SmartAscensor
+                     handleChangeUpload={this.props.handleChangeUpload}
                      imagenesAscensor={this.props.imagenesAscensor}
                      cantidadDeAscensoresIncluidos={this.props.cantidadAscensoresGuardados}
                      handleClickSiguienteAscensor={this.props.handleClickSiguienteAscensor}

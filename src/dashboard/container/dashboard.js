@@ -165,7 +165,8 @@ class Dashboard  extends Component {
         imagenesAscensor:this.state.imagenesAscensor || '',
       }]
      this.setState({
-       ascensor: this.state.ascensor.concat(actualAscensor)
+       ascensor: this.state.ascensor.concat(actualAscensor),
+       imagenesAscensor: []
      })
    }
 
@@ -222,7 +223,12 @@ class Dashboard  extends Component {
      })
    }
 
+   handleChangeUpload = (event) => {
+     console.log(event);
+   }
+
    render() {
+     console.log(this.state.ascensor);
      return (
        <div>
         <div>
@@ -233,6 +239,7 @@ class Dashboard  extends Component {
        {
          this.state.usuarioMakeVisita ?
          <Visita
+         handleChangeUpload={this.handleChangeUpload}
          imagenesAscensor={this.state.imagenesAscensor}
          handleClickfincaSinAscensor={this.handleClickfincaSinAscensor}
          handleClickTerminarVisita={this.handleClickTerminarVisita}

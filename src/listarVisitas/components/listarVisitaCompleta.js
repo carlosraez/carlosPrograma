@@ -3,6 +3,7 @@ import Visita from './visitaList.js'
 import ModalContainer from '../../widgets/container/modal-container.js'
 import { ModalPrincipal } from '../../widgets/container/ModalPrincipal.js'
 import { firebaseApp } from '../../index.js'
+import swal from 'sweetalert';
 import './modal.css'
 
 class ListarVisitaCompleta extends Component {
@@ -47,6 +48,38 @@ class ListarVisitaCompleta extends Component {
         modalVisible:false,
       })
   }
+
+  handleBorrarVisita = () =>{
+    const ref  = firebaseApp.database().ref('usuarios')
+    const user = firebaseApp.auth().currentUser;
+    swal({
+     title: "¿Estas seguro que quieres borrar la visita?",
+     text: "Si pulsas la visita se eliminará para siempre",
+    icon: "warning",
+   buttons: true,
+   dangerMode: true,
+  })
+  .then((borrado) => {
+   if (borrado) {
+      const borrarVisita = this.state.idTodasVisitas[this.state.vistitaPulsada]
+     ref.child(user.uid).child('visita').child(borrarVisita).remove()
+     let despuesBorrado = []
+     ref.child(user.uid).child('visita').on('child_added', (sanpshot) =>{
+      despuesBorrado.push(sanpshot.val())
+     })
+     this.setState({
+       listaCompleta:despuesBorrado,
+       modalVisible:false
+     })
+     swal("La visita ha sido Borrada", {
+       icon: "success",
+     });
+   } else {
+      swal('¡¡Aun sigues teniendo la visita!!')
+   }
+     });
+  }
+
   render () {
     const listaCompleta =  this.state.listaCompleta
     if (this.state.modalVisible) {
