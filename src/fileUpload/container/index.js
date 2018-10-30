@@ -68,11 +68,21 @@ class FileUpload extends Component {
   }
 
   componentWillUpdate = (nextProps) => {
-    console.log('soy el componentWillUpdate', nextProps);
+    console.log('soy el componentWillUpdate', nextProps)
     if (nextProps.imagenesAscensor !== this.props.imagenesAscensor) {
         this.setState({
-          listaImagenes: []
+          listaImagenes: nextProps.imagenesAscensor
         })
+    }
+  }
+
+  shouldComponentUpdate = (nextProps) => {
+    console.log('soy el shouldComponentUpdate');
+    if (nextProps.imagenesAscensores === this.props.imagenesAscensor) {
+      return false
+    }
+    else {
+      return true
     }
   }
 

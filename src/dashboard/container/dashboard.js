@@ -143,6 +143,9 @@ class Dashboard  extends Component {
          event.preventDefault()
          this.nuevoAscensor()
          this.resetFormulario()
+         this.setState({
+           imagenesAscensor: []
+         })
        }
        resetFormulario = () => {
         const botonAscensorMas = document.getElementById('formulario-ascensor')
@@ -166,7 +169,7 @@ class Dashboard  extends Component {
       }]
      this.setState({
        ascensor: this.state.ascensor.concat(actualAscensor),
-       imagenesAscensor: []
+
      })
    }
 
