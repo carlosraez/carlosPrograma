@@ -39,7 +39,8 @@ class FileUpload extends Component {
        }
        this.state.listaImagenes.push(imagenAscensor)
        this.setState({
-         listaImagenes: this.state.listaImagenes
+         listaImagenes: this.state.listaImagenes,
+         uploadValue: 0
        })
       swal('La imagen se ha subido correctamente')
      })
