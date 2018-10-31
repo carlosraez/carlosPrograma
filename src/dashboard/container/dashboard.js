@@ -15,6 +15,10 @@ class Dashboard  extends Component {
     listarTrabajoUsuario:false,
   }
 
+   terminarVisita = (event) => {
+     console.log(event.target);
+   }
+
 
    handleClickVisitas = () => {
      this.setState({

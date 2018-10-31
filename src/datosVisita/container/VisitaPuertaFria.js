@@ -7,7 +7,6 @@ import TerminarVisita from '../components/terminarVisita.js'
 import VisitaLayout from '../components/visitaLayout.js'
 
 
-
 export class VisitaPuertaFria extends Component {
   state = {
       usuario: '',
@@ -62,7 +61,7 @@ export class VisitaPuertaFria extends Component {
    dangerMode: true,
   })
   .then((escritoAscensores) => {
-   if (escritoAscensores && this.props.cantidadAscensoresGuardados > 0) {
+   if (escritoAscensores && this.state.ascensor.length > 0) {
      this.setState({
        mostradDatosAscensor: false,
      })
@@ -82,10 +81,14 @@ export class VisitaPuertaFria extends Component {
      })
   }
 
-  handleClickTerminarVisita = () => {
-    this.guardarVisita()
 
-  }
+ handleClickTerminarVisita = () => {
+   this.guardarVisita()
+   this.props.handleClickDash()
+ }
+
+
+
 
   handleChange = (e) => {
     const target = e.target
@@ -154,6 +157,7 @@ export class VisitaPuertaFria extends Component {
 
      handleClickfincaSinAscensor = (event) => {
        this.nuevoAscensor()
+
      }
 
       handleClickSiguienteAscensor = (event) => {
@@ -208,7 +212,7 @@ export class VisitaPuertaFria extends Component {
            <SmartAscensor
               handleChangeUpload={this.handleChangeUpload}
               imagenesAscensor={this.state.imagenesAscensor}
-              cantidadDeAscensoresIncluidos={this.cantidadAscensoresGuardados}
+              cantidadDeAscensoresIncluidos={this.state.ascensor.length}
               handleClickSiguienteAscensor={this.handleClickSiguienteAscensor}
               handleReturnDatosVisita={this.handleReturnDatosVisita}
               handleChange={this.handleChange }
@@ -220,6 +224,7 @@ export class VisitaPuertaFria extends Component {
                handleChange={this.handleChange }
                guardarYTerminar={this.handleClickTerminarVisita}
                handleClickDash={this.props.handleClickDash}
+
                />
            }
      </VisitaLayout>
