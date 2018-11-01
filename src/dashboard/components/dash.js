@@ -8,7 +8,6 @@ import administradores from '../../pictures/administradores.jpg';
 import { Link } from 'react-router-dom'
 
 
-
 function Dash(props) {
   return (
   <div className="container">

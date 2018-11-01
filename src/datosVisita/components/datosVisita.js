@@ -61,7 +61,6 @@ function DatosVisita(props) {
               <option defaultValue="Cuadro Maniobre">Cuadro de Maniobra</option>
               <option defaultValue="Maquina">Maquina</option>
               <option defaultValue="Modernizacion">Modernizacion</option>
-              <option defaultValue="edificoSinAscensor">Edificio sin Ascensor</option>
               <option defaultValue="nada">No quiere presupuesto</option>
          </select>
     <input type="submit"  onClick={props.handleClickDatosVisita} className="btn btn-info btnContinuar" value="Continuar" />

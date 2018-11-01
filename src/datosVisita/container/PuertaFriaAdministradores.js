@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../../index.js'
+import DatosVisitaAdministrador from '../components/DatosVisitaAdministrador.js'
 import swal from 'sweetalert';
-import DatosVisita from '../components/datosVisita.js'
-import { AscensorPuertaFria  } from '../components/AscensorPuertaFria.js'
-import TerminarVisita from '../components/terminarVisita.js'
 import VisitaLayout from '../components/visitaLayout.js'
 
 
-export class VisitaPuertaFria extends Component {
+export class PuertaFriaAdministradores extends Component {
   state = {
       usuario: '',
       calle: '',
@@ -194,33 +192,9 @@ export class VisitaPuertaFria extends Component {
 
   render() {
      return (
-       <VisitaLayout
-       >
-           {
-           this.state.mostrarDatosVisita ?
-           <DatosVisita
-           handleClickDatosVisita={this.handleClickDatosVisita}
-           handleChange={this.handleChange}
-           checked={this.state.checked}
-           />
-           :
-           this.state.mostradDatosAscensor ?
-           <AscensorPuertaFria
-              handleChangeUpload={this.handleChangeUpload}
-              imagenesAscensor={this.state.imagenesAscensor}
-              cantidadDeAscensoresIncluidos={this.state.ascensor.length}
-              handleClickSiguienteAscensor={this.handleClickSiguienteAscensor}
-              handleReturnDatosVisita={this.handleReturnDatosVisita}
-              handleChange={this.handleChange }
-              handleClickContinuarYTerminar={this.handleClickContinuar}
-             />
-            :
-              <TerminarVisita
-               handleChange={this.handleChange }
-               guardarYTerminar={this.handleClickTerminarVisita}
-               />
-           }
-     </VisitaLayout>
+   <VisitaLayout>
+         <DatosVisitaAdministrador />
+    </VisitaLayout>
      )
   }
 }
