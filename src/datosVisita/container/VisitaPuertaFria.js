@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { firebaseApp } from '../../index.js'
 import swal from 'sweetalert';
 import DatosVisita from '../components/datosVisita.js'
-import SmartAscensor from '../components/smartAscensor.js'
+import { AscensorPuertaFria  } from '../components/AscensorPuertaFria.js'
 import TerminarVisita from '../components/terminarVisita.js'
 import VisitaLayout from '../components/visitaLayout.js'
 
@@ -33,7 +33,6 @@ export class VisitaPuertaFria extends Component {
       rae:'',
       visita:[],
       embarques:'',
-      observacionAscensorSinAscensor:'',
       mostrarDatosVisita:true,
       mostradDatosAscensor: true,
   }
@@ -84,7 +83,6 @@ export class VisitaPuertaFria extends Component {
 
  handleClickTerminarVisita = () => {
    this.guardarVisita()
-   this.props.handleClickDash()
  }
 
 
@@ -150,13 +148,13 @@ export class VisitaPuertaFria extends Component {
       personas:'',
       rae:'',
       embarques:'',
-      observacionAscensorSinAscensor:'',
     })
   }
 
 
      handleClickfincaSinAscensor = (event) => {
        this.nuevoAscensor()
+       this.handleClickDash()
 
      }
 
@@ -197,7 +195,6 @@ export class VisitaPuertaFria extends Component {
   render() {
      return (
        <VisitaLayout
-        handleClickDash={this.props.handleClickDash}
        >
            {
            this.state.mostrarDatosVisita ?
@@ -205,11 +202,10 @@ export class VisitaPuertaFria extends Component {
            handleClickDatosVisita={this.handleClickDatosVisita}
            handleChange={this.handleChange}
            checked={this.state.checked}
-           handleClickDash={this.props.handleClickDash}
            />
            :
            this.state.mostradDatosAscensor ?
-           <SmartAscensor
+           <AscensorPuertaFria
               handleChangeUpload={this.handleChangeUpload}
               imagenesAscensor={this.state.imagenesAscensor}
               cantidadDeAscensoresIncluidos={this.state.ascensor.length}
@@ -217,14 +213,11 @@ export class VisitaPuertaFria extends Component {
               handleReturnDatosVisita={this.handleReturnDatosVisita}
               handleChange={this.handleChange }
               handleClickContinuarYTerminar={this.handleClickContinuar}
-              handleClickDash={this.props.handleClickDash}
              />
             :
               <TerminarVisita
                handleChange={this.handleChange }
                guardarYTerminar={this.handleClickTerminarVisita}
-               handleClickDash={this.props.handleClickDash}
-
                />
            }
      </VisitaLayout>
