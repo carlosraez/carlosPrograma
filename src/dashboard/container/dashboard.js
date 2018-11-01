@@ -3,7 +3,7 @@ import Navegacion from '../../header/components/header.js'
 import { firebaseApp } from '../../index.js'
 import Dash from '../components/dash.js'
 import ListarVisitas from '../../listarVisitas/container/ListarVisitas.js'
-import { VisitaPuertaFria } from '../../datosVisita/container/VisitaPuertaFria.js'
+import { Visitas } from '../../datosVisita/container/Visitas.js'
 import './dashboard.css'
 
 
@@ -14,11 +14,6 @@ class Dashboard  extends Component {
     usuarioMakeVisita:false,
     listarTrabajoUsuario:false,
   }
-
-   terminarVisita = (event) => {
-     console.log(event.target);
-   }
-
 
    handleClickVisitas = () => {
      this.setState({
@@ -86,13 +81,13 @@ class Dashboard  extends Component {
         <div>
         <Navegacion
         usuario = {this.state.usuario}
-        handleLogOut={this.handleLogOut}/>
+        handleLogOut={this.handleLogOut}
+        handleDashboard={this.handleClickDash}
+        />
        </div>
        {
          this.state.usuarioMakeVisita ?
-         <VisitaPuertaFria
-         handleClickDash={this.handleClickDash}
-         />
+         <Visitas />
          :
          this.state.listarTrabajoUsuario ?
          <ListarVisitas
