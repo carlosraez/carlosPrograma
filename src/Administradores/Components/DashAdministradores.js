@@ -24,7 +24,7 @@ function DashAdministradores(props) {
                   <div className="card-body">
                   <h5 className="card-title">Lista Administradores</h5>
                   <p className="card-text">Ver todos los Administradores</p>
-                  <button  className="btn btn-outline-info" onClick={props.handleClickPuertaFriaAdministradores} >Ver Administradores</button>
+                  <button  className="btn btn-outline-info" onClick={props.handleClickListarAdministradores} >Ver Administradores</button>
                   </div>
                </div>
             </div>
