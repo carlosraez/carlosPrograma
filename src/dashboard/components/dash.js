@@ -59,7 +59,7 @@ function Dash(props) {
              <div className="card-body">
              <h5 className="card-title">Lista tus Administradores</h5>
              <p className="card-text">Añade nuevos Admistradores como contacto, y mira e edita tu listado</p>
-             <Link to="/Aplicacion" className="btn btn-outline-info">Administradores</Link>
+             <button  className="btn btn-outline-info" onClick={props.handleClickAdministradores} >Administradores</button>
              </div>
           </div>
         </div>

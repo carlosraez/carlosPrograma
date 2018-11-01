@@ -3,6 +3,7 @@ import Navegacion from '../../header/components/header.js'
 import { firebaseApp } from '../../index.js'
 import Dash from '../components/dash.js'
 import ListarVisitas from '../../listarVisitas/container/ListarVisitas.js'
+import { Administradores } from '../../Administradores/Container/Administradores.js'
 import { Visitas } from '../../datosVisita/container/Visitas.js'
 import './dashboard.css'
 
@@ -13,7 +14,14 @@ class Dashboard  extends Component {
     usuario: '',
     usuarioMakeVisita:false,
     listarTrabajoUsuario:false,
+    verAdministradores:false,
   }
+
+   handleClickAdministradores = () => {
+     this.setState({
+       verAdministradores:true
+     })
+   }
 
    handleClickVisitas = () => {
      this.setState({
@@ -25,6 +33,8 @@ class Dashboard  extends Component {
    handleClickDash = () => {
      this.setState({
        usuarioMakeVisita : false,
+       verAdministradores: false,
+       listarTrabajoUsuario: false,
      })
    }
 
@@ -32,12 +42,6 @@ class Dashboard  extends Component {
    handleVerTrabajo = () => {
      this.setState({
        listarTrabajoUsuario: true,
-     })
-   }
-
-   handleVolverDashboard = () => {
-     this.setState({
-       listarTrabajoUsuario: false,
      })
    }
 
@@ -91,11 +95,14 @@ class Dashboard  extends Component {
          :
          this.state.listarTrabajoUsuario ?
          <ListarVisitas
-          handleDashButton={this.handleVolverDashboard}
           visita={this.state.visita}
           />
          :
+         this.state.verAdministradores ?
+         <Administradores />
+         :
          <Dash
+            handleClickAdministradores={this.handleClickAdministradores}
             handleClickVisitas={this.handleClickVisitas}
             handleVerTrabajo={this.handleVerTrabajo}
           />

@@ -96,6 +96,9 @@ export class PuertaFriaAdministradores extends Component {
 
   }
 
+  handleClickLeedMantenimiento = () => {
+    alert('me has pulsado')
+  }
 
   guardarVisita = () => {
     const ref  = firebaseApp.database().ref('usuarios')
@@ -193,7 +196,9 @@ export class PuertaFriaAdministradores extends Component {
   render() {
      return (
    <VisitaLayout>
-         <DatosVisitaAdministrador />
+         <DatosVisitaAdministrador
+          handleClickLeedMantenimiento={this.handleClickLeedMantenimiento}
+         />
     </VisitaLayout>
      )
   }

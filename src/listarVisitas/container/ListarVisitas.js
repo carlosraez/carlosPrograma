@@ -125,7 +125,6 @@ else {
   render () {
     return (
       <div>
-         <button className="btn btn-info botonVolver"  typpe="button"  onClick={this.props.handleDashButton}>Volver al Menu Principal</button>
          <table className="table">
             <thead>
                  <tr>

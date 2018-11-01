@@ -10,7 +10,7 @@ function DatosVisitaAdministrador(props) {
          <div className="col-md-6">
            <div className="form-group">
               <label>Nombre de la Administracion</label>
-              <input type="text" id="calle" onChange={props.handleChange} placeholder=" Nombre del Administrador" className="form-control" / >
+              <input type="text" id="calle" onChange={props.handleChange} placeholder=" Nombre del despacho" className="form-control" / >
            </div>
            <div className="form-group">
               <label>Direccion</label>
@@ -48,15 +48,11 @@ function DatosVisitaAdministrador(props) {
              <label>Email Administrador</label>
               <input type="email" id="emailPresidente" onChange={props.handleChange} placeholder="Correo Electronico Administrador" className="form-control" />
            </div>
+           <div className="form-group">
+             <label>Horario de Oficina</label>
+              <input type="text" id="horarioAdministrador" onChange={props.handleChange} placeholder="Horario de Oficina" className="form-control" />
+           </div>
          </div>
-       </div>
-       <div className="form-group">
-        <label>Horario de Visita Preferible</label>
-        <select multiple className="form-control" id="horaVisita" onChange={props.handleChange}>
-             <option defaultValue="Mañanas">Solo por las Mañana</option>
-             <option defaultValue="medioDiaYTodaTarde">Solo por las Tarde</option>
-             <option defaultValue="todasHoras">A cualquier hora</option>
-        </select>
        </div>
        <div className="form-group">
           <label>Nombre de la persona que te atiende</label>
@@ -71,7 +67,7 @@ function DatosVisitaAdministrador(props) {
             <div className="card-body">
             <h5 className="card-title">Leed Mantenimiento</h5>
             <p className="card-text">Presupuesto de mantenimiento de otra empresa</p>
-            <button className="btn btn-outline-info" onClick={props.handleClickPuertaFria}>Mantenimiento</button>
+            <button className="btn btn-outline-info" onClick={props.handleClickLeedMantenimiento}>Mantenimiento</button>
             </div>
          </div>
     </div>
@@ -96,7 +92,6 @@ function DatosVisitaAdministrador(props) {
          </div>
     </div>
     </div>
-    <input type="submit"  onClick={props.handleClickDatosVisita} className="btn btn-info btnContinuar" value="Continuar" />
   </div>
    )
 }
