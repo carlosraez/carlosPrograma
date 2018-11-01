@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { VisitaPuertaFria } from './VisitaPuertaFria.js'
 import DashVisitas from '../components/DashVisitas.js'
+import { Captacion } from './Captacion.js'
 
 
 
@@ -16,12 +16,11 @@ export class Visitas extends Component {
   }
 
    render() {
-     console.log(this.state.usuarioCaptacion);
      return (
        <div>
       {
         this.state.usuarioCaptacion ?
-        <VisitaPuertaFria />
+        <Captacion />
         :
         <DashVisitas
        handleClickCaptacion={this.handleClickCaptacion}
@@ -32,5 +31,3 @@ export class Visitas extends Component {
      )
    }
 }
-
-export default Visitas;
