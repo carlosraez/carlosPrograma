@@ -4,7 +4,7 @@ import trabajo from '../../pictures/trabajo.jpg';
 
 
 
-function DashCaptacion(props) {
+function DashAdministradores(props) {
   return (
   <div className="container">
         <div className="row">
@@ -14,7 +14,7 @@ function DashCaptacion(props) {
                     <div className="card-body">
                     <h5 className="card-title">Alta Administrador</h5>
                     <p className="card-text">Dar de Alta Administrador</p>
-                    <button className="btn btn-outline-info" onClick={props.handleClickPuertaFria}>Alta</button>
+                    <button className="btn btn-outline-info" onClick={props.handleClickNuevoAdministrador}>Alta</button>
                     </div>
                  </div>
             </div>
@@ -34,4 +34,4 @@ function DashCaptacion(props) {
 
 }
 
-export default DashCaptacion
+export default DashAdministradores
