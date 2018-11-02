@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { firebaseApp } from '../../index.js'
-import swal from 'sweetalert';
 import BusquedaAdministradoresTotalesLayout from '../Components/BusquedaAdministradoresTotalesLayout.js'
 
 
 export class BusquedaAdministradoresTotales extends Component {
   state = {
-    listaCompletaCompletaAdministrador: [],
-    buscarAdministrador:''
+    buscarAdministrador:'',
   }
 
 
@@ -23,28 +21,17 @@ export class BusquedaAdministradoresTotales extends Component {
 
   componentDidMount = () => {
     const ref  = firebaseApp.database().ref('usuarios')
-    let listaNuevaAdministradores = []
-    let idAdministrador = []
-    ref.child('administradores').on('child_added', (sanpshot) => {
-    listaNuevaAdministradores.push(sanpshot.val())
-    this.setState({
-      listaCompletaAdministrador:listaNuevaAdministradores
-    })
-    })
-    ref.on('child_added', (snapshot) => {
-       idAdministrador.push(snapshot.key)
-       this.setState({
-       idListaAdministradores: idAdministrador,
-     })
+    ref.child('administradores').once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          var childKey = childSnapshot.key;
+          var childData = childSnapshot.val();
+          console.log(childKey, childData);
+     });
     })
   }
 
 
-
-
   render () {
-    const listaAdmistradoresTotal =  this.state.listaCompletaAdministrador
-    console.log(this.state.buscarAdministrador);
       return (
         <BusquedaAdministradoresTotalesLayout
         handleClickAlta={this.props.handleClickAlta}
