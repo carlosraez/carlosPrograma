@@ -99,7 +99,9 @@ class Dashboard  extends Component {
           />
          :
          this.state.verAdministradores ?
-         <Administradores />
+         <Administradores
+         usuario = {this.state.usuario}
+         />
          :
          <Dash
             handleClickAdministradores={this.handleClickAdministradores}

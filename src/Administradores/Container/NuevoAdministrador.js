@@ -17,7 +17,8 @@ export class NuevoAdministrador extends Component {
     emailAdministrador:'',
     horarioDespacho:'',
     personaAtencion:'',
-    observacionAdministrador:''
+    observacionAdministrador:'',
+    comercial:this.props.usuario
   }
 
 
@@ -52,6 +53,7 @@ export class NuevoAdministrador extends Component {
       horarioDespacho:this.state.horarioDespacho || ''  ,
       personaAtencion:this.state.personaAtencion || '',
       observacionAdministrador:this.state.observacionAdministrador || '',
+      comercial:this.state.comercial
     }
     ref.child('administradores').push(nuevaVisita)
     swal('Se ha guardado correctamente')

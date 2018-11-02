@@ -27,7 +27,9 @@ export class Administradores extends Component {
        <div>
        {
          this.state.nuevoAdministrador ?
-         <NuevoAdministrador />
+         <NuevoAdministrador
+         usuario = {this.props.usuario}
+         />
          :
          this.state.listarAdministradores ?
          <ListarAdministradores />
