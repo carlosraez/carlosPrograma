@@ -28,7 +28,7 @@ function AltaAdministradorForm(props) {
            <div className="col-6">
            <div className="form-group">
               <label>Teléfono despacho</label>
-              <input type="number" id="postal" onChange={props.handleChange} defaultValue="96123456" min="00000" max="99999" placeholder="Codigo Postal" className="form-control" />
+              <input type="number" id="telefonoDespacho" onChange={props.handleChange} defaultValue="96123456" min="00000" max="99999" placeholder="Codigo Postal" className="form-control" />
            </div>
            </div>
            </div>
@@ -36,29 +36,29 @@ function AltaAdministradorForm(props) {
          <div className="col-md-6">
            <div className="form-group">
               <label>Nombre del Administrador</label>
-              <input type="text" id="nombrePresidente" onChange={props.handleChange} placeholder="Nombre del Administrador" className="form-control" />
+              <input type="text" id="nombreAdministrador" onChange={props.handleChange} placeholder="Nombre del Administrador" className="form-control" />
            </div>
            <div className="form-group">
              <label>Telefono Móvil del Administrador</label>
-              <input type="number" id="telefonoPresidente" onChange={props.handleChange} placeholder="Telefono movil del Administrador" className="form-control" />
+              <input type="number" id="telefonoMovilAdministrador" onChange={props.handleChange} placeholder="Telefono movil del Administrador" className="form-control" />
            </div>
            <div className="form-group">
              <label>Email Administrador</label>
-              <input type="email" id="emailPresidente" onChange={props.handleChange} placeholder="Correo Electronico Administrador" className="form-control" />
+              <input type="email" id="emailAdministrador" onChange={props.handleChange} placeholder="Correo Electronico Administrador" className="form-control" />
            </div>
            <div className="form-group">
              <label>Horario de Oficina</label>
-              <input type="text" id="horarioAdministrador" onChange={props.handleChange} placeholder="Horario de Oficina" className="form-control" />
+              <input type="text" id="horarioDespacho" onChange={props.handleChange} placeholder="Horario de Oficina" className="form-control" />
            </div>
          </div>
        </div>
        <div className="form-group">
           <label>Nombre de la persona que te atiende</label>
-          <input type="text" id="nombreAdministrador" onChange={props.handleChange} placeholder="Escribe el nombre de la persona del despacho" className="form-control" />
+          <input type="text" id="personaAtencion" onChange={props.handleChange} placeholder="Escribe el nombre de la persona del despacho" className="form-control" />
        </div>
        <div className="form-group">
        <label >Escribe Alguna Observacion de la visita...</label>
-      <textarea className="form-control" id="observacionPuertaFriaAdministradores" onChange={props.handleChange} rows="3"></textarea>
+      <textarea className="form-control" id="observacionAdministrador" onChange={props.handleChange} rows="3"></textarea>
        </div>
       <button className="btn btn-success btn-block" onClick={props.handleClickGuardarAdministrador}>Guardar Y Dar de Alta</button>
   </div>

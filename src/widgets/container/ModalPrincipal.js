@@ -131,7 +131,7 @@ export class ModalPrincipal extends Component {
         const nuevaModificacion = {
           [clavesAModificar[i]]:visitasModificadas[i]
         }
-        ref.child(user.uid).child('visita').child(visitaAModificar).update(nuevaModificacion)
+        ref.child(user.uid).child('visitas').child('puertaFria').child(visitaAModificar).update(nuevaModificacion)
        }
   }
 
@@ -170,7 +170,7 @@ export class ModalPrincipal extends Component {
          const modificacionAscensor = {
            [clavesAscensorModificar[i]]: ascensorModificado[i]
          }
-         ref.child(user.uid).child('visita').child(visitaAModificar).child('ascensor').child(posicionAscensorActualArray).update(modificacionAscensor)
+         ref.child(user.uid).child('visitas').child('puertaFria').child(visitaAModificar).child('ascensor').child(posicionAscensorActualArray).update(modificacionAscensor)
        }
     }
 
@@ -211,7 +211,7 @@ export class ModalPrincipal extends Component {
       const user = firebaseApp.auth().currentUser;
       const idVisitaPulsada = this.props.idVisitaPulsada
       const idAccion = event.target.id
-      ref.child(user.uid).child('visita').child(idVisitaPulsada).child('conversacion').child(idAccion).remove()
+      ref.child(user.uid).child('visitas').child('puertaFria').child(idVisitaPulsada).child('conversacion').child(idAccion).remove()
       swal('La Accion ha sido borrada')
       this.componentDidMount()
     }
@@ -229,9 +229,9 @@ export class ModalPrincipal extends Component {
     .then((borrado) => {
      if (borrado) {
         const borrarVisita = this.props.idVisitaPulsada
-       ref.child(user.uid).child('visita').child(borrarVisita).remove()
+       ref.child(user.uid).child('visitas').child('puertaFria').child(borrarVisita).remove()
        let despuesBorrado = []
-       ref.child(user.uid).child('visita').on('child_added', (sanpshot) =>{
+       ref.child(user.uid).child('visita').child('puertaFria').on('child_added', (sanpshot) =>{
         despuesBorrado.push(sanpshot.val())
        })
        this.setState({
@@ -265,10 +265,10 @@ componentDidMount = () => {
    const visitaAModificar = this.props.idVisitaPulsada
    const ListaConversacion = []
    const visitas = []
-   ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').on('child_added', (sanpshot) => {
+   ref.child(user.uid).child('visitas').child('puertaFria').child(visitaAModificar).child('conversacion').on('child_added', (sanpshot) => {
    ListaConversacion.push(sanpshot.val())
    })
-   ref.child(user.uid).child('visita').on('child_added', (sanpshot) => {
+   ref.child(user.uid).child('visitas').child('puertaFria').on('child_added', (sanpshot) => {
    visitas.push(sanpshot.val())
    })
    const visitaActualModal = visitas[this.state.visitaActual]

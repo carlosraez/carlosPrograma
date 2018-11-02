@@ -13,24 +13,24 @@ export class ListarAdministradores extends Component {
 
   componentDidMount = () => {
     const ref  = firebaseApp.database().ref('usuarios')
-    const listaBaseDatosAdministrador = []
-    const idAdministrador = []
-    ref.child('administradores').on('child_added', (sanpshot) =>{
-    listaBaseDatosAdministrador.push(sanpshot.val())
-    })
+    let listaNuevaAdministradores = []
+    let idAdministrador = []
+    ref.child('administradores').on('child_added', (sanpshot) => {
+    listaNuevaAdministradores.push(sanpshot.val())
     this.setState({
-      listaCompletaAdministrador:listaBaseDatosAdministrador,
+      listaCompletaAdministrador:listaNuevaAdministradores
+    })
     })
     ref.on('child_added', (snapshot) => {
        idAdministrador.push(snapshot.key)
-         })
-        this.setState({
-        idListaAdministradores: idAdministrador,
-        modalVisible:false,
-      })
+       this.setState({
+       idListaAdministradores: idAdministrador,
+     })
+    })
   }
 
   render () {
+    console.log('--soy el render de listarAdministradores');
     const { listaCompletaAdministrador } = this.state
     return (
       <div>

@@ -35,7 +35,7 @@ export class Conversacion extends Component {
             proxVisita:this.state.proxNuevaVisita,
           }
       }
-   ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').update(nuevaConversacion)
+   ref.child(user.uid).child('visitas').child('puertaFria').child(visitaAModificar).child('conversacion').update(nuevaConversacion)
   }
  else {
    let subirConversacion = this.state.nuevaPosicionConversacion
@@ -45,7 +45,7 @@ export class Conversacion extends Component {
            proxVisita:this.state.proxNuevaVisita,
          }
      }
-     ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').update(nuevaConversacion)
+     ref.child(user.uid).child('visitas').child('puertaFria').child(visitaAModificar).child('conversacion').update(nuevaConversacion)
   }
 
    swal('Se ha añadido nueva Accion')
@@ -57,7 +57,7 @@ export class Conversacion extends Component {
    const user = firebaseApp.auth().currentUser;
     const visitaAModificar = this.props.idVisitaPulsada
     const listaConversacion = []
-    ref.child(user.uid).child('visita').child(visitaAModificar).child('conversacion').on('child_added', (sanpshot) =>{
+    ref.child(user.uid).child('visitas').child('puertaFria').child(visitaAModificar).child('conversacion').on('child_added', (sanpshot) =>{
     listaConversacion.push(sanpshot.val())
   })
     const ultimaConversacion = listaConversacion[listaConversacion.length - 1]

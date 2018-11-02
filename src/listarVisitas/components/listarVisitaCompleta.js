@@ -29,24 +29,23 @@ class ListarVisitaCompleta extends Component {
   }
 
   componentDidMount = () => {
-    console.log('me he ejecutado');
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
     const listaBaseDatos = []
     const idVisitas = []
-    ref.child(user.uid).child('visita').on('child_added', (sanpshot) =>{
+    ref.child(user.uid).child('visitas').child('puertaFria').on('child_added', (sanpshot) =>{
     listaBaseDatos.push(sanpshot.val())
-    })
     this.setState({
       listaCompleta:listaBaseDatos,
     })
-    ref.child(user.uid).child('visita').on('child_added', (snapshot) => {
+    })
+    ref.child(user.uid).child('visitas').child('puertaFria').on('child_added', (snapshot) => {
        idVisitas.push(snapshot.key)
-         })
-        this.setState({
-        idTodasVisitas: idVisitas,
-        modalVisible:false,
-      })
+       this.setState({
+       idTodasVisitas: idVisitas,
+     })
+  })
+
   }
 
   handleBorrarVisita = () =>{
@@ -62,9 +61,9 @@ class ListarVisitaCompleta extends Component {
   .then((borrado) => {
    if (borrado) {
       const borrarVisita = this.state.idTodasVisitas[this.state.vistitaPulsada]
-     ref.child(user.uid).child('visita').child(borrarVisita).remove()
+     ref.child(user.uid).child('visitas').child('puertaFria').child(borrarVisita).remove()
      let despuesBorrado = []
-     ref.child(user.uid).child('visita').on('child_added', (sanpshot) =>{
+     ref.child(user.uid).child('visitas').child('puertaFria').on('child_added', (sanpshot) =>{
       despuesBorrado.push(sanpshot.val())
      })
      this.setState({
