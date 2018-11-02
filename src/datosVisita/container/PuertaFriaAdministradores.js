@@ -9,7 +9,7 @@ import { TablaInformacion } from './TablaInformacion.js'
 
 export class PuertaFriaAdministradores extends Component {
     state = {
-      NuevoAdministrador: false
+      nuevoAdministrador: false
     }
 
 
@@ -17,6 +17,17 @@ export class PuertaFriaAdministradores extends Component {
     alert('me has pulsado')
   }
 
+  handleClickAlta = () => {
+    this.setState({
+        nuevoAdministrador: true
+    })
+  }
+
+   handleClickBusqueda = () => {
+     this.setState({
+       nuevoAdministrador: false
+     })
+   }
 
   render() {
      return (
@@ -24,11 +35,19 @@ export class PuertaFriaAdministradores extends Component {
      <div className="row">
        <div className="col-md-6">
         {
-          this.state.NuevoAdministrador ?
+          this.state.nuevoAdministrador ?
           <NuevoAdministrador />
           :
-          <BusquedaAdministradoresTotales />
+          <BusquedaAdministradoresTotales
+          handleClickAlta={this.handleClickAlta}
+          />
         }
+     {
+       this.state.nuevoAdministrador ?
+       <button className="btn btn-info btn-block" onClick={this.handleClickBusqueda}>Búsqueda Administrador</button>
+       :
+       null
+     }
       </div>
       <div className="col-md-6">
         {

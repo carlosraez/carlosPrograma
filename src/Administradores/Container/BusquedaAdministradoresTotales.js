@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { firebaseApp } from '../../index.js'
-import Administrador from '../Components/Administrador.js'
 import swal from 'sweetalert';
+import BusquedaAdministradoresTotalesLayout from '../Components/BusquedaAdministradoresTotalesLayout.js'
 
 
 export class BusquedaAdministradoresTotales extends Component {
@@ -29,17 +29,20 @@ export class BusquedaAdministradoresTotales extends Component {
 
 
 
+
   render () {
     const listaAdmistradoresTotal =  this.state.listaCompletaAdministrador
       return (
-        <div>
+        <BusquedaAdministradoresTotalesLayout
+        handleClickAlta={this.props.handleClickAlta}
+        >
         <p>Hola soy la lista</p>
         <ul>
         <li>Machancoses</li>
         <li>Machancoses</li>
         <li>Machancoses</li>
         </ul>
-        </div>
+        </BusquedaAdministradoresTotalesLayout>
       )
 
    }
