@@ -57,6 +57,10 @@ function AltaAdministradorForm(props) {
           <input type="text" id="personaAtencion" onChange={props.handleChange} placeholder="Escribe el nombre de la persona del despacho" className="form-control" />
        </div>
        <div className="form-group">
+          <label>Volumen de Negocio Aproximado</label>
+          <input type="number" id="volumenNegocio" onChange={props.handleChange} placeholder="Escribe el volumen aproximado de Comunidades del Administrador" className="form-control" />
+       </div>
+       <div className="form-group">
        <label >Escribe Alguna Observacion de la visita...</label>
       <textarea className="form-control" id="observacionAdministrador" onChange={props.handleChange} rows="3"></textarea>
        </div>

@@ -18,6 +18,12 @@ export class NuevoAdministrador extends Component {
     horarioDespacho:'',
     personaAtencion:'',
     observacionAdministrador:'',
+    visitas:0,
+    leedsMantenimiento:0,
+    cantidadAscensoresLeed:0,
+    leedsObraNueva:0,
+    noQuiereNada:0,
+    volumenNegocio:0,
     comercial:this.props.usuario
   }
 
@@ -53,7 +59,13 @@ export class NuevoAdministrador extends Component {
       horarioDespacho:this.state.horarioDespacho || ''  ,
       personaAtencion:this.state.personaAtencion || '',
       observacionAdministrador:this.state.observacionAdministrador || '',
-      comercial:this.state.comercial
+      comercial:this.state.comercial,
+      leedsMantenimiento:this.state.leedsMantenimiento,
+      cantidadAscensoresLeed:this.state.cantidadAscensoresLeed,
+      leedsObraNueva:this.state.leedsMantenimiento,
+      volumenNegocio:this.state.volumenNegocio,
+      noQuiereNada:this.state.noQuiereNada,
+      visitas:this.state.visitas,
     }
     ref.child('administradores').push(nuevaVisita)
     swal('Se ha guardado correctamente')

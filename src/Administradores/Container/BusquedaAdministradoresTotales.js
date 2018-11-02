@@ -6,8 +6,20 @@ import BusquedaAdministradoresTotalesLayout from '../Components/BusquedaAdminist
 
 export class BusquedaAdministradoresTotales extends Component {
   state = {
-    listaCompletaCompletaAdministrador: []
+    listaCompletaCompletaAdministrador: [],
+    buscarAdministrador:''
   }
+
+
+    handleChange = (e) => {
+      const target = e.target
+      const value = target.value
+      const id = target.id
+      this.setState({
+       [id] : value
+      })
+
+    }
 
   componentDidMount = () => {
     const ref  = firebaseApp.database().ref('usuarios')
@@ -32,16 +44,15 @@ export class BusquedaAdministradoresTotales extends Component {
 
   render () {
     const listaAdmistradoresTotal =  this.state.listaCompletaAdministrador
+    console.log(this.state.buscarAdministrador);
       return (
         <BusquedaAdministradoresTotalesLayout
         handleClickAlta={this.props.handleClickAlta}
         >
-        <p>Hola soy la lista</p>
-        <ul>
-        <li>Machancoses</li>
-        <li>Machancoses</li>
-        <li>Machancoses</li>
-        </ul>
+        <div className="form-group">
+            <label>Buscar Administrador</label>
+            <input type="text" id="buscarAdministrador" onChange={this.handleChange}  placeholder="Introduce el nombre de un despacho" className="form-control" / >
+        </div>
         </BusquedaAdministradoresTotalesLayout>
       )
 
