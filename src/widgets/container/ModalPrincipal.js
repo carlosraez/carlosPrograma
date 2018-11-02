@@ -175,7 +175,6 @@ export class ModalPrincipal extends Component {
     }
 
 
-
     swal("La visita ha sido Modificada")
 
    this.setState({

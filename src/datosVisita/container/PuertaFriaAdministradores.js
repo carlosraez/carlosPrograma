@@ -1,205 +1,74 @@
 import React, { Component } from 'react';
-import { firebaseApp } from '../../index.js'
-import DatosVisitaAdministrador from '../components/DatosVisitaAdministrador.js'
-import swal from 'sweetalert';
+import { NuevoAdministrador } from '../../Administradores/Container/NuevoAdministrador.js'
+import { BusquedaAdministradoresTotales } from '../../Administradores/Container/BusquedaAdministradoresTotales.js'
+import visita from '../../pictures/visita.jpg';
+import trabajo from '../../pictures/trabajo.jpg';
 import VisitaLayout from '../components/visitaLayout.js'
+import { TablaInformacion } from './TablaInformacion.js'
 
 
 export class PuertaFriaAdministradores extends Component {
-  state = {
-      usuario: '',
-      calle: '',
-      poblacion:'',
-      postal:'',
-      interes:'Medio Interesados',
-      nombrePresidente:'',
-      telefonoPresidente:'',
-      emailPresidente:'',
-      tipoPresupuesto:'Mantenimiento',
-      horaVisita:'',
-      nombreAdministrador:'',
-      marca:'',
-      mantenedor:'',
-      oca:'',
-      proxVisita: '',
-      ascensor: [],
-      imagenesAscensor: [],
-      textoInfoVista: '',
-      observacionAscensor:'',
-      paradas: '',
-      personas:'',
-      rae:'',
-      visita:[],
-      embarques:'',
-      mostrarDatosVisita:true,
-      mostradDatosAscensor: true,
-  }
+    state = {
+      NuevoAdministrador: false
+    }
 
-
-  handleReturnDatosVisita = () => {
-    this.setState({
-      mostrarDatosVisita:true
-    })
-
-  }
-
-  handleReturnDatosAscensor = () => {
-    this.setState({
-     mostradDatosAscensor : true,
-    })
-  }
-
-  handleClickContinuar = () => {
-    swal({
-     title: "¿Has terminado de rellenar los datos?",
-     text: "Por favor rellena los datos del ascensor o los de Finca Sin Ascensor",
-    icon: "warning",
-   buttons: true,
-   dangerMode: true,
-  })
-  .then((escritoAscensores) => {
-   if (escritoAscensores && this.state.ascensor.length > 0) {
-     this.setState({
-       mostradDatosAscensor: false,
-     })
-     swal("Muy Bien!! ya queda poco", {
-       icon: "success",
-     });
-   } else {
-      swal('Me lo imaginaba, no has terminado...Por favor termina de rellenar los datos... o Pulsa en Edificio sin Ascensor')
-   }
-     });
-
-  }
-
-  handleClickDatosVisita = () =>  {
-     this.setState({
-       mostrarDatosVisita:false
-     })
-  }
-
-
- handleClickTerminarVisita = () => {
-   this.guardarVisita()
- }
-
-
-
-
-  handleChange = (e) => {
-    const target = e.target
-    const value = target.type === 'checkbox' ? target.checked : target.value
-    const id = target.id
-    this.setState({
-     [id] : value
-    })
-
-  }
 
   handleClickLeedMantenimiento = () => {
     alert('me has pulsado')
   }
 
-  guardarVisita = () => {
-    const ref  = firebaseApp.database().ref('usuarios')
-    const user = firebaseApp.auth().currentUser;
-    const nuevaVisita = {
-      calle: this.state.calle || '',
-      poblacion: this.state.poblacion || '',
-      postal:this.state.postal || '',
-      interes:this.state.interes || '',
-      nombrePresidente:this.state.nombrePresidente || '',
-      telefonoPresidente:this.state.telefonoPresidente || '',
-      emailPresidente:this.state.emailPresidente || '',
-      tipoPresupuesto:this.state.tipoPresupuesto || '',
-      nombreAdministrador:this.state.nombreAdministrador || '',
-      marca:this.state.marca || '',
-      ascensor:this.state.ascensor || ''  ,
-      mantenedor:this.state.mantenedor || '',
-      oca:this.state.oca || '',
-      conversacion:{
-            0 :{
-            proxVisita:this.state.proxVisita || '',
-            textoInfoVisita:this.state.textoInfoVisita || ''
-           }
-       }
-    }
-    ref.child(user.uid).child('visitas').child('puertaFria').push(nuevaVisita)
-    swal('Se ha guardado , ahora realiza un buen seguimiento para poder cerrar la venta')
-    this.setState({
-      usuarioMakeVisita:false,
-      calle: '',
-      poblacion:'',
-      postal:'',
-      interes:'Medio Interesados',
-      nombrePresidente:'',
-      telefonoPresidente:'',
-      emailPresidente:'',
-      tipoPresupuesto:'Mantenimiento',
-      horaVisita:{value: 'Preferiblemente por la Mañana'},
-      nombreAdministrador:'',
-      marca:'',
-      mantenedor:'',
-      oca:'',
-      proxVisita: '',
-      ascensor: [],
-      textoInfoVista: '',
-      observacionAscensor:'',
-      paradas: '',
-      personas:'',
-      rae:'',
-      embarques:'',
-    })
-  }
-
-
-     handleClickfincaSinAscensor = (event) => {
-       this.nuevoAscensor()
-       this.handleClickDash()
-
-     }
-
-      handleClickSiguienteAscensor = (event) => {
-           event.preventDefault()
-           this.nuevoAscensor()
-           this.resetFormulario()
-           this.setState({
-             imagenesAscensor: []
-           })
-         }
-         resetFormulario = () => {
-          const botonAscensorMas = document.getElementById('formulario-ascensor')
-          botonAscensorMas.reset()
-        }
-
-     nuevoAscensor(){
-       let actualAscensor = [{
-          paradas: this.state.paradas || '',
-          personas: this.state.personas || '',
-          rae: this.state.rae || '',
-          puertasPiso: this.state.puertasPiso || '',
-          puertasCabina:this.state.puertasCabina || '',
-          observacionAscensor: this.state.observacionAscensor || '',
-          anchoHueco: this.state.anchoHueco || '',
-          fondoHueco: this.state.fondoHueco || '',
-          observacionAscensorSinAscensor: this.state.observacionAscensorSinAscenso || '',
-          embarques:this.state.embarques || '',
-          maquina:this.state.maquina || '',
-          imagenesAscensor:this.state.imagenesAscensor || '',
-        }]
-       this.setState({
-         ascensor: this.state.ascensor.concat(actualAscensor),
-
-       })
-     }
 
   render() {
      return (
    <VisitaLayout>
-         <DatosVisitaAdministrador
-          handleClickLeedMantenimiento={this.handleClickLeedMantenimiento}
-         />
-    </VisitaLayout>
+     <div className="row">
+       <div className="col-md-6">
+        {
+          this.state.NuevoAdministrador ?
+          <NuevoAdministrador />
+          :
+          <BusquedaAdministradoresTotales />
+        }
+      </div>
+      <div className="col-md-6">
+        {
+          <TablaInformacion  />
+        }
+     </div>
+    </div>
+    <div className="row">
+  <div className="col-12 col-md-4">
+        <div className="card cardStyle" >
+         <img className="card-img-top imgDashboard" src={visita}  alt="Captacion" />
+          <div className="card-body">
+          <h5 className="card-title">Leed Mantenimiento</h5>
+          <p className="card-text">Presupuesto de mantenimiento de otra empresa</p>
+          <button className="btn btn-outline-info" onClick={this.handleClickLeedMantenimiento}>Mantenimiento</button>
+          </div>
+       </div>
+  </div>
+  <div className="col-12 col-md-4">
+        <div className="card cardStyle" >
+         <img className="card-img-top imgDashboard" src={trabajo}  alt="Captacion" />
+          <div className="card-body">
+          <h5 className="card-title">Leed Finca Sin Ascensor</h5>
+          <p className="card-text">Presupuesto de poner un ascensor en un edificio</p>
+          <button className="btn btn-outline-info" onClick={this.handleClickPuertaFria}>Obra</button>
+          </div>
+       </div>
+  </div>
+  <div className="col-12 col-md-4">
+        <div className="card cardStyle" >
+         <img className="card-img-top imgDashboard" src={visita}  alt="Captacion" />
+          <div className="card-body">
+          <h5 className="card-title">Nada</h5>
+          <p className="card-text">No le interesa nada por ahora</p>
+          <button className="btn btn-outline-info" onClick={this.handleClickPuertaFria}>Nada</button>
+          </div>
+       </div>
+      </div>
+    </div>
+ </VisitaLayout>
      )
   }
 }
