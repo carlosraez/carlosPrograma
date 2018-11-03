@@ -30,7 +30,9 @@ export class Captacion extends Component {
         <VisitaPuertaFria />
         :
         this.state.usuarioPuertaFriaAdministradores ?
-        <PuertaFriaAdministradores />
+        <PuertaFriaAdministradores
+        usuario = {this.props.usuario}
+        />
         :
         <DashCaptacion
        handleClickPuertaFria={this.handleClickPuertaFria}

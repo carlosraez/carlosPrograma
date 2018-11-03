@@ -20,7 +20,9 @@ export class Visitas extends Component {
        <div>
       {
         this.state.usuarioCaptacion ?
-        <Captacion />
+        <Captacion
+        usuario = {this.props.usuario}
+        />
         :
         <DashVisitas
        handleClickCaptacion={this.handleClickCaptacion}

@@ -91,7 +91,9 @@ class Dashboard  extends Component {
        </div>
        {
          this.state.usuarioMakeVisita ?
-         <Visitas />
+         <Visitas
+         usuario = {this.state.usuario}
+         />
          :
          this.state.listarTrabajoUsuario ?
          <ListarVisitas

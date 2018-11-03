@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
 import { NuevoAdministrador } from '../../Administradores/Container/NuevoAdministrador.js'
-import { BusquedaAdministradoresTotales } from '../../Administradores/Container/BusquedaAdministradoresTotales.js'
+import  BusquedaAdministradoresTotales  from '../../Administradores/Components/BusquedaAdministradoresTotales.js'
 import visita from '../../pictures/visita.jpg';
 import trabajo from '../../pictures/trabajo.jpg';
 import VisitaLayout from '../components/visitaLayout.js'
+import TablaInformacionLayout from '../components/TablaInformacionLayout.js'
+import { firebaseApp } from '../../index.js'
 import { TablaInformacion } from './TablaInformacion.js'
 
 
 export class PuertaFriaAdministradores extends Component {
     state = {
-      nuevoAdministrador: false
+      nuevoAdministrador: false,
+      buscarAdministrador:'',
+      listaAdministradores:[]
     }
 
+    handleChange = (e) => {
+      const target = e.target
+      const value = target.value
+      const id = target.id
+      this.setState({
+       [id] : value
+      })
+
+    }
 
   handleClickLeedMantenimiento = () => {
     alert('me has pulsado')
@@ -29,17 +42,58 @@ export class PuertaFriaAdministradores extends Component {
      })
    }
 
+   componentDidMount = () => {
+     const ref  = firebaseApp.database().ref('usuarios')
+     let listaBaseDatosAdmin = []
+     ref.child('administradores').on('child_added', (snapshot) => {
+         listaBaseDatosAdmin.push(snapshot.val())
+         this.setState({
+           listaAdministradores: listaBaseDatosAdmin
+         })
+     })
+
+   }
+
   render() {
+    const listaCompletaAdmin =  this.state.listaAdministradores
+    const filtradoBusqueda = listaCompletaAdmin.filter((item) => {
+    const busquedaActual = this.state.buscarAdministrador.toLowerCase()
+    const despacho = item.despacho.toLowerCase()
+    return  busquedaActual === despacho
+  })
+  const busqueda = filtradoBusqueda.map((item,i) => {
+    if (item.visitas === 0) {
+       item.visitas = 'no has visitado aún a este Administrador'
+    }
+    else if (item.visitas === 1) {
+      item.visitas = 'solo has hecho 1 visita'
+    }
+    return (
+      <TablaInformacion
+      key={i}
+      despacho={item.despacho}
+      comercial={item.comercial}
+      visitasNulas={item.noQuiereNada}
+      volumenNegocio={item.volumenNegocio}
+      leedsObraNueva={item.leedsObraNueva}
+      leedsMantenimiento={item.leedsMantenimiento}
+      visitaActual={item.visitas}
+      />
+    )
+  })
      return (
    <VisitaLayout>
      <div className="row">
        <div className="col-md-6">
         {
           this.state.nuevoAdministrador ?
-          <NuevoAdministrador />
+          <NuevoAdministrador
+          usuario = {this.props.usuario}
+          />
           :
           <BusquedaAdministradoresTotales
           handleClickAlta={this.handleClickAlta}
+          handleChange={this.handleChange}
           />
         }
      {
@@ -50,9 +104,13 @@ export class PuertaFriaAdministradores extends Component {
      }
       </div>
       <div className="col-md-6">
+        <TablaInformacionLayout>
         {
-          <TablaInformacion  />
-        }
+         filtradoBusqueda.length ===  0 ?  'El Administrador que buscas no se encuentra en la base de datos'
+        :
+         busqueda
+         }
+       </TablaInformacionLayout>
      </div>
     </div>
     <div className="row">
