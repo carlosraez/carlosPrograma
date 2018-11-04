@@ -16,6 +16,7 @@ export class TablaInformacion extends Component {
        <p><strong>Ascensores Actuales:</strong>  ?</p>
        <p><strong>Volumen de negocio Aprox:</strong> {this.props.volumenNegocio} <span>Fincas</span></p>
        <p><strong>Visitas Nulas:</strong>{this.props.visitasNulas} </p>
+       <p><strong>Poblacion:</strong> {this.props.poblacion}</p>
        <p><strong>Comercial:</strong> {this.props.comercial}</p>
       </div>
      )

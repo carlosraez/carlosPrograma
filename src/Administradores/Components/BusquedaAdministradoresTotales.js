@@ -1,7 +1,6 @@
 import React from 'react'
 import BusquedaAdministradoresTotalesLayout from '../Components/BusquedaAdministradoresTotalesLayout.js'
 
-
 function BusquedaAdministradoresTotales (props) {
       return (
         <BusquedaAdministradoresTotalesLayout
@@ -9,7 +8,7 @@ function BusquedaAdministradoresTotales (props) {
         >
         <div className="form-group">
             <label>Buscar Administrador</label>
-            <input type="text" id="buscarAdministrador" onChange={props.handleChange}  placeholder="Introduce el nombre de un despacho" className="form-control" / >
+            <input type="text" id="buscarAdministrador" onChange={props.handleChange}  placeholder={props.handlePlaceHolder} className="form-control" / >
         </div>
         </BusquedaAdministradoresTotalesLayout>
       )

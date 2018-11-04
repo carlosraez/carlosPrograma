@@ -7,13 +7,16 @@ import VisitaLayout from '../components/visitaLayout.js'
 import TablaInformacionLayout from '../components/TablaInformacionLayout.js'
 import { firebaseApp } from '../../index.js'
 import { TablaInformacion } from './TablaInformacion.js'
+import swal from 'sweetalert';
 
 
 export class PuertaFriaAdministradores extends Component {
     state = {
       nuevoAdministrador: false,
       buscarAdministrador:'',
-      listaAdministradores:[]
+      listaAdministradores:[],
+      visitaNada:0,
+      placeholder:'Escribe el despacho del administrador',
     }
 
     handleChange = (e) => {
@@ -21,13 +24,21 @@ export class PuertaFriaAdministradores extends Component {
       const value = target.value
       const id = target.id
       this.setState({
-       [id] : value
+       [id] : value,
       })
+
 
     }
 
+  handleClickNada = () => {
+    swal('Lástima a ver si la proxima vez hay mas suerte')
+    this.setState({
+      visitaNada: this.state.visitaNada + 1
+    })
+  }
+
   handleClickLeedMantenimiento = () => {
-    alert('me has pulsado')
+    swal('Rellena los datos')
   }
 
   handleClickAlta = () => {
@@ -51,36 +62,13 @@ export class PuertaFriaAdministradores extends Component {
            listaAdministradores: listaBaseDatosAdmin
          })
      })
-
    }
 
   render() {
-    const listaCompletaAdmin =  this.state.listaAdministradores
-    const filtradoBusqueda = listaCompletaAdmin.filter((item) => {
-    const busquedaActual = this.state.buscarAdministrador.toLowerCase()
-    const despacho = item.despacho.toLowerCase()
-    return  busquedaActual === despacho
-  })
-  const busqueda = filtradoBusqueda.map((item,i) => {
-    if (item.visitas === 0) {
-       item.visitas = 'no has visitado aún a este Administrador'
-    }
-    else if (item.visitas === 1) {
-      item.visitas = 'solo has hecho 1 visita'
-    }
-    return (
-      <TablaInformacion
-      key={i}
-      despacho={item.despacho}
-      comercial={item.comercial}
-      visitasNulas={item.noQuiereNada}
-      volumenNegocio={item.volumenNegocio}
-      leedsObraNueva={item.leedsObraNueva}
-      leedsMantenimiento={item.leedsMantenimiento}
-      visitaActual={item.visitas}
-      />
-    )
-  })
+    const { listaAdministradores, buscarAdministrador, handlePlaceHolder } = this.state
+    const busqueda = listaAdministradores.find((administrador)=>{
+    return administrador.despacho.includes(buscarAdministrador)
+    }) || ''
      return (
    <VisitaLayout>
      <div className="row">
@@ -92,6 +80,7 @@ export class PuertaFriaAdministradores extends Component {
           />
           :
           <BusquedaAdministradoresTotales
+          handlePlaceHolder={handlePlaceHolder}
           handleClickAlta={this.handleClickAlta}
           handleChange={this.handleChange}
           />
@@ -105,11 +94,12 @@ export class PuertaFriaAdministradores extends Component {
       </div>
       <div className="col-md-6">
         <TablaInformacionLayout>
-        {
-         filtradoBusqueda.length ===  0 ?  'El Administrador que buscas no se encuentra en la base de datos'
-        :
-         busqueda
-         }
+            <TablaInformacion
+            despacho={busqueda.despacho}
+            volumenNegocio={busqueda.volumenNegocio}
+            poblacion={busqueda.poblacion}
+            comercial={busqueda.comercial}
+            />
        </TablaInformacionLayout>
      </div>
     </div>
@@ -140,7 +130,7 @@ export class PuertaFriaAdministradores extends Component {
           <div className="card-body">
           <h5 className="card-title">Nada</h5>
           <p className="card-text">No le interesa nada por ahora</p>
-          <button className="btn btn-outline-info" onClick={this.handleClickPuertaFria}>Nada</button>
+          <button className="btn btn-outline-info" onClick={this.handleClickNada}>Nada</button>
           </div>
        </div>
       </div>
