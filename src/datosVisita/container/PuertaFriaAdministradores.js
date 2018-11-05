@@ -17,24 +17,44 @@ export class PuertaFriaAdministradores extends Component {
       listaAdministradores:[],
       visitaNada:0,
       placeholder:'Escribe el despacho del administrador',
+      idAdministradorKey:[],
+      despacho:'No hemos encontrado el administrador en la base de datos',
+  
+
     }
 
     handleChange = (e) => {
       const target = e.target
       const value = target.value
       const id = target.id
+      const { buscarAdministrador, listaAdministradores } = this.state
+      const busqueda = listaAdministradores.find((administrador)=>{
+      const busquedaAdministrador = administrador.despacho.toLowerCase()
+      const busquedaUsuario = buscarAdministrador.toLowerCase()
+      return busquedaAdministrador.includes(busquedaUsuario)
+      }) || ''
+      console.log(busqueda);
+      const despacho = busqueda.despacho || 'No hemos encontrado el administrador en la base de datos'
+      const comercial = busqueda.comercial || ''
       this.setState({
-       [id] : value,
+        [id] : value,
+        despacho: despacho,
+        comercial: comercial,
       })
-
 
     }
 
   handleClickNada = () => {
+     const ref  = firebaseApp.database()
+     const acutalizacion = {
+       visitaActual: this.state.visitaNada
+       }
+     ref.child('administradores').child(this.state.idAdministradorKey).update(acutalizacion)
     swal('Lástima a ver si la proxima vez hay mas suerte')
     this.setState({
       visitaNada: this.state.visitaNada + 1
     })
+
   }
 
   handleClickLeedMantenimiento = () => {
@@ -56,19 +76,19 @@ export class PuertaFriaAdministradores extends Component {
    componentDidMount = () => {
      const ref  = firebaseApp.database().ref('usuarios')
      let listaBaseDatosAdmin = []
+     let idAdministrador = []
      ref.child('administradores').on('child_added', (snapshot) => {
          listaBaseDatosAdmin.push(snapshot.val())
+         idAdministrador.push(snapshot.key)
          this.setState({
-           listaAdministradores: listaBaseDatosAdmin
+           listaAdministradores: listaBaseDatosAdmin,
+           idAdministradorKey:idAdministrador
          })
      })
    }
 
   render() {
-    const { listaAdministradores, buscarAdministrador, handlePlaceHolder } = this.state
-    const busqueda = listaAdministradores.find((administrador)=>{
-    return administrador.despacho.includes(buscarAdministrador)
-    }) || ''
+    const {  handlePlaceHolder } = this.state;
      return (
    <VisitaLayout>
      <div className="row">
@@ -95,10 +115,8 @@ export class PuertaFriaAdministradores extends Component {
       <div className="col-md-6">
         <TablaInformacionLayout>
             <TablaInformacion
-            despacho={busqueda.despacho}
-            volumenNegocio={busqueda.volumenNegocio}
-            poblacion={busqueda.poblacion}
-            comercial={busqueda.comercial}
+            despacho={this.state.despacho}
+            comercial={this.state.comercial}
             />
        </TablaInformacionLayout>
      </div>
