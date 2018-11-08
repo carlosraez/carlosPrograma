@@ -24,39 +24,36 @@ export class PuertaFriaAdministradores extends Component {
       leedsObraNueva:null,
       posicionAdminArray:null,
       poblacion:'',
-      rellenarLeedMantenimiento:false
+      rellenarLeedMantenimiento:false,
+      direccion:'',
+      poblacionLeed:'',
+      mantenedor:'',
+      nombrePresidente:'',
+
     }
 
     handleChange = (e) => {
       const target = e.target
       const value = target.value
       const id = target.id
-      const { buscarAdministrador, listaAdministradores } = this.state
-      const busqueda = listaAdministradores.find((administrador,i)=>{
+      const { listaAdministradores } = this.state
+      const busqueda = listaAdministradores.find((administrador) => {
       const busquedaAdministrador = administrador.despacho.toLowerCase()
-      const busquedaUsuario = buscarAdministrador.toLowerCase()
-      this.setState({
-        posicionAdminArray: i
-      })
-      return busquedaAdministrador.includes(busquedaUsuario)
-      }) || ''
-      console.log(busqueda);
-      const despacho = busqueda.despacho || 'No hemos encontrado el administrador en la base de datos'
-      const comercial = busqueda.comercial || ''
-      const visitasNulas =  busqueda.noQuiereNada
-      const leedsMantenimiento = busqueda.leedsMantenimiento
-      const leedsObraNueva = busqueda.leedsObraNueva
-      const poblacion = busqueda.poblacion
+      const busquedaUsuario = value.toLowerCase()
+      const resultado = busquedaUsuario === '' ?  '' : busquedaAdministrador.includes(busquedaUsuario)
+      return resultado
+      })  || ''
+      const indiceBusqueda = listaAdministradores.indexOf(busqueda)
       this.setState({
         [id] : value,
-        despacho: despacho,
-        comercial: comercial,
-        visitasNulasActuaes: visitasNulas,
-        leedsObraNuevaActuales: leedsObraNueva,
-        leedsMantenimientoActuales: leedsMantenimiento,
-        poblacion:poblacion
+        despacho: busqueda.despacho || 'No hemos encontrado el administrador en la base de datos',
+        comercial: busqueda.comercial || '',
+        visitasNulasActuaes:  busqueda.noQuiereNada,
+        leedsObraNuevaActuales: busqueda.leedsObraNueva,
+        leedsMantenimientoActuales: busqueda.leedsMantenimiento,
+        poblacion: busqueda.poblacion,
+        posicionAdminArray: indiceBusqueda
       })
-
     }
 
   handleClickNada = () => {
@@ -107,10 +104,21 @@ export class PuertaFriaAdministradores extends Component {
    }
 
    HandleClickGuardarLeedMantenimiento = () => {
+     const ref  = firebaseApp.database().ref('usuarios')
      swal('Perfecto guardado')
      this.setState({
        rellenarLeedMantenimiento:false
      })
+     const nuevoLeed = {
+        direccion: this.state.direccion || '',
+        poblacion: this.state.poblacionLeed || '',
+        mantenedor: this.state.mantenedorLeed || '',
+        nombrePresidente: this.state.nombrePresidente || '',
+        telefonoPresidente: this.state.telefonoPresidente || '',
+        observacionLeedManimiento : this.state.observacionLeedManimiento || '',
+     }
+     const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
+     ref.child('administradores').child(administradorActual).child('leedsMantenimiento').update(nuevoLeed)
    }
 
    componentDidMount = () => {
@@ -128,7 +136,6 @@ export class PuertaFriaAdministradores extends Component {
    }
 
   render() {
-  console.log('soy el render');
   const {  handlePlaceHolder } = this.state;
   if (this.state.rellenarLeedMantenimiento) {
    return (
@@ -136,6 +143,7 @@ export class PuertaFriaAdministradores extends Component {
      titulo='Completa tu Leed Mantenimiento'
      >
         <LeedMantenimiento
+        handleChange={this.handleChange}
         HandleClickGuardarLeedMantenimiento={this.HandleClickGuardarLeedMantenimiento}
         />
      </VisitaLayout>
