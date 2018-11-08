@@ -107,7 +107,7 @@ export class PuertaFriaAdministradores extends Component {
     const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
     ref.child('administradores').child(administradorActual).update(actualizacion)
     this.setState({
-      leedsMantenimiento: this.state.leedsMantenimientoActuales + 1,
+      leedsMantenimientoActuales: this.state.leedsMantenimientoActuales + 1,
       rellenarLeedMantenimiento:true
     })
 
@@ -120,6 +120,7 @@ export class PuertaFriaAdministradores extends Component {
        rellenarLeedMantenimiento:false,
 
      })
+
      /*const nuevoLeed = {
          {
         direccion: this.state.direccionLeed || '',
