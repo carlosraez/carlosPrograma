@@ -25,11 +25,12 @@ export class PuertaFriaAdministradores extends Component {
       posicionAdminArray:null,
       poblacion:'',
       rellenarLeedMantenimiento:false,
-      direccion:'',
+      direccionLeed:'',
       poblacionLeed:'',
-      mantenedor:'',
-      nombrePresidente:'',
-
+      mantenedorLeed:'',
+      nombrePresidenteLeed:'',
+      telefonoPresidenteLeed:'',
+      observacionLeedManimiento:'',
     }
 
     handleChange = (e) => {
@@ -44,6 +45,7 @@ export class PuertaFriaAdministradores extends Component {
       return resultado
       })  || ''
       const indiceBusqueda = listaAdministradores.indexOf(busqueda)
+      console.log(busqueda);
       this.setState({
         [id] : value,
         despacho: busqueda.despacho || 'No hemos encontrado el administrador en la base de datos',
@@ -52,6 +54,7 @@ export class PuertaFriaAdministradores extends Component {
         leedsObraNuevaActuales: busqueda.leedsObraNueva,
         leedsMantenimientoActuales: busqueda.leedsMantenimiento,
         poblacion: busqueda.poblacion,
+        volumenNegocio: busqueda.volumenNegocio,
         posicionAdminArray: indiceBusqueda
       })
     }
@@ -86,7 +89,16 @@ export class PuertaFriaAdministradores extends Component {
      })
    }
 
-   handleClickLeedMantenimiento = () => {
+   handleChangeLeedMantenimiento = (e) => {
+     const target = e.target
+     const value = target.value
+     const id = target.id
+     this.setState({
+       [id]:value
+     })
+   }
+
+    handleClickLeedMantenimiento = () => {
      const ref  = firebaseApp.database().ref('usuarios')
      swal('Felcidades Tenemos una oportunidad')
      const actualizacion = {
@@ -98,8 +110,6 @@ export class PuertaFriaAdministradores extends Component {
       leedsMantenimiento: this.state.leedsMantenimientoActuales + 1,
       rellenarLeedMantenimiento:true
     })
-    this.componentDidMount()
-
 
    }
 
@@ -107,18 +117,20 @@ export class PuertaFriaAdministradores extends Component {
      const ref  = firebaseApp.database().ref('usuarios')
      swal('Perfecto guardado')
      this.setState({
-       rellenarLeedMantenimiento:false
+       rellenarLeedMantenimiento:false,
+
      })
-     const nuevoLeed = {
-        direccion: this.state.direccion || '',
+     /*const nuevoLeed = {
+         {
+        direccion: this.state.direccionLeed || '',
         poblacion: this.state.poblacionLeed || '',
         mantenedor: this.state.mantenedorLeed || '',
-        nombrePresidente: this.state.nombrePresidente || '',
-        telefonoPresidente: this.state.telefonoPresidente || '',
-        observacionLeedManimiento : this.state.observacionLeedManimiento || '',
+        nombrePresidente: this.state.nombrePresidenteLeed || '',
+        telefonoPresidente: this.state.telefonoPresidenteLeed || '',
+        observacionLeedManimiento : this.state.observacionLeedManimientoLeed || '',
      }
      const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
-     ref.child('administradores').child(administradorActual).child('leedsMantenimiento').update(nuevoLeed)
+     ref.child('administradores').child(administradorActual).child('leedsMantenimiento').update(nuevoLeed)*/
    }
 
    componentDidMount = () => {
@@ -136,6 +148,7 @@ export class PuertaFriaAdministradores extends Component {
    }
 
   render() {
+  console.log('--> soy el render');
   const {  handlePlaceHolder } = this.state;
   if (this.state.rellenarLeedMantenimiento) {
    return (
@@ -143,7 +156,7 @@ export class PuertaFriaAdministradores extends Component {
      titulo='Completa tu Leed Mantenimiento'
      >
         <LeedMantenimiento
-        handleChange={this.handleChange}
+        handleChange={this.handleChangeLeedMantenimiento}
         HandleClickGuardarLeedMantenimiento={this.HandleClickGuardarLeedMantenimiento}
         />
      </VisitaLayout>
@@ -182,6 +195,7 @@ export class PuertaFriaAdministradores extends Component {
            comercial={this.state.comercial}
            visitasNulas={this.state.visitasNulasActuaes}
            poblacion={this.state.poblacion}
+           volumenNegocio={this.state.volumenNegocio}
            leedsMantenimiento={this.state.leedsMantenimientoActuales}
            />
       </TablaInformacionLayout>
