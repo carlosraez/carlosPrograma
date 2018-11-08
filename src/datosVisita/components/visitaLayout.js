@@ -8,7 +8,7 @@ function VisitaLayout(props) {
         <div className="col md-12">
            <div className="card">
              <div className="card-header headerCard">
-               <h4 className="tituloVisita">Completa tu Visita</h4>
+               <h4 className="tituloVisita">{props.titulo}</h4>
              </div>
              <div className="card-body">
                {props.children}
