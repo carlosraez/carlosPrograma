@@ -15,12 +15,14 @@ export class PuertaFriaAdministradores extends Component {
       nuevoAdministrador: false,
       buscarAdministrador:'',
       listaAdministradores:[],
-      visitaNada:0,
       placeholder:'Escribe el despacho del administrador',
       idAdministradorKey:[],
       despacho:'No hemos encontrado el administrador en la base de datos',
-  
-
+      visitasNulasActuaes:null,
+      leedsMantenimientoActuales:null,
+      leedsObraNueva:null,
+      posicionAdminArray:null,
+      poblacion:''
     }
 
     handleChange = (e) => {
@@ -28,31 +30,43 @@ export class PuertaFriaAdministradores extends Component {
       const value = target.value
       const id = target.id
       const { buscarAdministrador, listaAdministradores } = this.state
-      const busqueda = listaAdministradores.find((administrador)=>{
+      const busqueda = listaAdministradores.find((administrador,i)=>{
       const busquedaAdministrador = administrador.despacho.toLowerCase()
       const busquedaUsuario = buscarAdministrador.toLowerCase()
+      this.setState({
+        posicionAdminArray: i
+      })
       return busquedaAdministrador.includes(busquedaUsuario)
       }) || ''
       console.log(busqueda);
       const despacho = busqueda.despacho || 'No hemos encontrado el administrador en la base de datos'
       const comercial = busqueda.comercial || ''
+      const visitasNulas =  busqueda.noQuiereNada
+      const leedsMantenimiento = busqueda.leedsMantenimiento
+      const leedsObraNueva = busqueda.leedsObraNueva
+      const poblacion = busqueda.poblacion
       this.setState({
         [id] : value,
         despacho: despacho,
         comercial: comercial,
+        visitasNulasActuaes: visitasNulas,
+        leedsObraNuevaActuales: leedsObraNueva,
+        leedsMantenimientoActuales: leedsMantenimiento,
+        poblacion:poblacion
       })
 
     }
 
   handleClickNada = () => {
-     const ref  = firebaseApp.database()
-     const acutalizacion = {
-       visitaActual: this.state.visitaNada
+     const ref  = firebaseApp.database().ref('usuarios')
+     const actualizacion = {
+       noQuiereNada: this.state.visitasNulasActuaes + 1
        }
-     ref.child('administradores').child(this.state.idAdministradorKey).update(acutalizacion)
+   const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
+   ref.child('administradores').child(administradorActual).update(actualizacion)
     swal('Lástima a ver si la proxima vez hay mas suerte')
     this.setState({
-      visitaNada: this.state.visitaNada + 1
+      visitasNulasActuaes: this.state.visitasNulasActuaes + 1
     })
 
   }
@@ -117,6 +131,8 @@ export class PuertaFriaAdministradores extends Component {
             <TablaInformacion
             despacho={this.state.despacho}
             comercial={this.state.comercial}
+            visitasNulas={this.state.visitasNulasActuaes}
+            poblacion={this.state.poblacion}
             />
        </TablaInformacionLayout>
      </div>
