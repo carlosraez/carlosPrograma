@@ -35,7 +35,8 @@ export class PuertaFriaAdministradores extends Component {
       observacionLeedObraNueva:'',
       rellenarLeedObraNueva:false,
       comercial:'',
-      visitaActual:null
+      visitaActual:null,
+      listaLeeds:[]
     }
 
     handleChange = (e) => {
@@ -116,13 +117,18 @@ export class PuertaFriaAdministradores extends Component {
 
    HandleClickGuardarLeedMantenimiento = () => {
      const ref  = firebaseApp.database().ref('usuarios')
+     const user = firebaseApp.auth().currentUser;
      swal('Perfecto guardado')
      this.setState({
        rellenarLeedMantenimiento:false,
      })
-     const posicionSiguienteLeed = this.state.leedsMantenimientoActuales
+     const administradorActual = this.state.despacho
+     const posicionSiguienteLeed = this.state.listaLeeds.length
      const nuevoLeed = {
         [posicionSiguienteLeed] : {
+          gestionado: false,
+          administrador: administradorActual,
+          tipo:'Mantenimiento',
           direccion: this.state.direccionLeed || '',
           poblacion: this.state.poblacionLeed || '',
           mantenedor: this.state.mantenedorLeed || '',
@@ -131,8 +137,7 @@ export class PuertaFriaAdministradores extends Component {
           observacionLeedManimiento : this.state.observacionLeedManimiento || '',
         }
      }
-     const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
-     ref.child('administradores').child(administradorActual).child('leedsMantenimientoDatos').update(nuevoLeed)
+     ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').update(nuevoLeed)
      this.setState({
        leedsMantenimientoActuales: this.state.leedsMantenimientoActuales + 1
      })
@@ -153,13 +158,18 @@ export class PuertaFriaAdministradores extends Component {
 
   HandleClickGuardarLeedObraNueva = () => {
     const ref  = firebaseApp.database().ref('usuarios')
+    const user = firebaseApp.auth().currentUser;
     swal('Perfecto guardado')
     this.setState({
       rellenarLeedObraNueva:false,
     })
-    const posicionSiguienteLeed = this.state.leedsObraNuevaActuales
+    const administradorActual = this.state.despacho
+    const posicionSiguienteLeed = this.state.listaLeeds.length
     const nuevoLeed = {
        [posicionSiguienteLeed] : {
+         administrador: administradorActual,
+         tipo:'Finca sin Ascensor',
+         gestionado: false,
          direccion: this.state.direccionLeed || '',
          poblacion: this.state.poblacionLeed || '',
          nombrePresidente: this.state.nombrePresidenteLeed || '',
@@ -167,8 +177,7 @@ export class PuertaFriaAdministradores extends Component {
          observacionLeedObraNueva : this.state.observacionLeedObraNueva || '',
        }
     }
-    const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
-    ref.child('administradores').child(administradorActual).child('leedsObraNuevaDatos').update(nuevoLeed)
+    ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').update(nuevoLeed)
     this.setState({
       leedsObraNuevaActuales: this.state.leedsObraNuevaActuales + 1
     })
@@ -184,11 +193,13 @@ export class PuertaFriaAdministradores extends Component {
   ref.child('administradores').child(administradorActual).update(actualizacion)
   this.setState({
       visitaActual: this.state.visitaActual + 1
-  })
+    })
   }
 
    componentDidMount = () => {
      const ref  = firebaseApp.database().ref('usuarios')
+     const user = firebaseApp.auth().currentUser;
+     let listaBaseDatosleeds = []
      let listaBaseDatosAdmin = []
      let idAdministrador = []
      ref.child('administradores').on('child_added', (snapshot) => {
@@ -197,6 +208,12 @@ export class PuertaFriaAdministradores extends Component {
          this.setState({
            listaAdministradores: listaBaseDatosAdmin,
            idAdministradorKey:idAdministrador
+         })
+     })
+     ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').on('child_added', (snapshot) => {
+         listaBaseDatosleeds.push(snapshot.val())
+         this.setState({
+           listaLeeds: listaBaseDatosleeds,
          })
      })
    }
