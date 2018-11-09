@@ -22,7 +22,7 @@ export class PuertaFriaAdministradores extends Component {
       despacho:'No hemos encontrado el administrador en la base de datos',
       visitasNulasActuales:null,
       leedsMantenimientoActuales:null,
-      leedsObraNueva:null,
+      leedsObraNuevaActuales:null,
       posicionAdminArray:null,
       poblacion:'',
       rellenarLeedMantenimiento:false,
@@ -32,6 +32,7 @@ export class PuertaFriaAdministradores extends Component {
       nombrePresidenteLeed:'',
       telefonoPresidenteLeed:'',
       observacionLeedManimiento:'',
+      observacionLeedObraNueva:'',
       rellenarLeedObraNueva:false
     }
 
@@ -47,13 +48,14 @@ export class PuertaFriaAdministradores extends Component {
       return resultado
       })  || ''
       const indiceBusqueda = listaAdministradores.indexOf(busqueda)
+      console.log(busqueda);
       this.setState({
         [id] : value,
         despacho: busqueda.despacho || 'No hemos encontrado el administrador en la base de datos',
         comercial: busqueda.comercial || '',
         visitasNulasActuaes:  busqueda.noQuiereNada,
         leedsMantenimientoActuales: busqueda.leedsMantenimiento,
-        leedsObraNueva:busqueda.leedsObraNueva,
+        leedsObraNuevaActuales:busqueda.leedsObraNueva,
         poblacion: busqueda.poblacion,
         volumenNegocio: busqueda.volumenNegocio,
         posicionAdminArray: indiceBusqueda
@@ -124,7 +126,7 @@ export class PuertaFriaAdministradores extends Component {
           mantenedor: this.state.mantenedorLeed || '',
           nombrePresidente: this.state.nombrePresidenteLeed || '',
           telefonoPresidente: this.state.telefonoPresidenteLeed || '',
-          observacionLeedManimiento : this.state.observacionLeedManimientoLeed || '',
+          observacionLeedManimiento : this.state.observacionLeedManimiento || '',
         }
      }
      const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
@@ -135,9 +137,38 @@ export class PuertaFriaAdministradores extends Component {
    }
 
    handleClickLeedObraNueva = () => {
+     const ref  = firebaseApp.database().ref('usuarios')
      swal('Felcidades tenemos una oportunidad')
     this.setState({
       rellenarLeedObraNueva:true
+    })
+   const actualizacion = {
+     leedsObraNueva: this.state.leedsObraNuevaActuales + 1
+     }
+  const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
+  ref.child('administradores').child(administradorActual).update(actualizacion)
+  }
+
+  HandleClickGuardarLeedObraNueva = () => {
+    const ref  = firebaseApp.database().ref('usuarios')
+    swal('Perfecto guardado')
+    this.setState({
+      rellenarLeedObraNueva:false,
+    })
+    const posicionSiguienteLeed = this.state.leedsObraNuevaActuales
+    const nuevoLeed = {
+       [posicionSiguienteLeed] : {
+         direccion: this.state.direccionLeed || '',
+         poblacion: this.state.poblacionLeed || '',
+         nombrePresidente: this.state.nombrePresidenteLeed || '',
+         telefonoPresidente: this.state.telefonoPresidenteLeed || '',
+         observacionLeedObraNueva : this.state.observacionLeedObraNueva || '',
+       }
+    }
+    const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
+    ref.child('administradores').child(administradorActual).child('leedsObraNuevaDatos').update(nuevoLeed)
+    this.setState({
+      leedsObraNuevaActuales: this.state.leedsObraNuevaActuales + 1
     })
   }
 
@@ -176,7 +207,7 @@ export class PuertaFriaAdministradores extends Component {
      >
         <LeedObraNueva
         handleChange={this.handleChangeLeedMantenimiento}
-        HandleClickGuardarLeedMantenimiento={this.HandleClickGuardarLeedMantenimiento}
+        HandleClickGuardarLeedObraNueva={this.HandleClickGuardarLeedObraNueva}
         />
      </VisitaLayout>
    )
