@@ -20,7 +20,7 @@ export class PuertaFriaAdministradores extends Component {
       placeholder:'Escribe el despacho del administrador',
       idAdministradorKey:[],
       despacho:'No hemos encontrado el administrador en la base de datos',
-      visitasNulasActuaes:null,
+      visitasNulasActuales:null,
       leedsMantenimientoActuales:null,
       leedsObraNueva:null,
       posicionAdminArray:null,
@@ -63,7 +63,7 @@ export class PuertaFriaAdministradores extends Component {
   handleClickNada = () => {
      const ref  = firebaseApp.database().ref('usuarios')
      const actualizacion = {
-       noQuiereNada: this.state.visitasNulasActuaes + 1
+       noQuiereNada: this.state.visitasNulasActuales + 1
        }
    const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
    ref.child('administradores').child(administradorActual).update(actualizacion)
@@ -97,10 +97,16 @@ export class PuertaFriaAdministradores extends Component {
 
 
     handleClickLeedMantenimiento = () => {
+    const ref  = firebaseApp.database().ref('usuarios')
      swal('Felcidades Tenemos una oportunidad')
      this.setState({
-      rellenarLeedMantenimiento:true
+      rellenarLeedMantenimiento:true,
     })
+    const actualizacion = {
+      leedsMantenimiento: this.state.leedsMantenimientoActuales + 1
+      }
+   const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
+   ref.child('administradores').child(administradorActual).update(actualizacion)
 
    }
 
@@ -110,7 +116,7 @@ export class PuertaFriaAdministradores extends Component {
      this.setState({
        rellenarLeedMantenimiento:false,
      })
-     const posicionSiguienteLeed = 1
+     const posicionSiguienteLeed = this.state.leedsMantenimientoActuales
      const nuevoLeed = {
         [posicionSiguienteLeed] : {
           direccion: this.state.direccionLeed || '',
@@ -122,9 +128,11 @@ export class PuertaFriaAdministradores extends Component {
         }
      }
      const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
-     ref.child('administradores').child(administradorActual).child('leedsMantenimiento').update(nuevoLeed)
+     ref.child('administradores').child(administradorActual).child('leedsMantenimientoDatos').update(nuevoLeed)
+     this.setState({
+       leedsMantenimientoActuales: this.state.leedsMantenimientoActuales + 1
+     })
    }
-
 
    handleClickLeedObraNueva = () => {
      swal('Felcidades tenemos una oportunidad')
