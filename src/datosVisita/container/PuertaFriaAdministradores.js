@@ -4,6 +4,7 @@ import  BusquedaAdministradoresTotales  from '../../Administradores/Components/B
 import visita from '../../pictures/visita.jpg';
 import trabajo from '../../pictures/trabajo.jpg';
 import LeedMantenimiento from '../components/LeedMantenimiento.js'
+import LeedObraNueva from '../components/LeedObraNueva.js'
 import VisitaLayout from '../components/visitaLayout.js'
 import TablaInformacionLayout from '../components/TablaInformacionLayout.js'
 import { firebaseApp } from '../../index.js'
@@ -31,6 +32,7 @@ export class PuertaFriaAdministradores extends Component {
       nombrePresidenteLeed:'',
       telefonoPresidenteLeed:'',
       observacionLeedManimiento:'',
+      rellenarLeedObraNueva:false
     }
 
     handleChange = (e) => {
@@ -45,14 +47,13 @@ export class PuertaFriaAdministradores extends Component {
       return resultado
       })  || ''
       const indiceBusqueda = listaAdministradores.indexOf(busqueda)
-      console.log(busqueda);
       this.setState({
         [id] : value,
         despacho: busqueda.despacho || 'No hemos encontrado el administrador en la base de datos',
         comercial: busqueda.comercial || '',
         visitasNulasActuaes:  busqueda.noQuiereNada,
-        leedsObraNuevaActuales: busqueda.leedsObraNueva,
         leedsMantenimientoActuales: busqueda.leedsMantenimiento,
+        leedsObraNueva:busqueda.leedsObraNueva,
         poblacion: busqueda.poblacion,
         volumenNegocio: busqueda.volumenNegocio,
         posicionAdminArray: indiceBusqueda
@@ -71,10 +72,6 @@ export class PuertaFriaAdministradores extends Component {
       visitasNulasActuaes: this.state.visitasNulasActuaes + 1
     })
     this.componentDidMount()
-  }
-
-  handleClickLeedMantenimiento = () => {
-    swal('Rellena los datos')
   }
 
   handleClickAlta = () => {
@@ -98,16 +95,10 @@ export class PuertaFriaAdministradores extends Component {
      })
    }
 
+
     handleClickLeedMantenimiento = () => {
-     const ref  = firebaseApp.database().ref('usuarios')
      swal('Felcidades Tenemos una oportunidad')
-     const actualizacion = {
-       leedsMantenimiento: this.state.leedsMantenimientoActuales + 1,
-       }
-    const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
-    ref.child('administradores').child(administradorActual).update(actualizacion)
-    this.setState({
-      leedsMantenimientoActuales: this.state.leedsMantenimientoActuales + 1,
+     this.setState({
       rellenarLeedMantenimiento:true
     })
 
@@ -118,21 +109,29 @@ export class PuertaFriaAdministradores extends Component {
      swal('Perfecto guardado')
      this.setState({
        rellenarLeedMantenimiento:false,
-
      })
-
-     /*const nuevoLeed = {
-         {
-        direccion: this.state.direccionLeed || '',
-        poblacion: this.state.poblacionLeed || '',
-        mantenedor: this.state.mantenedorLeed || '',
-        nombrePresidente: this.state.nombrePresidenteLeed || '',
-        telefonoPresidente: this.state.telefonoPresidenteLeed || '',
-        observacionLeedManimiento : this.state.observacionLeedManimientoLeed || '',
+     const posicionSiguienteLeed = 1
+     const nuevoLeed = {
+        [posicionSiguienteLeed] : {
+          direccion: this.state.direccionLeed || '',
+          poblacion: this.state.poblacionLeed || '',
+          mantenedor: this.state.mantenedorLeed || '',
+          nombrePresidente: this.state.nombrePresidenteLeed || '',
+          telefonoPresidente: this.state.telefonoPresidenteLeed || '',
+          observacionLeedManimiento : this.state.observacionLeedManimientoLeed || '',
+        }
      }
      const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
-     ref.child('administradores').child(administradorActual).child('leedsMantenimiento').update(nuevoLeed)*/
+     ref.child('administradores').child(administradorActual).child('leedsMantenimiento').update(nuevoLeed)
    }
+
+
+   handleClickLeedObraNueva = () => {
+     swal('Felcidades tenemos una oportunidad')
+    this.setState({
+      rellenarLeedObraNueva:true
+    })
+  }
 
    componentDidMount = () => {
      const ref  = firebaseApp.database().ref('usuarios')
@@ -149,7 +148,6 @@ export class PuertaFriaAdministradores extends Component {
    }
 
   render() {
-  console.log('--> soy el render');
   const {  handlePlaceHolder } = this.state;
   if (this.state.rellenarLeedMantenimiento) {
    return (
@@ -157,6 +155,18 @@ export class PuertaFriaAdministradores extends Component {
      titulo='Completa tu Leed Mantenimiento'
      >
         <LeedMantenimiento
+        handleChange={this.handleChangeLeedMantenimiento}
+        HandleClickGuardarLeedMantenimiento={this.HandleClickGuardarLeedMantenimiento}
+        />
+     </VisitaLayout>
+   )
+  }
+  else if (this.state.rellenarLeedObraNueva) {
+   return (
+     <VisitaLayout
+     titulo='Completa tu Leed Obra Nueva'
+     >
+        <LeedObraNueva
         handleChange={this.handleChangeLeedMantenimiento}
         HandleClickGuardarLeedMantenimiento={this.HandleClickGuardarLeedMantenimiento}
         />
@@ -192,12 +202,14 @@ export class PuertaFriaAdministradores extends Component {
      <div className="col-md-6">
        <TablaInformacionLayout>
            <TablaInformacion
+           visitaActual={0}
            despacho={this.state.despacho}
            comercial={this.state.comercial}
            visitasNulas={this.state.visitasNulasActuaes}
            poblacion={this.state.poblacion}
            volumenNegocio={this.state.volumenNegocio}
            leedsMantenimiento={this.state.leedsMantenimientoActuales}
+           leedsObraNueva={this.state.leedsObraNuevaActuales}
            />
       </TablaInformacionLayout>
     </div>
@@ -219,7 +231,7 @@ export class PuertaFriaAdministradores extends Component {
          <div className="card-body">
          <h5 className="card-title">Leed Finca Sin Ascensor</h5>
          <p className="card-text">Presupuesto de poner un ascensor en un edificio</p>
-         <button className="btn btn-outline-info" onClick={this.handleClickPuertaFria}>Obra</button>
+         <button className="btn btn-outline-info" onClick={this.handleClickLeedObraNueva}>Obra</button>
          </div>
       </div>
  </div>
