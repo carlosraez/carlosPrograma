@@ -33,7 +33,9 @@ export class PuertaFriaAdministradores extends Component {
       telefonoPresidenteLeed:'',
       observacionLeedManimiento:'',
       observacionLeedObraNueva:'',
-      rellenarLeedObraNueva:false
+      rellenarLeedObraNueva:false,
+      comercial:'',
+      visitaActual:null
     }
 
     handleChange = (e) => {
@@ -48,7 +50,6 @@ export class PuertaFriaAdministradores extends Component {
       return resultado
       })  || ''
       const indiceBusqueda = listaAdministradores.indexOf(busqueda)
-      console.log(busqueda);
       this.setState({
         [id] : value,
         despacho: busqueda.despacho || 'No hemos encontrado el administrador en la base de datos',
@@ -58,6 +59,8 @@ export class PuertaFriaAdministradores extends Component {
         leedsObraNuevaActuales:busqueda.leedsObraNueva,
         poblacion: busqueda.poblacion,
         volumenNegocio: busqueda.volumenNegocio,
+        visitasNulasActuales: busqueda.noQuiereNada,
+        visitaActual:busqueda.visitas,
         posicionAdminArray: indiceBusqueda
       })
     }
@@ -71,9 +74,8 @@ export class PuertaFriaAdministradores extends Component {
    ref.child('administradores').child(administradorActual).update(actualizacion)
     swal('Lástima a ver si la proxima vez hay mas suerte')
     this.setState({
-      visitasNulasActuaes: this.state.visitasNulasActuaes + 1
+      visitasNulasActuales: this.state.visitasNulasActuales + 1
     })
-    this.componentDidMount()
   }
 
   handleClickAlta = () => {
@@ -172,6 +174,19 @@ export class PuertaFriaAdministradores extends Component {
     })
   }
 
+  HandleClickSumarVisita = () => {
+    const ref  = firebaseApp.database().ref('usuarios')
+    swal('Visita Añadida Correctamente')
+    const actualizacion = {
+      visitas: this.state.visitaActual + 1
+      }
+  const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
+  ref.child('administradores').child(administradorActual).update(actualizacion)
+  this.setState({
+      visitaActual: this.state.visitaActual + 1
+  })
+  }
+
    componentDidMount = () => {
      const ref  = firebaseApp.database().ref('usuarios')
      let listaBaseDatosAdmin = []
@@ -241,14 +256,15 @@ export class PuertaFriaAdministradores extends Component {
      <div className="col-md-6">
        <TablaInformacionLayout>
            <TablaInformacion
-           visitaActual={0}
+           visitaActual={this.state.visitaActual}
            despacho={this.state.despacho}
            comercial={this.state.comercial}
-           visitasNulas={this.state.visitasNulasActuaes}
+           visitasNulas={this.state.visitasNulasActuales}
            poblacion={this.state.poblacion}
            volumenNegocio={this.state.volumenNegocio}
            leedsMantenimiento={this.state.leedsMantenimientoActuales}
            leedsObraNueva={this.state.leedsObraNuevaActuales}
+           HandleClickSumarVisita={this.HandleClickSumarVisita}
            />
       </TablaInformacionLayout>
     </div>
