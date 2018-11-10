@@ -10,7 +10,7 @@ function GestionLeedComponents(props) {
     <p><strong>Poblacion:</strong> {props.poblacion}</p>
     <p><strong>Observaciones:</strong> {props.observacionleed}</p>
     <button className="btn btn-success" onClick={props.HandleClicRealizarVisita}>Hacer Visita</button>
-    <button className="btn btn-info botonVolver" onClick={props.HandleVolverALista}>Modificar</button>
+    <button className="btn btn-info botonVolver" onClick={props.HandleClickModificar}>Modificar</button>
     <button className="btn btn-info botonVolver" onClick={props.HandleVolverALista}>Volver A Lista</button>
     <button className="btn btn-danger botonVolver" onClick={props.HandleVolverALista}>Borrar</button>
    </div>

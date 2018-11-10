@@ -17,6 +17,7 @@ export class GestionLeed extends Component {
        tipoLeed={this.props.tipoLeed}
        HandleVolverALista={this.props.HandleVolverALista}
        observacionleed={this.props.observacionleed}
+       HandleClickModificar={this.props.HandleClickModificar}
        />
        </GestionLeedLayout>
        </div>

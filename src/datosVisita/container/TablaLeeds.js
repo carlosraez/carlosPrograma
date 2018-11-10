@@ -22,6 +22,10 @@ HandleVolverALista = () => {
   })
 }
 
+HandleClickModificar = () => {
+  alert('me has pulsado')
+}
+
 componentDidMount = () => {
   const ref  = firebaseApp.database().ref('usuarios')
   const user = firebaseApp.auth().currentUser;
@@ -45,6 +49,7 @@ componentDidMount = () => {
          poblacion={'Valencia'}
          administrador={'Consulting Machancoses'}
          tipoLeed={'Obra Nueva'}
+         HandleClickModificar={this.HandleClickModificar}
          HandleVolverALista={this.HandleVolverALista}
          />
        )
