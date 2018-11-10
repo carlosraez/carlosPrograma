@@ -31,14 +31,10 @@ function DashCaptacion(props) {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-1">
-            </div>
-            <div className="col-12 col-md-10">
+            <div className="col-12">
                   <div className="card cardStyle" >
                    <TablaLeeds />
                  </div>
-              </div>
-              <div className="col-md-1">
               </div>
         </div>
     </div>

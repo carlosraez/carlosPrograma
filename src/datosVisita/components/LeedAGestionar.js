@@ -5,11 +5,12 @@ function LeedAGestionar(props) {
    return (
      <tr>
        <th scope="row">{props.contador}</th>
+       <td>{props.fechaLeed}</td>
        <td>{props.direccion}</td>
        <td>{props.poblacion}</td>
        <td>{props.tipoLeed}</td>
        <td>{props.administrador}</td>
-       <td><button className="btn btn-success" onClick={props.HandleClickGestionarLeed}>Gestiona</button></td>
+       <td><button className="btn btn-danger" onClick={props.HandleClickGestionarLeed}>Gestionar</button></td>
        </tr>
    )
 }
