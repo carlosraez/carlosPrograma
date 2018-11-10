@@ -14,6 +14,7 @@ function GestionLeedComponents(props) {
     <p><strong>Poblacion:</strong><input id="poblacionModi" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="text"/> {props.poblacion}</p>
        </div>
        <div className="col-12 col-md-6">
+    <p><strong>Mantenedor:</strong><input id="mantenedor" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="text"/> {props.mantenedor}</p>
     <p><strong>Nombre Presidente:</strong><input id="nombrePresidenteModi" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="text"/> {props.nombrePresidente}</p>
     <p><strong>Telefono Presidente:</strong><input id="telefonoPresidenteModi" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="number"/> {props.telefonoPresidente}</p>
     <p><strong>Observaciones:</strong><textarea id="observacionesModi" onChange={props.handleChangeModi} className={props.cssEdicionModificar}></textarea> {props.observacionleed}</p>

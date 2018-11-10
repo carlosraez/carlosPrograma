@@ -19,6 +19,7 @@ state = {
   nombrePresidenteModi:'',
   telefonoPresidenteModi:null,
   observacionesModi:'',
+  mantenedor:''
 }
 
 handleChangeModi = (event) => {
@@ -59,8 +60,30 @@ handleClickGuardarModificacion = () => {
     nombrePresidenteModi,
     telefonoPresidenteModi,
     observacionesModi,
-
+    mantenedor,
   } = this.state
+  const leedsModificados = [
+    nombreAdministradormodi ,
+     tipoLeedModi,
+     direccionModi,
+     poblacionModi,
+    telefonoPresidenteModi,
+    nombrePresidenteModi,
+    telefonoPresidenteModi,
+    observacionesModi,
+    mantenedor
+  ]
+  const clavesAModificar = [
+  'nombreAdministrador',
+  'tipoLeed',
+  'direccion',
+  'poblacion',
+  'nombrePresidente',
+  'telefonoPresidente',
+  'observacionesModi',
+  'mantenedor',
+]
+  
   swal('El leed ha sido modificado')
 
   this.setState({
@@ -91,6 +114,7 @@ componentDidMount = () => {
              cssEdicionModificar={this.state.cssEdicion}
              handleClickGuardarModificacion={this.handleClickGuardarModificacion}
              fechaLeed={'22/12/2018'}
+             mantenedor={leedAGestionarPulsado.mantenedor}
              observacionleed={leedAGestionarPulsado.observacionLeedObraNueva || leedAGestionarPulsado.observacionLeedManimiento}
              direccion={leedAGestionarPulsado.direccion}
              poblacion={leedAGestionarPulsado.poblacion}
