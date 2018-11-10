@@ -47,7 +47,9 @@ export class NuevoAdministrador extends Component {
 
   guardarAdministrador = () => {
     const ref  = firebaseApp.database().ref('usuarios')
+     const nombreDespacho = this.state.despacho
      const nuevoAdministrador = {
+      [nombreDespacho] : {
       despacho: this.state.despacho || '',
       poblacion: this.state.poblacion || '',
       postal:this.state.postal || '',
@@ -67,8 +69,9 @@ export class NuevoAdministrador extends Component {
       noQuiereNada:this.state.noQuiereNada,
       visitas:this.state.visitas,
       ultimaVisita:'No has visitado nunca este administrador'
-    }
-    ref.child('administradores').push(nuevoAdministrador)
+            }
+        }
+    ref.child('administradores').update(nuevoAdministrador)
     swal('Se ha guardado correctamente')
   }
 
