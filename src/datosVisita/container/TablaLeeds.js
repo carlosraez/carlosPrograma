@@ -10,7 +10,6 @@ export class TablaLeeds extends Component {
 state = {
   listaLeeds:[],
   gestionLeed : false,
-  LeedAGestionar:{},
   cssEdicion:'inputOculto',
   nombreAdministradormodi:'',
   tipoLeedModi:'',
@@ -33,11 +32,9 @@ handleChangeModi = (event) => {
 }
 
 HandleClickGestionarLeed = (event) => {
-  const leedAGestionarPulsado = this.state.listaLeeds[event.target.id]
   const nombreLeed = event.target.id
     this.setState({
       gestionLeed:true,
-      leedAGestionarPulsado:leedAGestionarPulsado,
       nombreLeed:nombreLeed
     })
 }
@@ -94,7 +91,7 @@ for (let i = 0; i < leedsModificados.length; i ++) {
 
        [clavesAModificar[i]]:leedsModificados[i]
    }
-  console.log(nombreLeed);
+
    ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').child(nombreLeed).update(nuevaModificacion)
   }
 
@@ -103,6 +100,7 @@ for (let i = 0; i < leedsModificados.length; i ++) {
   this.setState({
       cssEdicion:'inputOculto',
   })
+  this.componentDidMount()
 }
 
 componentDidMount = () => {
@@ -119,7 +117,8 @@ componentDidMount = () => {
 }
 
    render() {
-     const { leedAGestionarPulsado, listaLeeds } = this.state
+     const { nombreLeed, listaLeeds } = this.state
+     const leedActual = listaLeeds[nombreLeed] || []
      if (this.state.gestionLeed) {
        return (
          <GestionLeedLayout>
@@ -128,14 +127,14 @@ componentDidMount = () => {
              cssEdicionModificar={this.state.cssEdicion}
              handleClickGuardarModificacion={this.handleClickGuardarModificacion}
              fechaLeed={'22/12/2018'}
-             nombrePresidente={leedAGestionarPulsado.nombrePresidente}
-             telefonoPresidente={leedAGestionarPulsado.telefonoPresidente}
-             mantenedor={leedAGestionarPulsado.mantenedor}
-             observacionleed={leedAGestionarPulsado.observacionLeed}
-             direccion={leedAGestionarPulsado.direccion}
-             poblacion={leedAGestionarPulsado.poblacion}
-             administrador={leedAGestionarPulsado.administrador}
-             tipoLeed={leedAGestionarPulsado.tipo}
+             nombrePresidente={leedActual.nombrePresidente}
+             telefonoPresidente={leedActual.telefonoPresidente}
+             mantenedor={leedActual.mantenedor}
+             observacionleed={leedActual.observacionLeed}
+             direccion={leedActual.direccion}
+             poblacion={leedActual.poblacion}
+             administrador={leedActual.administrador}
+             tipoLeed={leedActual.tipo}
              HandleClickModificar={this.HandleClickModificar}
              HandleVolverALista={this.HandleVolverALista}
              />
