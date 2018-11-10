@@ -126,7 +126,6 @@ export class PuertaFriaAdministradores extends Component {
      const posicionSiguienteLeed = this.state.listaLeeds.length
      const nuevoLeed = {
         [posicionSiguienteLeed] : {
-          gestionado: false,
           administrador: administradorActual,
           tipo:'Mantenimiento',
           direccion: this.state.direccionLeed || '',
@@ -134,7 +133,7 @@ export class PuertaFriaAdministradores extends Component {
           mantenedor: this.state.mantenedorLeed || '',
           nombrePresidente: this.state.nombrePresidenteLeed || '',
           telefonoPresidente: this.state.telefonoPresidenteLeed || '',
-          observacionLeedManimiento : this.state.observacionLeedManimiento || '',
+          observacionLeed: this.state.observacionLeedManimiento || '',
         }
      }
      ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').update(nuevoLeed)
@@ -169,12 +168,11 @@ export class PuertaFriaAdministradores extends Component {
        [posicionSiguienteLeed] : {
          administrador: administradorActual,
          tipo:'Finca sin Ascensor',
-         gestionado: false,
          direccion: this.state.direccionLeed || '',
          poblacion: this.state.poblacionLeed || '',
          nombrePresidente: this.state.nombrePresidenteLeed || '',
          telefonoPresidente: this.state.telefonoPresidenteLeed || '',
-         observacionLeedObraNueva : this.state.observacionLeedObraNueva || '',
+         observacionLeed : this.state.observacionLeedObraNueva || '',
        }
     }
     ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').update(nuevoLeed)

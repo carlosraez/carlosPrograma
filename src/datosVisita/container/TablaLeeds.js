@@ -17,24 +17,28 @@ state = {
   direccionModi:'',
   poblacionModi:'',
   nombrePresidenteModi:'',
-  telefonoPresidenteModi:null,
+  telefonoPresidenteModi:'',
   observacionesModi:'',
-  mantenedor:''
+  mantenedor:'',
+  nombreLeed:''
 }
 
 handleChangeModi = (event) => {
   const  target = event.target
   const  value  = target.value
   const  id     = target.id
-  console.log(id,value);
+  this.setState({
+    [id]:value
+  })
 }
 
 HandleClickGestionarLeed = (event) => {
-  console.log(event.target.id);
   const leedAGestionarPulsado = this.state.listaLeeds[event.target.id]
+  const nombreLeed = event.target.id
     this.setState({
       gestionLeed:true,
-      leedAGestionarPulsado:leedAGestionarPulsado
+      leedAGestionarPulsado:leedAGestionarPulsado,
+      nombreLeed:nombreLeed
     })
 }
 
@@ -61,31 +65,41 @@ handleClickGuardarModificacion = () => {
     telefonoPresidenteModi,
     observacionesModi,
     mantenedor,
+    nombreLeed
   } = this.state
   const leedsModificados = [
-    nombreAdministradormodi ,
-     tipoLeedModi,
-     direccionModi,
-     poblacionModi,
-    telefonoPresidenteModi,
-    nombrePresidenteModi,
-    telefonoPresidenteModi,
-    observacionesModi,
-    mantenedor
-  ]
+            nombreAdministradormodi ,
+            direccionModi,
+            mantenedor,
+            nombrePresidenteModi,
+            observacionesModi,
+            poblacionModi,
+            telefonoPresidenteModi,
+            tipoLeedModi,
+       ]
   const clavesAModificar = [
-  'nombreAdministrador',
-  'tipoLeed',
+  'administrador',
   'direccion',
-  'poblacion',
-  'nombrePresidente',
-  'telefonoPresidente',
-  'observacionesModi',
   'mantenedor',
+  'nombrePresidente',
+   'observacionLeed',
+   'poblacion',
+  'telefonoPresidente',
+  'tipo',
 ]
-  
-  swal('El leed ha sido modificado')
+for (let i = 0; i < leedsModificados.length; i ++) {
+  if (leedsModificados[i] === '') { }
+  else {
+   const nuevaModificacion = {
 
+       [clavesAModificar[i]]:leedsModificados[i]
+   }
+  console.log(nombreLeed);
+   ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').child(nombreLeed).update(nuevaModificacion)
+  }
+
+}
+  swal('El leed ha sido modificado')
   this.setState({
       cssEdicion:'inputOculto',
   })
@@ -114,8 +128,10 @@ componentDidMount = () => {
              cssEdicionModificar={this.state.cssEdicion}
              handleClickGuardarModificacion={this.handleClickGuardarModificacion}
              fechaLeed={'22/12/2018'}
+             nombrePresidente={leedAGestionarPulsado.nombrePresidente}
+             telefonoPresidente={leedAGestionarPulsado.telefonoPresidente}
              mantenedor={leedAGestionarPulsado.mantenedor}
-             observacionleed={leedAGestionarPulsado.observacionLeedObraNueva || leedAGestionarPulsado.observacionLeedManimiento}
+             observacionleed={leedAGestionarPulsado.observacionLeed}
              direccion={leedAGestionarPulsado.direccion}
              poblacion={leedAGestionarPulsado.poblacion}
              administrador={leedAGestionarPulsado.administrador}

@@ -8,7 +8,7 @@ function GestionLeedComponents(props) {
        <div className="row">
        <div className="col-12 col-md-6">
     <p><strong>Fecha:</strong><input id="fechaModi" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="text"/> {props.fechaLeed}</p>
-    <p><strong>Nombre Administrador:</strong><input id="nombreAdministradormodi" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="text"/> {props.nombreAdministrador}</p>
+    <p><strong>Nombre Administrador:</strong><input id="nombreAdministradormodi" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="text"/> {props.administrador}</p>
     <p><strong>Tipo de Leed:</strong><input id="tipoLeedModi" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="text"/> {props.tipoLeed}</p>
     <p><strong>Direccion:</strong><input id="direccionModi" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="text"/>  {props.direccion}</p>
     <p><strong>Poblacion:</strong><input id="poblacionModi" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="text"/> {props.poblacion}</p>
