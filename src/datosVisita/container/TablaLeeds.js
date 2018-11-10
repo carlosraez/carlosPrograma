@@ -7,12 +7,17 @@ import { firebaseApp } from '../../index.js'
 export class TablaLeeds extends Component {
 state = {
   listaLeeds:[],
-  gestionLeed : false
+  gestionLeed : false,
+  LeedAGestionar:{}
+
 }
 
-HandleClickGestionarLeed = () => {
+HandleClickGestionarLeed = (event) => {
+  console.log(event.target.id);
+  const leedAGestionarPulsado = this.state.listaLeeds[event.target.id]
     this.setState({
-      gestionLeed:true
+      gestionLeed:true,
+      leedAGestionarPulsado:leedAGestionarPulsado
     })
 }
 
@@ -40,15 +45,15 @@ componentDidMount = () => {
 }
 
    render() {
-     const listaLeeds = this.state.listaLeeds
+     const { leedAGestionarPulsado, listaLeeds } = this.state
      if (this.state.gestionLeed) {
        return (
          <GestionLeed
-         observacionleed={'dedede'}
-         direccion={'Av Francia 1'}
-         poblacion={'Valencia'}
-         administrador={'Consulting Machancoses'}
-         tipoLeed={'Obra Nueva'}
+         observacionleed={leedAGestionarPulsado.observacionLeedObraNueva || leedAGestionarPulsado.observacionLeedManimiento}
+         direccion={leedAGestionarPulsado.direccion}
+         poblacion={leedAGestionarPulsado.poblacion}
+         administrador={leedAGestionarPulsado.administrador}
+         tipoLeed={leedAGestionarPulsado.tipo}
          HandleClickModificar={this.HandleClickModificar}
          HandleVolverALista={this.HandleVolverALista}
          />
@@ -75,6 +80,7 @@ componentDidMount = () => {
            <LeedAGestionar
            key={i}
            contador={i}
+           id={i}
            fechaLeed={'22/12/2018'}
            direccion={leed.direccion}
            poblacion={leed.poblacion}

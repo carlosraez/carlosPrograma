@@ -10,7 +10,7 @@ function LeedAGestionar(props) {
        <td>{props.poblacion}</td>
        <td>{props.tipoLeed}</td>
        <td>{props.administrador}</td>
-       <td><button className="btn btn-danger" onClick={props.HandleClickGestionarLeed}>Gestionar</button></td>
+       <td><button className="btn btn-danger" id={props.id} onClick={props.HandleClickGestionarLeed}>Gestionar</button></td>
        </tr>
    )
 }
