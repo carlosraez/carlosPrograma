@@ -1,6 +1,7 @@
 import React from 'react';
 import visita from '../../pictures/visita.jpg';
 import trabajo from '../../pictures/trabajo.jpg';
+import { TablaLeeds } from '../container/TablaLeeds.js'
 
 
 
@@ -29,6 +30,17 @@ function DashCaptacion(props) {
                </div>
             </div>
           </div>
+          <div className="row">
+            <div className="col-md-1">
+            </div>
+            <div className="col-12 col-md-10">
+                  <div className="card cardStyle" >
+                   <TablaLeeds />
+                 </div>
+              </div>
+              <div className="col-md-1">
+              </div>
+        </div>
     </div>
   )
 
