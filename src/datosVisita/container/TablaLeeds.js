@@ -6,6 +6,7 @@ import { firebaseApp } from '../../index.js'
 import swal from 'sweetalert';
 
 
+
 export class TablaLeeds extends Component {
 state = {
   listaLeeds:[],
@@ -107,6 +108,10 @@ for (let i = 0; i < leedsModificados.length; i ++) {
   this.componentDidMount()
 }
 
+HandleClicRealizarVisita = () => {
+
+}
+
 componentDidMount = () => {
   const ref  = firebaseApp.database().ref('usuarios')
   const user = firebaseApp.auth().currentUser;
@@ -123,10 +128,11 @@ componentDidMount = () => {
    render() {
      const { nombreLeed, listaLeeds } = this.state
      const leedActual = listaLeeds[nombreLeed] || []
-     if (this.state.gestionLeed) {
+      if (this.state.gestionLeed) {
        return (
          <GestionLeedLayout>
              <GestionLeedComponents
+             HandleClicRealizarVisita={this.HandleClicRealizarVisita}
              handleChangeModi={this.handleChangeModi}
              cssEdicionModificar={this.state.cssEdicion}
              handleClickGuardarModificacion={this.handleClickGuardarModificacion}

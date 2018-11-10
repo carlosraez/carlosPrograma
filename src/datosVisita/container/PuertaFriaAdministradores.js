@@ -35,6 +35,7 @@ export class PuertaFriaAdministradores extends Component {
       observacionLeedManimiento:'',
       observacionLeedObraNueva:'',
       rellenarLeedObraNueva:false,
+      ultimaVisita:'',
       comercial:'',
       visitaActual:null,
       listaLeeds:[]
@@ -63,6 +64,7 @@ export class PuertaFriaAdministradores extends Component {
         volumenNegocio: busqueda.volumenNegocio,
         visitasNulasActuales: busqueda.noQuiereNada,
         visitaActual:busqueda.visitas,
+        ultimaVisita:busqueda.ultimaVisita,
         posicionAdminArray: indiceBusqueda
       })
     }
@@ -189,8 +191,10 @@ export class PuertaFriaAdministradores extends Component {
   HandleClickSumarVisita = () => {
     const ref  = firebaseApp.database().ref('usuarios')
     swal('Visita Añadida Correctamente')
+    const fecha = moment().format("DD/MM/YYYY")
     const actualizacion = {
-      visitas: this.state.visitaActual + 1
+      visitas: this.state.visitaActual + 1,
+      ultimaVisita:fecha
       }
   const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
   ref.child('administradores').child(administradorActual).update(actualizacion)
@@ -276,6 +280,7 @@ export class PuertaFriaAdministradores extends Component {
      <div className="col-md-6">
        <TablaInformacionLayout>
            <TablaInformacion
+           ultimaVisita={this.state.ultimaVisita}
            visitaActual={this.state.visitaActual}
            despacho={this.state.despacho}
            comercial={this.state.comercial}

@@ -66,6 +66,7 @@ export class NuevoAdministrador extends Component {
       volumenNegocio:this.state.volumenNegocio,
       noQuiereNada:this.state.noQuiereNada,
       visitas:this.state.visitas,
+      ultimaVisita:'No has visitado nunca este administrador'
     }
     ref.child('administradores').push(nuevoAdministrador)
     swal('Se ha guardado correctamente')
