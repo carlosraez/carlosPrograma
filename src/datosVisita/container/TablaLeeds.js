@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
 import LeedAGestionar from '../components/LeedAGestionar.js'
-import { GestionLeed } from './GestionLeed.js'
+import GestionLeedComponents from '../components/GestionLeedComponents'
+import GestionLeedLayout from '../components/GestionLeedLayout'
 import { firebaseApp } from '../../index.js'
+import swal from 'sweetalert';
 
 
 export class TablaLeeds extends Component {
 state = {
   listaLeeds:[],
   gestionLeed : false,
-  LeedAGestionar:{}
+  LeedAGestionar:{},
+  cssEdicion:'inputOculto',
+  nombreAdministradormodi:'',
+  tipoLeedModi:'',
+  direccionModi:'',
+  poblacionModi:'',
+  nombrePresidenteModi:'',
+  telefonoPresidenteModi:null,
+  observacionesModi:'',
+}
 
+handleChangeModi = (event) => {
+  const  target = event.target
+  const  value  = target.value
+  const  id     = target.id
+  console.log(id,value);
 }
 
 HandleClickGestionarLeed = (event) => {
@@ -28,7 +44,28 @@ HandleVolverALista = () => {
 }
 
 HandleClickModificar = () => {
-  alert('me has pulsado')
+  this.setState({
+    cssEdicion:'verInput',
+  })
+}
+handleClickGuardarModificacion = () => {
+  const ref  = firebaseApp.database().ref('usuarios')
+  const user = firebaseApp.auth().currentUser;
+  const {
+    nombreAdministradormodi,
+    tipoLeedModi,
+    direccionModi,
+    poblacionModi,
+    nombrePresidenteModi,
+    telefonoPresidenteModi,
+    observacionesModi,
+
+  } = this.state
+  swal('El leed ha sido modificado')
+
+  this.setState({
+      cssEdicion:'inputOculto',
+  })
 }
 
 componentDidMount = () => {
@@ -48,16 +85,21 @@ componentDidMount = () => {
      const { leedAGestionarPulsado, listaLeeds } = this.state
      if (this.state.gestionLeed) {
        return (
-         <GestionLeed
-         fechaLeed={'22/12/2018'}
-         observacionleed={leedAGestionarPulsado.observacionLeedObraNueva || leedAGestionarPulsado.observacionLeedManimiento}
-         direccion={leedAGestionarPulsado.direccion}
-         poblacion={leedAGestionarPulsado.poblacion}
-         administrador={leedAGestionarPulsado.administrador}
-         tipoLeed={leedAGestionarPulsado.tipo}
-         HandleClickModificar={this.HandleClickModificar}
-         HandleVolverALista={this.HandleVolverALista}
-         />
+         <GestionLeedLayout>
+             <GestionLeedComponents
+             handleChangeModi={this.handleChangeModi}
+             cssEdicionModificar={this.state.cssEdicion}
+             handleClickGuardarModificacion={this.handleClickGuardarModificacion}
+             fechaLeed={'22/12/2018'}
+             observacionleed={leedAGestionarPulsado.observacionLeedObraNueva || leedAGestionarPulsado.observacionLeedManimiento}
+             direccion={leedAGestionarPulsado.direccion}
+             poblacion={leedAGestionarPulsado.poblacion}
+             administrador={leedAGestionarPulsado.administrador}
+             tipoLeed={leedAGestionarPulsado.tipo}
+             HandleClickModificar={this.HandleClickModificar}
+             HandleVolverALista={this.HandleVolverALista}
+             />
+         </GestionLeedLayout>
        )
      }
   else {
