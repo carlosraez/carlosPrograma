@@ -9,6 +9,7 @@ import VisitaLayout from '../components/visitaLayout.js'
 import TablaInformacionLayout from '../components/TablaInformacionLayout.js'
 import { firebaseApp } from '../../index.js'
 import { TablaInformacion } from './TablaInformacion.js'
+import moment from 'moment'
 import swal from 'sweetalert';
 
 
@@ -122,12 +123,14 @@ export class PuertaFriaAdministradores extends Component {
      this.setState({
        rellenarLeedMantenimiento:false,
      })
+     const fecha = moment().format("DD/MM/YYYY");
      const administradorActual = this.state.despacho
      const posicionSiguienteLeed = this.state.listaLeeds.length
      const nuevoLeed = {
         [posicionSiguienteLeed] : {
           administrador: administradorActual,
           tipo:'Mantenimiento',
+          fechaVisita:fecha,
           direccion: this.state.direccionLeed || '',
           poblacion: this.state.poblacionLeed || '',
           mantenedor: this.state.mantenedorLeed || '',
@@ -162,11 +165,13 @@ export class PuertaFriaAdministradores extends Component {
     this.setState({
       rellenarLeedObraNueva:false,
     })
+    const fecha = moment().format("DD/MM/YYYY");
     const administradorActual = this.state.despacho
     const posicionSiguienteLeed = this.state.listaLeeds.length
     const nuevoLeed = {
        [posicionSiguienteLeed] : {
          administrador: administradorActual,
+         fechaVisita: fecha,
          tipo:'Finca sin Ascensor',
          direccion: this.state.direccionLeed || '',
          poblacion: this.state.poblacionLeed || '',

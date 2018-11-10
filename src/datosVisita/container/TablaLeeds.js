@@ -15,6 +15,7 @@ state = {
   tipoLeedModi:'',
   direccionModi:'',
   poblacionModi:'',
+  fechaModi:'',
   nombrePresidenteModi:'',
   telefonoPresidenteModi:'',
   observacionesModi:'',
@@ -62,11 +63,13 @@ handleClickGuardarModificacion = () => {
     telefonoPresidenteModi,
     observacionesModi,
     mantenedor,
+    fechaModi,
     nombreLeed
   } = this.state
   const leedsModificados = [
             nombreAdministradormodi ,
             direccionModi,
+            fechaModi,
             mantenedor,
             nombrePresidenteModi,
             observacionesModi,
@@ -77,6 +80,7 @@ handleClickGuardarModificacion = () => {
   const clavesAModificar = [
   'administrador',
   'direccion',
+  'fechaModi',
   'mantenedor',
   'nombrePresidente',
    'observacionLeed',
@@ -126,7 +130,7 @@ componentDidMount = () => {
              handleChangeModi={this.handleChangeModi}
              cssEdicionModificar={this.state.cssEdicion}
              handleClickGuardarModificacion={this.handleClickGuardarModificacion}
-             fechaLeed={'22/12/2018'}
+             fechaLeed={leedActual.fechaVisita}
              nombrePresidente={leedActual.nombrePresidente}
              telefonoPresidente={leedActual.telefonoPresidente}
              mantenedor={leedActual.mantenedor}
@@ -163,7 +167,7 @@ componentDidMount = () => {
            key={i}
            contador={i}
            id={i}
-           fechaLeed={'22/12/2018'}
+           fechaLeed={leed.fechaVisita}
            direccion={leed.direccion}
            poblacion={leed.poblacion}
            tipoLeed={leed.tipo}
