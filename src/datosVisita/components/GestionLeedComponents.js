@@ -4,8 +4,9 @@ import React from 'react';
 function GestionLeedComponents(props) {
   return (
     <div>
+    <p><strong>Fecha:</strong> {props.fechaLeed}</p>
     <p><strong>Nombre Administrador:</strong> {props.nombreAdministrador}</p>
-    <p><strong>tipo de Leed:</strong> {props.tipoLeed}</p>
+    <p><strong>Tipo de Leed:</strong> {props.tipoLeed}</p>
     <p><strong>Direccion:</strong>  {props.direccion}</p>
     <p><strong>Poblacion:</strong> {props.poblacion}</p>
     <p><strong>Observaciones:</strong> {props.observacionleed}</p>

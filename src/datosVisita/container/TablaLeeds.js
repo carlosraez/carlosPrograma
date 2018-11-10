@@ -49,6 +49,7 @@ componentDidMount = () => {
      if (this.state.gestionLeed) {
        return (
          <GestionLeed
+         fechaLeed={'22/12/2018'}
          observacionleed={leedAGestionarPulsado.observacionLeedObraNueva || leedAGestionarPulsado.observacionLeedManimiento}
          direccion={leedAGestionarPulsado.direccion}
          poblacion={leedAGestionarPulsado.poblacion}

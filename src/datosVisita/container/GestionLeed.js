@@ -11,6 +11,7 @@ export class GestionLeed extends Component {
        <div>
        <GestionLeedLayout>
        <GestionLeedComponents
+       fechaLeed={this.props.fechaLeed}
        direccion={this.props.direccion}
        poblacion={this.props.poblacion}
        nombreAdministrador={this.props.administrador}
