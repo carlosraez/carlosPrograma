@@ -33,7 +33,9 @@ function DashCaptacion(props) {
           <div className="row">
             <div className="col-12">
                   <div className="card cardStyle" >
-                   <TablaLeeds />
+                   <TablaLeeds
+                   handleClickRealizarVisita={props.handleClickRealizarVisita}
+                   />
                  </div>
               </div>
         </div>

@@ -21,7 +21,7 @@ function GestionLeedComponents(props) {
     <button className={'btn btn-success'}  onClick={props.handleClickGuardarModificacion} >Guardar Modificacion</button>
         </div>
         </div>
-    <button className="btn btn-success" onClick={props.HandleClicRealizarVisita}>Hacer Visita</button>
+    <button className="btn btn-success" onClick={props.handleClickRealizarVisita}>Hacer Visita</button>
     <button className="btn btn-info botonVolver" onClick={props.HandleClickModificar}>Modificar</button>
     <button className="btn btn-info botonVolver" onClick={props.HandleVolverALista}>Volver A Lista</button>
     <button className="btn btn-danger botonVolver" onClick={props.HandleVolverALista}>Borrar</button>

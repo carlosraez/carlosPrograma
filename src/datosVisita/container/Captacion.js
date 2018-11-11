@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
 import { VisitaPuertaFria } from './VisitaPuertaFria.js'
 import { PuertaFriaAdministradores } from './PuertaFriaAdministradores.js'
+import { VisitaMantenimientoAdministradorLeed } from './VisitaMantenimientoAdministradorLeed.js'
 import DashCaptacion from '../components/DashCaptacion.js'
 
 
 export class Captacion extends Component {
   state = {
     usuarioPuertaFria: false,
-    usuarioPuertaFriaAdministradores:false
+    usuarioPuertaFriaAdministradores:false,
+    hacerVisitaMantenimiento:false,
    }
 
   handleClickPuertaFria = () => {
     this.setState({
       usuarioPuertaFria:true
+    })
+  }
+
+  handleClickRealizarVisita = () => {
+    this.setState({
+      hacerVisitaMantenimiento:true
     })
   }
 
@@ -26,6 +34,9 @@ export class Captacion extends Component {
      return (
        <div>
       {
+        this.state.hacerVisitaMantenimiento ?
+        <VisitaMantenimientoAdministradorLeed />
+        :
         this.state.usuarioPuertaFria ?
         <VisitaPuertaFria />
         :
@@ -35,6 +46,7 @@ export class Captacion extends Component {
         />
         :
         <DashCaptacion
+       handleClickRealizarVisita={this.handleClickRealizarVisita}
        handleClickPuertaFria={this.handleClickPuertaFria}
        handleClickPuertaFriaAdministradores={this.handleClickPuertaFriaAdministradores}
         />

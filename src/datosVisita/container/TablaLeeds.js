@@ -68,15 +68,15 @@ handleClickGuardarModificacion = () => {
     nombreLeed
   } = this.state
   const leedsModificados = [
-            nombreAdministradormodi ,
-            direccionModi,
-            fechaModi,
-            mantenedor,
-            nombrePresidenteModi,
-            observacionesModi,
-            poblacionModi,
-            telefonoPresidenteModi,
-            tipoLeedModi,
+      nombreAdministradormodi ,
+      direccionModi,
+      fechaModi,
+      mantenedor,
+      nombrePresidenteModi,
+      observacionesModi,
+      poblacionModi,
+      telefonoPresidenteModi,
+      tipoLeedModi,
        ]
   const clavesAModificar = [
   'administrador',
@@ -108,9 +108,7 @@ for (let i = 0; i < leedsModificados.length; i ++) {
   this.componentDidMount()
 }
 
-HandleClicRealizarVisita = () => {
 
-}
 
 componentDidMount = () => {
   const ref  = firebaseApp.database().ref('usuarios')
@@ -132,7 +130,7 @@ componentDidMount = () => {
        return (
          <GestionLeedLayout>
              <GestionLeedComponents
-             HandleClicRealizarVisita={this.HandleClicRealizarVisita}
+             handleClickRealizarVisita={this.props.handleClickRealizarVisita}
              handleChangeModi={this.handleChangeModi}
              cssEdicionModificar={this.state.cssEdicion}
              handleClickGuardarModificacion={this.handleClickGuardarModificacion}
