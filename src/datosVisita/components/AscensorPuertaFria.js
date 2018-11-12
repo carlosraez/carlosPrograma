@@ -19,7 +19,7 @@ export class AscensorPuertaFria  extends Component {
       </div>
       <div className="row">
      <div className="col md-6">
-        <input type="submit" onClick={this.props.handleClickContinuarYTerminar} className="btn btn-info btnContinuar" value="Terminado los datos de los Ascensores" />
+        <input type="submit" onClick={this.props.handleClickContinuarYTerminar} className="btn btn-info btnContinuar" value="Completado" />
       </div>
    </div>
    </div>

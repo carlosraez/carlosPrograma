@@ -7,7 +7,6 @@ import swal from 'sweetalert';
 
 export class VisitaMantenimientoAdministradorLeed extends Component {
    state = {
-     actualTipoLeed: this.props.tipoLeed,
      ascensor: [],
      imagenesAscensor: [],
 
@@ -26,7 +25,7 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
    handleClickContinuar = () => {
      swal({
       title: "¿Has terminado de rellenar los datos?",
-      text: "Por favor rellena los datos del ascensor o los de Finca Sin Ascensor",
+      text: "Por favor rellena los datos del ascensor/es",
      icon: "warning",
     buttons: true,
     dangerMode: true,
@@ -40,7 +39,7 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
         icon: "success",
       });
     } else {
-       swal('Me lo imaginaba, no has terminado...Por favor termina de rellenar los datos... o Pulsa en Edificio sin Ascensor')
+       swal('No has terminado..Tienes que pulsar en Siguiente Ascensor para registrarlo')
     }
       });
 
@@ -81,7 +80,6 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
      }
 
    render() {
-     console.log(this.state.actualTipoLeed);
      return (
        <VisitaLayout
         titulo={'Completa la visita de mantenimiento del administrador'}
@@ -91,7 +89,7 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
           imagenesAscensor={this.state.imagenesAscensor}
           cantidadDeAscensoresIncluidos={this.state.ascensor.length}
           handleClickSiguienteAscensor={this.handleClickSiguienteAscensor}
-          handleReturnDatosVisita={this.handleReturnDatosVisita}
+          handleReturnDatosVisita={this.props.handleVerLeed}
           handleChange={this.handleChange }
           handleClickContinuarYTerminar={this.handleClickContinuar}
           botonVolverAscensor={'Ver Leed'}

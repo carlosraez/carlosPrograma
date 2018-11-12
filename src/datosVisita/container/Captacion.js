@@ -129,7 +129,11 @@ export class Captacion extends Component {
       })
   }
 
-
+   handleVerLeed = () => {
+     this.setState({
+       hacerVisitaMantenimiento:false
+     })
+   }
 
   componentDidMount = () => {
     const ref  = firebaseApp.database().ref('usuarios')
@@ -151,7 +155,7 @@ export class Captacion extends Component {
       {
         this.state.hacerVisitaMantenimiento ?
         <VisitaMantenimientoAdministradorLeed
-        tipoLeed = {this.state.tipoLeedPulsado}
+        handleVerLeed = {this.handleVerLeed}
         />
         :
         this.state.usuarioPuertaFria ?
