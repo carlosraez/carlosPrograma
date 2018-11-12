@@ -10,7 +10,8 @@ state = {
   cssEdicion:'inputOculto',
 }
 
-  HandleVolverALista = () => {
+handleVolverALista = () => {
+    console.log();
   this.setState({
     gestionLeed:false
   })
@@ -21,8 +22,6 @@ componentWillReceiveProps = (nextProps) => {
       gestionLeed:nextProps.gestionLeed
     })
  }
-
-
 
    render() {
 
