@@ -34,35 +34,6 @@ function DatosVisita(props) {
            </div>
          </div>
        </div>
-       <div className="form-group">
-        <label>Horario de Visita Preferible</label>
-        <select multiple className="form-control" id="horaVisita" onChange={props.handleChange}>
-             <option defaultValue="Mañanas">Solo por las Mañana</option>
-             <option defaultValue="medioDia">Solo a Medio Dia</option>
-             <option defaultValue="medioDiaYMañana">Medio Dia y Mañana</option>
-             <option defaultValue="medioDiaYTarde">Medio Dia y Tarde</option>
-             <option defaultValue="medioDiaYTodaTarde">Toda la Tarde</option>
-             <option defaultValue="medioDiaYMediaTarde">A partir de las 18:00</option>
-             <option defaultValue="ultimaHoraTardes">A ultima hora de la tarde</option>
-             <option defaultValue="todasHoras">A cualquier hora</option>
-        </select>
-       </div>
-       <div className="form-group">
-          <label>Nombre del Administrador</label>
-          <input type="text" id="nombreAdministrador" onChange={props.handleChange} placeholder="Escribe el nombre del Administrador, Si no tiene escribe no tiene" className="form-control" />
-       </div>
-       <label>¿Que tipo de Presupuesto Necesita?</label>
-         <select multiple required className="form-control" id="tipoPresupuesto" onChange={props.handleChange}>
-              <option defaultValue="Mantenimiento">Mantenimiento</option>
-              <option defaultValue="edificoSinAscensor">Acta de Industria</option>
-              <option defaultValue="edificoSinAscensor">Bobinado</option>
-              <option defaultValue="edificoSinAscensor">Cables</option>
-              <option defaultValue="Cota 0">Cota 0</option>
-              <option defaultValue="Cuadro Maniobre">Cuadro de Maniobra</option>
-              <option defaultValue="Maquina">Maquina</option>
-              <option defaultValue="Modernizacion">Modernizacion</option>
-              <option defaultValue="nada">No quiere presupuesto</option>
-         </select>
     <input type="submit"  onClick={props.handleClickDatosVisita} className="btn btn-info btnContinuar" value="Continuar" />
   </div>
    )

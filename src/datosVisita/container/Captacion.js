@@ -151,6 +151,7 @@ export class Captacion extends Component {
       {
         this.state.hacerVisitaMantenimiento ?
         <VisitaMantenimientoAdministradorLeed
+        tipoLeed = {this.state.tipoLeedPulsado}
         />
         :
         this.state.usuarioPuertaFria ?
