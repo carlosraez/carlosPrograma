@@ -34,6 +34,14 @@ function DashCaptacion(props) {
             <div className="col-12">
                   <div className="card cardStyle" >
                    <TablaLeeds
+                   handleClickGuardarModificacion={props.handleClickGuardarModificacion}
+                   cssEdicion={props.cssEdicion}
+                   gestionLeed={props.gestionLeed}
+                   nombreLeed={props.nombreLeed}
+                   listaLeeds={props.listaLeeds}
+                   handleClickModificar={props.handleClickModificar}
+                   handleClickGestionarLeed={props.handleClickGestionarLeed}
+                   handleChangeModi={props.handleChangeModi}
                    handleClickRealizarVisita={props.handleClickRealizarVisita}
                    />
                  </div>

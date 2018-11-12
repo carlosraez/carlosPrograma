@@ -4,11 +4,14 @@ import React, { Component } from 'react';
 
 
 export class VisitaMantenimientoAdministradorLeed extends Component {
-
+   state = {
+     actualTipoLeed: this.props.tipoLeed
+   }
    render() {
+     console.log(this.state.actualTipoLeed);
      return (
        <div>
-       hola soy la visita
+       {this.state.actualTipoLeed}
       </div>
      )
    }

@@ -17,7 +17,7 @@ function LeedObraNueva(props) {
              <label>Telefono Presidente</label>
              <input type="text" id="telefonoPresidenteLeed" onChange={props.handleChange}  className="form-control" />
              <label >Escribe Alguna Observacion que detectes...</label>
-            <textarea className="form-control" id="observacionLeedManimiento" onChange={props.handleChange} rows="3"></textarea>
+            <textarea className="form-control" id="observacionLeedObraNueva" onChange={props.handleChange} rows="3"></textarea>
            </div>
             <button className="btn btn-success btn-block" onClick={props.HandleClickGuardarLeedObraNueva}>Guardar</button>
           </div>

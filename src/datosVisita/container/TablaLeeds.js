@@ -2,138 +2,40 @@ import React, { Component } from 'react';
 import LeedAGestionar from '../components/LeedAGestionar.js'
 import GestionLeedComponents from '../components/GestionLeedComponents'
 import GestionLeedLayout from '../components/GestionLeedLayout'
-import { firebaseApp } from '../../index.js'
-import swal from 'sweetalert';
-
 
 
 export class TablaLeeds extends Component {
 state = {
-  listaLeeds:[],
-  gestionLeed : false,
+  gestionLeed : this.props.gestionLeed,
   cssEdicion:'inputOculto',
-  nombreAdministradormodi:'',
-  tipoLeedModi:'',
-  direccionModi:'',
-  poblacionModi:'',
-  fechaModi:'',
-  nombrePresidenteModi:'',
-  telefonoPresidenteModi:'',
-  observacionesModi:'',
-  mantenedor:'',
-  nombreLeed:''
 }
 
-handleChangeModi = (event) => {
-  const  target = event.target
-  const  value  = target.value
-  const  id     = target.id
-  this.setState({
-    [id]:value
-  })
-}
-
-HandleClickGestionarLeed = (event) => {
-  const nombreLeed = event.target.id
-    this.setState({
-      gestionLeed:true,
-      nombreLeed:nombreLeed
-    })
-}
-
-HandleVolverALista = () => {
+  HandleVolverALista = () => {
   this.setState({
     gestionLeed:false
   })
-}
+ }
 
-HandleClickModificar = () => {
-  this.setState({
-    cssEdicion:'verInput',
-  })
-}
-handleClickGuardarModificacion = () => {
-  const ref  = firebaseApp.database().ref('usuarios')
-  const user = firebaseApp.auth().currentUser;
-  const {
-    nombreAdministradormodi,
-    tipoLeedModi,
-    direccionModi,
-    poblacionModi,
-    nombrePresidenteModi,
-    telefonoPresidenteModi,
-    observacionesModi,
-    mantenedor,
-    fechaModi,
-    nombreLeed
-  } = this.state
-  const leedsModificados = [
-      nombreAdministradormodi ,
-      direccionModi,
-      fechaModi,
-      mantenedor,
-      nombrePresidenteModi,
-      observacionesModi,
-      poblacionModi,
-      telefonoPresidenteModi,
-      tipoLeedModi,
-       ]
-  const clavesAModificar = [
-  'administrador',
-  'direccion',
-  'fechaModi',
-  'mantenedor',
-  'nombrePresidente',
-   'observacionLeed',
-   'poblacion',
-  'telefonoPresidente',
-  'tipo',
-]
-for (let i = 0; i < leedsModificados.length; i ++) {
-  if (leedsModificados[i] === '') { }
-  else {
-   const nuevaModificacion = {
-
-       [clavesAModificar[i]]:leedsModificados[i]
-   }
-
-   ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').child(nombreLeed).update(nuevaModificacion)
-  }
-
-}
-  swal('El leed ha sido modificado')
-  this.setState({
-      cssEdicion:'inputOculto',
-  })
-  this.componentDidMount()
-}
+componentWillReceiveProps = (nextProps) => {
+    this.setState({
+      gestionLeed:nextProps.gestionLeed
+    })
+ }
 
 
-
-componentDidMount = () => {
-  const ref  = firebaseApp.database().ref('usuarios')
-  const user = firebaseApp.auth().currentUser;
-  const listaBaseDatosleeds = []
-  ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').on('child_added', (snapshot) => {
-      listaBaseDatosleeds.push(snapshot.val())
-      this.setState({
-        listaLeeds: listaBaseDatosleeds,
-      })
-  })
-
-}
 
    render() {
-     const { nombreLeed, listaLeeds } = this.state
+
+     const { nombreLeed, listaLeeds } = this.props
      const leedActual = listaLeeds[nombreLeed] || []
       if (this.state.gestionLeed) {
        return (
          <GestionLeedLayout>
              <GestionLeedComponents
+             handleClickGuardarModificacion={this.props.handleClickGuardarModificacion}
              handleClickRealizarVisita={this.props.handleClickRealizarVisita}
-             handleChangeModi={this.handleChangeModi}
-             cssEdicionModificar={this.state.cssEdicion}
-             handleClickGuardarModificacion={this.handleClickGuardarModificacion}
+             handleChangeModi={this.props.handleChangeModi}
+             cssEdicionModificar={this.props.cssEdicion}
              fechaLeed={leedActual.fechaVisita}
              nombrePresidente={leedActual.nombrePresidente}
              telefonoPresidente={leedActual.telefonoPresidente}
@@ -143,14 +45,16 @@ componentDidMount = () => {
              poblacion={leedActual.poblacion}
              administrador={leedActual.administrador}
              tipoLeed={leedActual.tipo}
-             HandleClickModificar={this.HandleClickModificar}
-             HandleVolverALista={this.HandleVolverALista}
+             handleClickModificar={this.props.handleClickModificar}
+             handleVolverALista={this.handleVolverALista}
              />
          </GestionLeedLayout>
        )
      }
   else {
     return (
+
+
      <table className="table">
  <thead>
    <tr>
@@ -176,7 +80,7 @@ componentDidMount = () => {
            poblacion={leed.poblacion}
            tipoLeed={leed.tipo}
            administrador={leed.administrador}
-           HandleClickGestionarLeed={this.HandleClickGestionarLeed}
+           handleClickGestionarLeed={this.props.handleClickGestionarLeed}
            />
        )
      })

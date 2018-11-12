@@ -18,13 +18,13 @@ function GestionLeedComponents(props) {
     <p><strong>Nombre Presidente:</strong><input id="nombrePresidenteModi" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="text"/> {props.nombrePresidente}</p>
     <p><strong>Telefono Presidente:</strong><input id="telefonoPresidenteModi" onChange={props.handleChangeModi} className={props.cssEdicionModificar} type="number"/> {props.telefonoPresidente}</p>
     <p><strong>Observaciones:</strong><textarea id="observacionesModi" onChange={props.handleChangeModi} className={props.cssEdicionModificar}></textarea> {props.observacionleed}</p>
-    <button className={'btn btn-success'}  onClick={props.handleClickGuardarModificacion} >Guardar Modificacion</button>
+    <button className={'btn btn-success'} onClick={props.handleClickGuardarModificacion} >Guardar Modificacion</button>
         </div>
         </div>
     <button className="btn btn-success" onClick={props.handleClickRealizarVisita}>Hacer Visita</button>
-    <button className="btn btn-info botonVolver" onClick={props.HandleClickModificar}>Modificar</button>
-    <button className="btn btn-info botonVolver" onClick={props.HandleVolverALista}>Volver A Lista</button>
-    <button className="btn btn-danger botonVolver" onClick={props.HandleVolverALista}>Borrar</button>
+    <button className="btn btn-info botonVolver" onClick={props.handleClickModificar}>Modificar</button>
+    <button className="btn btn-info botonVolver" onClick={props.handleVolverALista}>Volver A Lista</button>
+    <button className="btn btn-danger botonVolver" onClick={props.handleVolverALista}>Borrar</button>
   </div>
   )
 }
