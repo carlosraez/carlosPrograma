@@ -156,6 +156,7 @@ export class Captacion extends Component {
         this.state.hacerVisitaMantenimiento ?
         <VisitaMantenimientoAdministradorLeed
         handleVerLeed = {this.handleVerLeed}
+        nombreLeed = {this.state.nombreLeed}
         />
         :
         this.state.usuarioPuertaFria ?

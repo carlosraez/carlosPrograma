@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { firebaseApp } from '../../index.js'
 import VisitaLayout from '../components/visitaLayout.js'
 import { AscensorPuertaFria  } from '../components/AscensorPuertaFria.js'
+import moment from 'moment'
 import swal from 'sweetalert';
 
 
@@ -22,6 +23,20 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
 
    }
 
+   guardarVisitaLeedMantenimiento = () => {
+     const ref  = firebaseApp.database().ref('usuarios')
+     const user = firebaseApp.auth().currentUser;
+     const fecha = moment().format("DD/MM/YYYY");
+     const visitaLeedMantenimiento = {
+       fechaGestion:fecha,
+       ascensor:this.state.ascensor || ''  ,
+     }
+     const leedActualActualizar = this.props.nombreLeed
+     console.log(visitaLeedMantenimiento);
+     ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').child(leedActualActualizar).update(visitaLeedMantenimiento)
+     swal('Se ha guardado , ahora realiza un buen seguimiento para poder cerrar la venta')
+   }
+
    handleClickContinuar = () => {
      swal({
       title: "¿Has terminado de rellenar los datos?",
@@ -35,7 +50,8 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
       this.setState({
         mostradDatosAscensor: false,
       })
-      swal("Muy Bien!! ya queda poco", {
+      this.guardarVisitaLeedMantenimiento()
+      swal("Muy Bien!! Felcidades", {
         icon: "success",
       });
     } else {

@@ -54,7 +54,7 @@ export class VisitaPuertaFria extends Component {
   handleClickContinuar = () => {
     swal({
      title: "¿Has terminado de rellenar los datos?",
-     text: "Por favor rellena los datos del ascensor o los de Finca Sin Ascensor",
+     text: "Por favor rellena los datos del ascensor, tienes que pulsar en siguiente ascensor para registralo",
     icon: "warning",
    buttons: true,
    dangerMode: true,
@@ -68,7 +68,7 @@ export class VisitaPuertaFria extends Component {
        icon: "success",
      });
    } else {
-      swal('Me lo imaginaba, no has terminado...Por favor termina de rellenar los datos... o Pulsa en Edificio sin Ascensor')
+      swal('No has terminado..Tienes que pulsar en Siguiente Ascensor para registrarlo')
    }
      });
 
@@ -213,6 +213,7 @@ export class VisitaPuertaFria extends Component {
               handleReturnDatosVisita={this.handleReturnDatosVisita}
               handleChange={this.handleChange }
               handleClickContinuarYTerminar={this.handleClickContinuar}
+              botonVolverAscensor={'Vuelve a datos del cliente'}
              />
             :
               <TerminarVisita
