@@ -23,19 +23,22 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
 
    }
 
-   guardarVisitaLeedMantenimiento = () => {
-     const ref  = firebaseApp.database().ref('usuarios')
-     const user = firebaseApp.auth().currentUser;
-     const fecha = moment().format("DD/MM/YYYY");
-     const visitaLeedMantenimiento = {
-       fechaGestion:fecha,
-       ascensor:this.state.ascensor || ''  ,
-     }
-     const leedActualActualizar = this.props.nombreLeed
-     console.log(visitaLeedMantenimiento);
-     ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').child(leedActualActualizar).update(visitaLeedMantenimiento)
-     swal('Se ha guardado , ahora realiza un buen seguimiento para poder cerrar la venta')
-   }
+      guardarVisitaLeedMantenimiento = () => {
+        const ref  = firebaseApp.database().ref('usuarios')
+        const user = firebaseApp.auth().currentUser;
+        const fecha = moment().format("DD/MM/YYYY");
+        const visitaLeedMantenimiento = {
+          administrador:this.props.administrador,
+          fechaGestion:fecha,
+          ascensor:this.state.ascensor || ''  ,
+        }
+        const leedActualActualizar = this.props.nombreLeed
+        ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leedsPorpresupuestar').update(visitaLeedMantenimiento)
+        swal('Se ha guardado , ahora realiza un buen seguimiento para poder cerrar la venta')
+        ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').child(leedActualActualizar).remove()
+
+      }
+
 
    handleClickContinuar = () => {
      swal({
@@ -50,7 +53,7 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
       this.setState({
         mostradDatosAscensor: false,
       })
-      this.guardarVisitaLeedMantenimiento()
+      this.props.guardarVisitaLeedMantenimiento()
       swal("Muy Bien!! Felcidades", {
         icon: "success",
       });

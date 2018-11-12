@@ -31,6 +31,7 @@ componentWillReceiveProps = (nextProps) => {
        return (
          <GestionLeedLayout>
              <GestionLeedComponents
+             handleClickBorrar={this.props.handleClickBorrar}
              handleClickGuardarModificacion={this.props.handleClickGuardarModificacion}
              handleClickRealizarVisita={this.props.handleClickRealizarVisita}
              handleChangeModi={this.props.handleChangeModi}

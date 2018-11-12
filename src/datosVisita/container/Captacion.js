@@ -118,6 +118,8 @@ export class Captacion extends Component {
     this.componentDidMount()
   }
 
+
+
   handleClickGestionarLeed = (event) => {
     const nombreLeed = event.target.id
     const listaLeeds = this.state.listaLeeds
@@ -135,6 +137,19 @@ export class Captacion extends Component {
      })
    }
 
+   handleClickBorrar  = () => {
+     const ref  = firebaseApp.database().ref('usuarios')
+     const user = firebaseApp.auth().currentUser;
+     const { nombreLeed } = this.state
+     ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').child(nombreLeed).remove()
+     swal('El leed ha sido borrado')
+     this.setState({
+       gestionLeed:false
+     })
+
+   }
+
+
   componentDidMount = () => {
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
@@ -148,7 +163,6 @@ export class Captacion extends Component {
 
   }
 
-
    render() {
      return (
        <div>
@@ -157,6 +171,7 @@ export class Captacion extends Component {
         <VisitaMantenimientoAdministradorLeed
         handleVerLeed = {this.handleVerLeed}
         nombreLeed = {this.state.nombreLeed}
+        administrador={'Consulting Machancoses'}
         />
         :
         this.state.usuarioPuertaFria ?
@@ -168,6 +183,7 @@ export class Captacion extends Component {
         />
         :
         <DashCaptacion
+       handleClickBorrar={this.handleClickBorrar}
        cssEdicion={this.state.cssEdicion}
        handleClickGestionarLeed={this.handleClickGestionarLeed}
        gestionLeed={this.state.gestionLeed}
