@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Configurador } from './Configurador.js'
 
 
 
@@ -22,7 +23,7 @@ export class Mantenimientos extends Component {
 
      return (
        <div>
-        hola
+          <Configurador  />
        </div>
 
      )
