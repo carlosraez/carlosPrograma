@@ -65,6 +65,7 @@ export class PuertaFriaAdministradores extends Component {
         volumenNegocio: busqueda.volumenNegocio,
         visitasNulasActuales: busqueda.noQuiereNada,
         visitaActual:busqueda.visitas,
+        tipoVia:this.state.tipoVia || '',
         ultimaVisita:busqueda.ultimaVisita,
         posicionAdminArray: indiceBusqueda
       })

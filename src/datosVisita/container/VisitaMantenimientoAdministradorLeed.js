@@ -27,10 +27,29 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
         const ref  = firebaseApp.database().ref('usuarios')
         const user = firebaseApp.auth().currentUser;
         const fecha = moment().format("DD/MM/YYYY");
+        const {
+          direccion ,
+          administrador,
+          mantenedor,
+          fechaVisitaAdmon,
+          nombrePresidente,
+          observacionLeed,
+          telefonoPresidente,
+          poblacionLeed } = this.props
+        const nombreLeedNuevo = direccion
         const visitaLeedMantenimiento = {
-          administrador:this.props.administrador,
+             [nombreLeedNuevo] : {
+          direccion:direccion,
+          administrador:administrador,
+          mantenedor:mantenedor,
+          fechaVisitaAdmon:fechaVisitaAdmon,
           fechaGestion:fecha,
-          ascensor:this.state.ascensor || ''  ,
+          nombrePresidente:nombrePresidente,
+          telefonoPresidente: telefonoPresidente,
+          ascensor:this.state.ascensor || '' ,
+          observacionLeed: observacionLeed,
+          poblacionLeed: poblacionLeed
+          }
         }
         const leedActualActualizar = this.props.nombreLeed
         ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leedsPorpresupuestar').update(visitaLeedMantenimiento)
@@ -99,7 +118,6 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
      }
 
    render() {
-     console.log(this.state.listaLeeds);
      return (
        <VisitaLayout
         titulo={'Completa la visita de mantenimiento del administrador'}

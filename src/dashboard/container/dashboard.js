@@ -4,6 +4,7 @@ import { firebaseApp } from '../../index.js'
 import Dash from '../components/dash.js'
 import ListarVisitas from '../../listarVisitas/container/ListarVisitas.js'
 import { Administradores } from '../../Administradores/Container/Administradores.js'
+import { Presupuestos } from '../../Presupuestos/Container/Presupuestos.js'
 import { Visitas } from '../../datosVisita/container/Visitas.js'
 import './dashboard.css'
 
@@ -15,6 +16,7 @@ class Dashboard  extends Component {
     usuarioMakeVisita:false,
     listarTrabajoUsuario:false,
     verAdministradores:false,
+    hacerPresupuesto:false,
   }
 
    handleClickAdministradores = () => {
@@ -35,6 +37,7 @@ class Dashboard  extends Component {
        usuarioMakeVisita : false,
        verAdministradores: false,
        listarTrabajoUsuario: false,
+       hacerPresupuesto: false,
      })
    }
 
@@ -42,6 +45,12 @@ class Dashboard  extends Component {
    handleVerTrabajo = () => {
      this.setState({
        listarTrabajoUsuario: true,
+     })
+   }
+
+   handleClickPresupuestos = () => {
+     this.setState({
+       hacerPresupuesto: true,
      })
    }
 
@@ -105,10 +114,16 @@ class Dashboard  extends Component {
          usuario = {this.state.usuario}
          />
          :
+         this.state.hacerPresupuesto ?
+         <Presupuestos
+         usuario = {this.state.usuario}
+         />
+         :
          <Dash
             handleClickAdministradores={this.handleClickAdministradores}
             handleClickVisitas={this.handleClickVisitas}
             handleVerTrabajo={this.handleVerTrabajo}
+            handleClickPresupuestos={this.handleClickPresupuestos}
           />
        }
        </div>

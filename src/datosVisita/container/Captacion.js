@@ -25,7 +25,8 @@ export class Captacion extends Component {
     mantenedor:'',
     nombreLeed:'',
     tipoLeedPulsado:'',
-    cssEdicion:'inputOculto'
+    cssEdicion:'inputOculto',
+    tipoVia:'',
 
    }
 
@@ -179,18 +180,32 @@ export class Captacion extends Component {
   }
 
    render() {
-     console.log('---Soy el render');
      const listaLeeds = this.state.listaLeeds
      const leedActual = listaLeeds[this.state.nombreLeed] || ''
      const nombreLeedBaseDatos = leedActual.direccion || ''
+     const mantenedor = leedActual.mantenedor || ''
+     const fechaVisitaAdmon = leedActual.fechaVisita || ''
+     const nombrePresidente = leedActual.nombrePresidente
+     const telefonoPresidente = leedActual.telefonoPresidente || ''
+      const administrador = leedActual.administrador || ''
+      const observacionLeed = leedActual.observacionLeed || ''
+      const poblacionLeed = leedActual.poblacionLeed || ''
+
      return (
        <div>
       {
         this.state.hacerVisitaMantenimiento ?
         <VisitaMantenimientoAdministradorLeed
+        fechaVisitaAdmon = {fechaVisitaAdmon}
         handleVerLeed = {this.handleVerLeed}
         nombreLeed = {nombreLeedBaseDatos}
-        administrador={'Consulting Machancoses'}
+        administrador={administrador}
+        direccion={nombreLeedBaseDatos}
+        mantenedor={mantenedor}
+        nombrePresidente={nombrePresidente}
+        telefonoPresidente={telefonoPresidente}
+        observacionLeed = {observacionLeed}
+        poblacionLeed = {poblacionLeed}
         />
         :
         this.state.usuarioPuertaFria ?

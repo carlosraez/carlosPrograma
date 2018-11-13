@@ -34,11 +34,11 @@ function Dash(props) {
        </div>
        <div className="col-12 col-md-4">
          <div className="card cardStyle" >
-          <img className="card-img-top imgDashboard" src={presupuesto}  alt="presupuestos" />
+          <img className="card-img-top imgDashboard" src={presupuesto}  alt="Presupuestos" />
            <div className="card-body">
            <h5 className="card-title">Realiza un presupuesto</h5>
            <p className="card-text">Ayudate de hacer presupuestos rápidamente para firmar más rapido</p>
-           <Link to="/Aplicacion" className="btn btn-outline-info">Hacer presupuesto</Link>
+           <button  className="btn btn-outline-info" onClick={props.handleClickPresupuestos} >Haz Presupuestos</button>
            </div>
         </div>
        </div>
