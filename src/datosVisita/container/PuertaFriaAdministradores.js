@@ -38,7 +38,8 @@ export class PuertaFriaAdministradores extends Component {
       ultimaVisita:'',
       comercial:'',
       visitaActual:null,
-      listaLeeds:[]
+      listaLeeds:[],
+      tipoVia:''
     }
 
     handleChange = (e) => {
@@ -127,12 +128,13 @@ export class PuertaFriaAdministradores extends Component {
      })
      const fecha = moment().format("DD/MM/YYYY");
      const administradorActual = this.state.despacho
-     const posicionSiguienteLeed = this.state.listaLeeds.length
+     const posicionSiguienteLeed = this.state.direccionLeed
      const nuevoLeed = {
         [posicionSiguienteLeed] : {
           administrador: administradorActual,
           tipo:'Mantenimiento',
           fechaVisita:fecha,
+          tipoVia:this.state.tipoVia || '',
           direccion: this.state.direccionLeed || '',
           poblacion: this.state.poblacionLeed || '',
           mantenedor: this.state.mantenedorLeed || '',
@@ -169,13 +171,14 @@ export class PuertaFriaAdministradores extends Component {
     })
     const fecha = moment().format("DD/MM/YYYY");
     const administradorActual = this.state.despacho
-    const posicionSiguienteLeed = this.state.listaLeeds.length
+    const posicionSiguienteLeed = this.state.direccionLeed
     const nuevoLeed = {
        [posicionSiguienteLeed] : {
          administrador: administradorActual,
          fechaVisita: fecha,
          tipo:'Finca sin Ascensor',
          direccion: this.state.direccionLeed || '',
+         tipoVia:this.state.tipoVia || '',
          poblacion: this.state.poblacionLeed || '',
          nombrePresidente: this.state.nombrePresidenteLeed || '',
          telefonoPresidente: this.state.telefonoPresidenteLeed || '',
@@ -197,6 +200,7 @@ export class PuertaFriaAdministradores extends Component {
       ultimaVisita:fecha
       }
   const administradorActual = this.state.idAdministradorKey[this.state.posicionAdminArray]
+  console.log(administradorActual);
   ref.child('administradores').child(administradorActual).update(actualizacion)
   this.setState({
       visitaActual: this.state.visitaActual + 1
