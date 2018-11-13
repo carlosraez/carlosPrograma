@@ -53,7 +53,7 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
       this.setState({
         mostradDatosAscensor: false,
       })
-      this.props.guardarVisitaLeedMantenimiento()
+      this.guardarVisitaLeedMantenimiento()
       swal("Muy Bien!! Felcidades", {
         icon: "success",
       });
@@ -99,6 +99,7 @@ export class VisitaMantenimientoAdministradorLeed extends Component {
      }
 
    render() {
+     console.log(this.state.listaLeeds);
      return (
        <VisitaLayout
         titulo={'Completa la visita de mantenimiento del administrador'}

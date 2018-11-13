@@ -122,12 +122,10 @@ export class Captacion extends Component {
 
   handleClickGestionarLeed = (event) => {
     const nombreLeed = event.target.id
-    const listaLeeds = this.state.listaLeeds
-    const tipo = listaLeeds[nombreLeed].tipo
       this.setState({
         gestionLeed:true,
         nombreLeed:nombreLeed,
-        tipoLeedPulsado:tipo
+
       })
   }
 
@@ -140,17 +138,29 @@ export class Captacion extends Component {
    handleClickBorrar  = () => {
      const ref  = firebaseApp.database().ref('usuarios')
      const user = firebaseApp.auth().currentUser;
-     const { nombreLeed } = this.state
-     ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').child(nombreLeed).remove()
-     swal('El leed ha sido borrado')
+     const listaLeeds = this.state.listaLeeds
+     const leedActual = listaLeeds[this.state.nombreLeed] || ''
+     const nombreLeedBaseDatos = leedActual.direccion || ''
+     ref.child(user.uid).child('visitas').child('captacionAdministrador').child('leeds').child(nombreLeedBaseDatos).remove()
+     .then(()=>{
+       swal('El leed ha sido borrado')
+       const borrado = listaLeeds.filter((item) => {
+         return item.direccion !== nombreLeedBaseDatos
+       })
+       this.setState({
+         listaLeeds: borrado
+       })
+     })
+     .catch( (error) => {
+       console.log(`hubo un error desconocido ${error}`);
+     })
+
      this.setState({
        gestionLeed:false
      })
-
    }
 
-
-  componentDidMount = () => {
+  llamadaBaseDatos = () => {
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
     const listaBaseDatosleeds = []
@@ -160,17 +170,26 @@ export class Captacion extends Component {
           listaLeeds: listaBaseDatosleeds,
         })
     })
+  }
+
+
+  componentDidMount = () => {
+    this.llamadaBaseDatos()
 
   }
 
    render() {
+     console.log('---Soy el render');
+     const listaLeeds = this.state.listaLeeds
+     const leedActual = listaLeeds[this.state.nombreLeed] || ''
+     const nombreLeedBaseDatos = leedActual.direccion || ''
      return (
        <div>
       {
         this.state.hacerVisitaMantenimiento ?
         <VisitaMantenimientoAdministradorLeed
         handleVerLeed = {this.handleVerLeed}
-        nombreLeed = {this.state.nombreLeed}
+        nombreLeed = {nombreLeedBaseDatos}
         administrador={'Consulting Machancoses'}
         />
         :
