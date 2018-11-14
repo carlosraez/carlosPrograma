@@ -5,34 +5,48 @@ import React, { Component } from 'react';
 
 export class Configurador extends Component {
   state = {
-     precioBasicoOferta:60,
+     precioBasicoOferta: 60,
      paradasMinimasBasicoOferta:4,
      paradasMaximoBasicoOferta:5,
-     precioBasicoOfertaTotal:60,
+     precioBasicoOfertaTotal:0,
      incrementoParadas:5,
      incrementoParadasPrecio:1,
      calculoParaEstasParadas:0,
-
    }
-
 
 
    handleChange = (event) => {
-     console.log(event.target.value);
      const target = event.target
      const value  = target.value
      const id  = target.id
+     console.log(value);
      this.setState({
        [id]:  value,
      })
-
+     this.caluculoPrecioBasicoOferta()
    }
 
-   handleChangeCalculoParadas = () => {
-    const precio =  this.state.precioBasicoOferta + this.state.incrementoParadas
-    this.setState({
-      precioBasicoOfertaTotal:precio
-    })
+   caluculoPrecioBasicoOferta = () => {
+     const { precioBasicoOferta, calculoParaEstasParadas, paradasMaximoBasicoOferta, incrementoParadas } = this.state
+     const  precioAcutal = parseInt(precioBasicoOferta,10)
+     const paradasActualesAscensor = parseInt(calculoParaEstasParadas,10)
+     const  paradasMax = parseInt(paradasMaximoBasicoOferta,10)
+     const incrementoParadasCalculo = parseInt(incrementoParadas,10)
+     console.log(precioAcutal,paradasActualesAscensor ,paradasMax);
+     let  precio = calculo(paradasActualesAscensor)
+     function calculo(paradasActuales) {
+            if (paradasActuales <= paradasMax) {
+                return precioAcutal
+            }
+            else {
+              const total = precioAcutal + incrementoParadasCalculo
+              return total
+          }
+     }
+     console.log(typeof precio);
+     this.setState({
+       precioBasicoOfertaTotal:precio
+     })
    }
 
    render() {
@@ -79,7 +93,7 @@ export class Configurador extends Component {
                         type="range"
                         className="form-control-range"
                         id="paradasMaximoBasicoOferta"
-                        max={20}
+                        max={30}
                         min={1}
                         step={1}
                         defaultValue={this.state.paradasMaximoBasicoOferta}
@@ -92,6 +106,8 @@ export class Configurador extends Component {
                    type="number"
                    className="form-control-range"
                    id="incrementoParadasPrecio"
+                   min={0}
+                   max={30}
                    defaultValue={5}
                    />
                </div>
@@ -101,8 +117,10 @@ export class Configurador extends Component {
                     type="number"
                     className="form-control-range"
                     id="calculoParaEstasParadas"
+                    min={0}
+                    max={30}
                     defaultValue={this.state.calculoParaEstasParadas}
-                    onChange={this.handleChangeCalculoParadas}
+                    onChange={this.handleChange}
                     />
                 </div>
                <div className="form-check">
