@@ -12,11 +12,15 @@ export class Configurador extends Component {
      paradasMinimasBasicoOferta:4,
      paradasMaximoBasicoOferta:5,
      precioBasicoOfertaTotal:0,
+     precioSemiRiesgoOfertaTotal:0,
+     precioTodoRiesgoOfertaTotal:0,
      incrementoParadas:5,
      incrementoParadasPrecio:1,
      calculoParaEstasParadas:0,
      precioMaximoBasicoOferta:80,
-     nombreConfiguracionBasica1:'Basico Oferta'
+     nombreConfiguracionBasica1:'Basico Oferta',
+     incrementoSemiRiesgoPrecio:12,
+     incrementoTodoRiesgoPrecio:20,
    }
 
 
@@ -31,14 +35,15 @@ export class Configurador extends Component {
    }
 
    caluculoPrecioBasicoOferta = () => {
-     const { precioBasicoOferta, calculoParaEstasParadas, paradasMaximoBasicoOferta, incrementoParadas, paradasMinimasBasicoOferta, precioMaximoBasicoOferta } = this.state
+     const { precioBasicoOferta,incrementoSemiRiesgoPrecio,incrementoTodoRiesgoPrecio, calculoParaEstasParadas, paradasMaximoBasicoOferta, incrementoParadas, paradasMinimasBasicoOferta, precioMaximoBasicoOferta } = this.state
      const  precioAcutal = parseInt(precioBasicoOferta,10)
      const paradasActualesAscensor = parseInt(calculoParaEstasParadas,10)
      const  paradasMax = parseInt(paradasMaximoBasicoOferta,10)
      const  paradasMin  = parseInt(paradasMinimasBasicoOferta,10)
      const incrementoParadasCalculo = parseInt(incrementoParadas,10)
      const precioMaximo = parseInt(precioMaximoBasicoOferta,10)
-
+     const incrementoSemiRiesgo = parseInt(incrementoSemiRiesgoPrecio,10)
+     const incrementoTodoRiesgo = parseInt(incrementoTodoRiesgoPrecio,10)
      let  precio = calculo(paradasActualesAscensor)
      function calculo(paradasActuales) {
         if (paradasActuales >= paradasMin) {
@@ -90,8 +95,15 @@ export class Configurador extends Component {
           return 0
 
      }
+
+     const precioSemiRiesgo = paradasActualesAscensor >= paradasMin ? precio + incrementoSemiRiesgo : 0
+     const precioTodoRiesgo = paradasActualesAscensor >= paradasMin ? precio + incrementoTodoRiesgo : 0
+
+
      this.setState({
-       precioBasicoOfertaTotal:precio
+       precioBasicoOfertaTotal:precio,
+       precioSemiRiesgoOfertaTotal:precioSemiRiesgo,
+       precioTodoRiesgoOfertaTotal:precioTodoRiesgo
      })
    }
 
@@ -101,6 +113,8 @@ export class Configurador extends Component {
        <div className="col-12 col-md-3">
              <ConfiguradorItemPrecioLayout
                   precioBasicoOfertaTotal={this.state.precioBasicoOfertaTotal}
+                  precioSemiRiesgoOfertaTotal={this.state.precioSemiRiesgoOfertaTotal}
+                  precioTodoRiesgoOfertaTotal={this.state.precioTodoRiesgoOfertaTotal}
                   nombre={this.state.nombreConfiguracionBasica1}
              >
              <InputsConfigurador
@@ -158,17 +172,39 @@ export class Configurador extends Component {
                          defaultValue={this.state.precioMaximoBasicoOferta}
                          handleChange={this.handleChange}
                        />
-                       <InputsConfigurador
-                           label={`Este es el precio para estas paradas según tu configuracion`}
-                           type={'number'}
-                           className={'form-control-range'}
-                           id={'calculoParaEstasParadas'}
-                           min={1}
-                           max={30}
-                           step={1}
-                           defaultValue={this.state.calculoParaEstasParadas}
-                           handleChange={this.handleChange}
-                         />
+                         <InputsConfigurador
+                             label={`Incremento para contrato Semiriesgo`}
+                             type={'number'}
+                             className={'form-control-range'}
+                             id={'incrementoSemiRiesgoPrecio'}
+                             min={1}
+                             max={100}
+                             step={1}
+                             defaultValue={this.state.incrementoSemiRiesgoPrecio}
+                             handleChange={this.handleChange}
+                           />
+                           <InputsConfigurador
+                               label={`Incremento para contrato TodoRiesgo`}
+                               type={'number'}
+                               className={'form-control-range'}
+                               id={'incrementoTodoRiesgoPrecio'}
+                               min={1}
+                               max={100}
+                               step={1}
+                               defaultValue={this.state.incrementoTodoRiesgoPrecio}
+                               handleChange={this.handleChange}
+                             />
+                             <InputsConfigurador
+                                 label={`Este es el precio para estas paradas según tu configuracion`}
+                                 type={'number'}
+                                 className={'form-control-range'}
+                                 id={'calculoParaEstasParadas'}
+                                 min={1}
+                                 max={30}
+                                 step={1}
+                                 defaultValue={this.state.calculoParaEstasParadas}
+                                 handleChange={this.handleChange}
+                               />
                    <Extras  label={'Horario Ampliado'} />
                    <Extras  label={'24/horas 365 dias al año'} />
                    <Extras  label={'Tubos Leed de Regalo '} />
@@ -179,13 +215,13 @@ export class Configurador extends Component {
               </ConfiguradorItemPrecioLayout>
           </div>
           <div className="col-12 col-md-3">
-            
+
          </div>
          <div className="col-12 col-md-3">
-            Introduce el logo de tu empresa
+
         </div>
         <div className="col-12 col-md-3">
-              Introduce lo que te gustaria
+
         </div>
    </div>
 
