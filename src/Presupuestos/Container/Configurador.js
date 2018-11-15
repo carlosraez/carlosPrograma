@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ConfiguradorItemLayout from '../Components/ConfiguradorItemLayout.js'
+import InputsConfigurador from '../Components/InputsConfigurador.js'
 
 
 
@@ -12,6 +14,7 @@ export class Configurador extends Component {
      incrementoParadas:5,
      incrementoParadasPrecio:1,
      calculoParaEstasParadas:0,
+     precioMaximoBasicoOferta:80,
    }
 
 
@@ -19,31 +22,72 @@ export class Configurador extends Component {
      const target = event.target
      const value  = target.value
      const id  = target.id
-     console.log(value);
      this.setState({
        [id]:  value,
-     })
-     this.caluculoPrecioBasicoOferta()
+     }, this.caluculoPrecioBasicoOferta)
+
    }
 
    caluculoPrecioBasicoOferta = () => {
-     const { precioBasicoOferta, calculoParaEstasParadas, paradasMaximoBasicoOferta, incrementoParadas } = this.state
+     const { precioBasicoOferta, calculoParaEstasParadas, paradasMaximoBasicoOferta, incrementoParadas, paradasMinimasBasicoOferta, precioMaximoBasicoOferta } = this.state
      const  precioAcutal = parseInt(precioBasicoOferta,10)
      const paradasActualesAscensor = parseInt(calculoParaEstasParadas,10)
      const  paradasMax = parseInt(paradasMaximoBasicoOferta,10)
+     const  paradasMin  = parseInt(paradasMinimasBasicoOferta,10)
      const incrementoParadasCalculo = parseInt(incrementoParadas,10)
+     const precioMaximo = parseInt(precioMaximoBasicoOferta,10)
      console.log(precioAcutal,paradasActualesAscensor ,paradasMax);
      let  precio = calculo(paradasActualesAscensor)
      function calculo(paradasActuales) {
-            if (paradasActuales <= paradasMax) {
-                return precioAcutal
-            }
-            else {
-              const total = precioAcutal + incrementoParadasCalculo
-              return total
-          }
+        if (paradasActuales >= paradasMin) {
+              if (paradasActuales <= paradasMax  ) {
+              return precioAcutal
+              }
+            else if (paradasActuales >= 10 && paradasActuales < 15  ) {
+                 const  total = precioAcutal  + incrementoParadasCalculo * 2
+                 if (total < precioMaximo) {
+                   return total
+                 }
+                 else {
+                   return precioMaximo
+                 }
+              }
+              else  if(paradasActuales >= 15 && paradasActuales < 20  ) {
+                   const  total = precioAcutal  + incrementoParadasCalculo * 3
+                   if (total < precioMaximo) {
+                     return total
+                   }
+                   else {
+                     return precioMaximo
+                   }
+                }
+              else  if(paradasActuales >= 20 && paradasActuales < 25  ) {
+                     const  total = precioAcutal  + incrementoParadasCalculo * 4
+                     if (total < precioMaximo) {
+                       return total
+                     }
+                     else {
+                       return precioMaximo
+                     }
+                  }
+              else  if(paradasActuales >= 25 && paradasActuales <= 30  ) {
+                        const  total = precioAcutal  + incrementoParadasCalculo * 5
+                        if (total < precioMaximo) {
+                          return total
+                        }
+                        else {
+                          return precioMaximo
+                        }
+                    }
+              else {
+                const  total = precioAcutal  + incrementoParadasCalculo
+                return total
+              }
+           }
+        else
+          return 0
+
      }
-     console.log(typeof precio);
      this.setState({
        precioBasicoOfertaTotal:precio
      })
@@ -111,6 +155,17 @@ export class Configurador extends Component {
                    defaultValue={5}
                    />
                </div>
+               <label htmlFor="formControlRange">Precio Maximo: {this.state.precioMaximoBasicoOferta}</label>
+               <input
+                  type="range"
+                  className="form-control-range"
+                  id="precioMaximoBasicoOferta"
+                  max={200}
+                  min={1}
+                  step={1}
+                  defaultValue={this.state.precioMaximoBasicoOferta}
+                  onChange={this.handleChange}
+                  />
                <div className="form-group">
                     <label htmlFor="formControlRange">Este es el precio para estas paradas según tu configuracion</label>
                     <input
@@ -165,30 +220,7 @@ export class Configurador extends Component {
       </div>
       </div>
       <div className="col-12 col-md-3">
-      <div className="card cardStyle" >
-         <div className="card-header">
-            Básico Normal
-         </div>
-        <div className="card-body">
-        <h1 className="card-title pricing-card-title">60€ <small className="text-muted">/ mes + Iva</small></h1>
-        <p className="card-text">Cambia el precio y establece condiciones</p>
-        <form>
-             <div className="form-group">
-              <label htmlFor="formControlRange">Modifica el precio</label>
-              <input type="range" className="form-control-range" id="formControlRange" />
-               </div>
-             <div className="form-group">
-                <label htmlFor="formControlRange">Paradas Maximas: 5</label>
-                <input type="range" className="form-control-range" id="formControlRange" />
-                 </div>
-             <div className="form-group">
-                  <label htmlFor="formControlRange">Incremento por tramo de 5 paradas</label>
-                  <input type="number" className="form-control-range" id="formControlRange" />
-              </div>
-            <button  className="btn btn-outline-info">Guardar Configuracion</button>
-         </form>
-        </div>
-     </div>
+        <ConfiguradorItemLayout/>
      </div>
      <div className="col-12 col-md-3">
      <div className="card cardStyle" >
