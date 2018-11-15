@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ConfiguradorItemLayout from '../Components/ConfiguradorItemLayout.js'
+import ConfiguradorItemPrecioLayout from '../Components/ConfiguradorItemPrecioLayout.js'
 import InputsConfigurador from '../Components/InputsConfigurador.js'
 import Extras from '../Components/Extras.js'
 
@@ -16,6 +16,7 @@ export class Configurador extends Component {
      incrementoParadasPrecio:1,
      calculoParaEstasParadas:0,
      precioMaximoBasicoOferta:80,
+     nombreConfiguracionBasica1:'Basico Oferta'
    }
 
 
@@ -37,7 +38,7 @@ export class Configurador extends Component {
      const  paradasMin  = parseInt(paradasMinimasBasicoOferta,10)
      const incrementoParadasCalculo = parseInt(incrementoParadas,10)
      const precioMaximo = parseInt(precioMaximoBasicoOferta,10)
-     console.log(precioAcutal,paradasActualesAscensor ,paradasMax);
+
      let  precio = calculo(paradasActualesAscensor)
      function calculo(paradasActuales) {
         if (paradasActuales >= paradasMin) {
@@ -98,14 +99,10 @@ export class Configurador extends Component {
      return (
        <div className="row">
        <div className="col-12 col-md-3">
-       <div className="card cardStyle" >
-          <div className="card-header">
-             Basico Oferta
-          </div>
-         <div className="card-body">
-         <h1 className="card-title pricing-card-title">{this.state.precioBasicoOfertaTotal}€ <small className="text-muted">/ mes + Iva</small></h1>
-         <p className="card-text">Cambia el precio y establece condiciones</p>
-         <form>
+             <ConfiguradorItemPrecioLayout
+                  precioBasicoOfertaTotal={this.state.precioBasicoOfertaTotal}
+                  nombre={this.state.nombreConfiguracionBasica1}
+             >
              <InputsConfigurador
                  label={`Precio Base: ${this.state.precioBasicoOferta}`}
                  type={'range'}
@@ -172,74 +169,25 @@ export class Configurador extends Component {
                            defaultValue={this.state.calculoParaEstasParadas}
                            handleChange={this.handleChange}
                          />
-               <Extras  label={'Horario Ampliado'} />
-               <Extras  label={'24/horas 365 dias al año'} />
-               <Extras  label={'Tubos Leed de Regalo '} />
-               <Extras  label={'Tubos led regalo y dector de presencia'} />
-               <Extras  label={'Linea de telefono Ascensor'} />
-               <Extras  label={'Gsm'} />
-              <button   className="btn btn-outline-info mt-10">Guardar Configuracion</button>
-          </form>
+                   <Extras  label={'Horario Ampliado'} />
+                   <Extras  label={'24/horas 365 dias al año'} />
+                   <Extras  label={'Tubos Leed de Regalo '} />
+                   <Extras  label={'Tubos led regalo y dector de presencia'} />
+                   <Extras  label={'Linea de telefono Ascensor'} />
+                   <Extras  label={'Gsm'} />
+                  <button   className="btn btn-outline-info mt-10">Guardar Configuracion</button>
+              </ConfiguradorItemPrecioLayout>
+          </div>
+          <div className="col-12 col-md-3">
+            
          </div>
-      </div>
-      </div>
-      <div className="col-12 col-md-3">
-        <ConfiguradorItemLayout/>
-     </div>
-     <div className="col-12 col-md-3">
-     <div className="card cardStyle" >
-        <div className="card-header">
-           Básico Administrador Estrella
+         <div className="col-12 col-md-3">
+            Introduce el logo de tu empresa
         </div>
-       <div className="card-body">
-       <h1 className="card-title pricing-card-title">60€ <small className="text-muted">/ mes + Iva</small></h1>
-       <p className="card-text">Cambia el precio y establece condiciones</p>
-       <form>
-            <div className="form-group">
-             <label htmlFor="formControlRange">Modifica el precio</label>
-             <input type="range" className="form-control-range" id="formControlRange" />
-              </div>
-            <div className="form-group">
-               <label htmlFor="formControlRange">Paradas Maximas: 5</label>
-               <input type="range" className="form-control-range" id="formControlRange" />
-                </div>
-            <div className="form-group">
-                 <label htmlFor="formControlRange">Incremento por tramo de 5 paradas</label>
-                 <input type="number" className="form-control-range" id="formControlRange" />
-             </div>
-            <button  className="btn btn-outline-info">Guardar Configuracion</button>
-        </form>
-       </div>
-    </div>
-    </div>
-    <div className="col-12 col-md-3">
-    <div className="card cardStyle" >
-       <div className="card-header">
-          Básico Tu nombre
-       </div>
-      <div className="card-body">
-      <h1 className="card-title pricing-card-title">60€ <small className="text-muted">/ mes + Iva</small></h1>
-      <p className="card-text">Cambia el precio y establece condiciones</p>
-      <form>
-           <div className="form-group">
-            <label  htmlFor="formControlRange">Modifica el precio</label>
-            <input type="range" className="form-control-range" id="formControlRange" />
-             </div>
-           <div className="form-group">
-              <label htmlFor="formControlRange">Paradas Maximas: 3</label>
-              <input type="range" className="form-control-range" id="formControlRange" />
-               </div>
-           <div className="form-group">
-                <label htmlFor="formControlRange">Incremento por tramo de 5 paradas</label>
-                <input type="number" className="form-control-range" id="formControlRange" />
-            </div>
-            <button  className="btn btn-outline-info">Guardar Configuracion</button>
-       </form>
-
-      </div>
+        <div className="col-12 col-md-3">
+              Introduce lo que te gustaria
+        </div>
    </div>
-   </div>
-      </div>
 
      )
    }
