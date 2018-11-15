@@ -125,7 +125,7 @@ export class Configurador extends Component {
                    max={20}
                    min={1}
                    step={1}
-                   defaultValue={this.state.precioBasicoOferta}
+                   defaultValue={this.state.paradasMinimasBasicoOferta}
                    handleChange={this.handleChange}
                  />
                  <InputsConfigurador
@@ -136,7 +136,7 @@ export class Configurador extends Component {
                      max={30}
                      min={1}
                      step={1}
-                     defaultValue={this.state.precioBasicoOferta}
+                     defaultValue={this.state.paradasMaximoBasicoOferta}
                      handleChange={this.handleChange}
                    />
                    <InputsConfigurador
@@ -154,7 +154,7 @@ export class Configurador extends Component {
                          label={`Precio Maximo: ${this.state.precioMaximoBasicoOferta}`}
                          type={'range'}
                          className={'form-control-range'}
-                         id={'incrementoParadasPrecio'}
+                         id={'precioMaximoBasicoOferta'}
                          max={200}
                          min={1}
                          step={1}
