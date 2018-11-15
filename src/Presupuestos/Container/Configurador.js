@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ConfiguradorItemLayout from '../Components/ConfiguradorItemLayout.js'
 import InputsConfigurador from '../Components/InputsConfigurador.js'
+import Extras from '../Components/Extras.js'
 
 
 
@@ -99,121 +100,84 @@ export class Configurador extends Component {
        <div className="col-12 col-md-3">
        <div className="card cardStyle" >
           <div className="card-header">
-             Básico Oferta
+             Basico Oferta
           </div>
          <div className="card-body">
          <h1 className="card-title pricing-card-title">{this.state.precioBasicoOfertaTotal}€ <small className="text-muted">/ mes + Iva</small></h1>
          <p className="card-text">Cambia el precio y establece condiciones</p>
          <form>
-              <div className="form-group">
-               <label htmlFor="formControlRange">Precio Base: {this.state.precioBasicoOferta}</label>
-               <input
-                 type="range"
-                 className="form-control-range"
-                 id="precioBasicoOferta"
+             <InputsConfigurador
+                 label={`Precio Base: ${this.state.precioBasicoOferta}`}
+                 type={'range'}
+                 className={'form-control-range'}
+                 id={'precioBasicoOferta'}
                  max={200}
                  min={0}
                  step={5}
                  defaultValue={this.state.precioBasicoOferta}
-                 onChange={this.handleChange}
+                 handleChange={this.handleChange}
+               />
+               <InputsConfigurador
+                   label={`Paradas Minimas: ${this.state.paradasMinimasBasicoOferta}`}
+                   type={'range'}
+                   className={'form-control-range'}
+                   id={'paradasMinimasBasicoOferta'}
+                   max={20}
+                   min={1}
+                   step={1}
+                   defaultValue={this.state.precioBasicoOferta}
+                   handleChange={this.handleChange}
                  />
-                </div>
-              <div className="form-group">
-                 <label htmlFor="formControlRange">Paradas Minimas: {this.state.paradasMinimasBasicoOferta}</label>
-                 <input
-                    type="range"
-                    className="form-control-range"
-                    id="paradasMinimasBasicoOferta"
-                    max={20}
-                    min={1}
-                    step={1}
-                    defaultValue={this.state.paradasMinimasBasicoOferta}
-                    onChange={this.handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                     <label htmlFor="formControlRange">Paradas Maximas: {this.state.paradasMaximoBasicoOferta}</label>
-                     <input
-                        type="range"
-                        className="form-control-range"
-                        id="paradasMaximoBasicoOferta"
-                        max={30}
-                        min={1}
-                        step={1}
-                        defaultValue={this.state.paradasMaximoBasicoOferta}
-                        onChange={this.handleChange}
-                        />
-                      </div>
-              <div className="form-group">
-                   <label htmlFor="formControlRange">Incremento por tramo de {this.state.incrementoParadas} paradas</label>
-                   <input
-                   type="number"
-                   className="form-control-range"
-                   id="incrementoParadasPrecio"
-                   min={0}
-                   max={30}
-                   defaultValue={5}
+                 <InputsConfigurador
+                     label={`Paradas Maximas: ${this.state.paradasMaximoBasicoOferta}`}
+                     type={'range'}
+                     className={'form-control-range'}
+                     id={'paradasMaximoBasicoOferta'}
+                     max={30}
+                     min={1}
+                     step={1}
+                     defaultValue={this.state.precioBasicoOferta}
+                     handleChange={this.handleChange}
                    />
-               </div>
-               <label htmlFor="formControlRange">Precio Maximo: {this.state.precioMaximoBasicoOferta}</label>
-               <input
-                  type="range"
-                  className="form-control-range"
-                  id="precioMaximoBasicoOferta"
-                  max={200}
-                  min={1}
-                  step={1}
-                  defaultValue={this.state.precioMaximoBasicoOferta}
-                  onChange={this.handleChange}
-                  />
-               <div className="form-group">
-                    <label htmlFor="formControlRange">Este es el precio para estas paradas según tu configuracion</label>
-                    <input
-                    type="number"
-                    className="form-control-range"
-                    id="calculoParaEstasParadas"
-                    min={0}
-                    max={30}
-                    defaultValue={this.state.calculoParaEstasParadas}
-                    onChange={this.handleChange}
-                    />
-                </div>
-               <div className="form-check">
-                 <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                 <label className="form-check-label" htmlFor="defaultCheck1">
-                 Horario Ampliado
-               </label>
-               </div>
-                <div className="form-check">
-                <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-               <label className="form-check-label" htmlFor="defaultCheck1">
-                  24 horas/365 dias al año
-               </label>
-              </div>
-              <div className="form-check">
-              <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-             <label className="form-check-label" htmlFor="defaultCheck1">
-                Tubos led regalo
-             </label>
-            </div>
-            <div className="form-check">
-            <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-           <label className="form-check-label" htmlFor="defaultCheck1">
-              Tubos led regalo y dector de presencia
-           </label>
-          </div>
-          <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-         <label className="form-check-label" htmlFor="defaultCheck1">
-            Linea de telefono Ascensor
-         </label>
-        </div>
-        <div className="form-check">
-        <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-          <label className="form-check-label" htmlFor="defaultCheck1">
-          Gsm
-         </label>
-         </div>
+                   <InputsConfigurador
+                       label={`Incremento por tramo de ${this.state.incrementoParadas} paradas`}
+                       type={'number'}
+                       className={'form-control-range'}
+                       id={'incrementoParadasPrecio'}
+                       max={30}
+                       min={0}
+                       step={1}
+                       defaultValue={5}
+                       handleChange={this.handleChange}
+                     />
+                     <InputsConfigurador
+                         label={`Precio Maximo: ${this.state.precioMaximoBasicoOferta}`}
+                         type={'range'}
+                         className={'form-control-range'}
+                         id={'incrementoParadasPrecio'}
+                         max={200}
+                         min={1}
+                         step={1}
+                         defaultValue={this.state.precioMaximoBasicoOferta}
+                         handleChange={this.handleChange}
+                       />
+                       <InputsConfigurador
+                           label={`Este es el precio para estas paradas según tu configuracion`}
+                           type={'number'}
+                           className={'form-control-range'}
+                           id={'calculoParaEstasParadas'}
+                           min={1}
+                           max={30}
+                           step={1}
+                           defaultValue={this.state.calculoParaEstasParadas}
+                           handleChange={this.handleChange}
+                         />
+               <Extras  label={'Horario Ampliado'} />
+               <Extras  label={'24/horas 365 dias al año'} />
+               <Extras  label={'Tubos Leed de Regalo '} />
+               <Extras  label={'Tubos led regalo y dector de presencia'} />
+               <Extras  label={'Linea de telefono Ascensor'} />
+               <Extras  label={'Gsm'} />
               <button   className="btn btn-outline-info mt-10">Guardar Configuracion</button>
           </form>
          </div>
