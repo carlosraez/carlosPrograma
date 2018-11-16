@@ -53,8 +53,7 @@ componentWillReceiveProps = (nextProps) => {
      }
   else {
     return (
-
-
+<div className="table-responsive">
      <table className="table">
  <thead>
    <tr>
@@ -87,6 +86,7 @@ componentWillReceiveProps = (nextProps) => {
  }
  </tbody>
 </table>
+</div>
     )
       }
    }

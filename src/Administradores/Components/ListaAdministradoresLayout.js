@@ -5,6 +5,7 @@ import React from 'react';
 function ListaAdministradoresLayout(props) {
    return (
        <div>
+        <div className="table-responsive">
           <table className="table">
              <thead>
                   <tr>
@@ -21,6 +22,7 @@ function ListaAdministradoresLayout(props) {
                     {props.children}
                    </tbody>
                </table>
+             </div>
          </div>
    )
 }

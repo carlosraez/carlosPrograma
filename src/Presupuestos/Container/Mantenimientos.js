@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Configurador } from './Configurador.js'
-
-
-
+import { ConfiguradorPrecio } from './ConfiguradorPrecio.js'
 
 
 export class Mantenimientos extends Component {
@@ -17,13 +14,13 @@ export class Mantenimientos extends Component {
       <div className="container">
        <div className="row">
               <div className="col-12 col-md-6">
-                 <Configurador
+                 <ConfiguradorPrecio
                    nombreOferta={'Oferta Mantenimiento'}
                    nombreConfiguracionGuardar={'Oferta Estrella'}
                  />
               </div>
           <div className="col-12 col-md-6">
-              <Configurador
+              <ConfiguradorPrecio
                 nombreOferta={'Oferta Normal'}
                 nombreConfiguracionGuardar={'Normal'}
                />
@@ -31,13 +28,13 @@ export class Mantenimientos extends Component {
         </div>
         <div className="row">
          <div className="col-12 col-md-6">
-            <Configurador
+            <ConfiguradorPrecio
                 nombreOferta={'Administrador Estrella'}
                 nombreConfiguracionGuardar={'Administrador Estrella'}
             />
           </div>
            <div className="col-12 col-md-6">
-            <Configurador
+            <ConfiguradorPrecio
                 nombreOferta={'Administrador Normal'}
                 nombreConfiguracionGuardar={'Administrador Normal'}
              />

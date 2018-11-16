@@ -125,6 +125,7 @@ else {
   render () {
     return (
       <div>
+        <div className="table-responsive">
          <table className="table">
             <thead>
                  <tr>
@@ -197,6 +198,7 @@ else {
                   }
                     </tbody>
               </table>
+            </div>
         </div>
     )
   }

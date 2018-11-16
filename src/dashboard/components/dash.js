@@ -2,7 +2,7 @@ import React from 'react';
 import visita from '../../pictures/visita.jpg';
 import trabajo from '../../pictures/trabajo.jpg';
 import presupuesto from '../../pictures/presupuesto.jpg';
-import plano from '../../pictures/plano.jpg';
+import calendario from '../../pictures/calendario.jpg';
 import podium from '../../pictures/podium.png';
 import administradores from '../../pictures/administradores.jpg';
 import { Link } from 'react-router-dom'
@@ -45,11 +45,11 @@ function Dash(props) {
        <div className="row">
          <div className="col-12 col-md-4">
            <div className="card cardStyle" >
-            <img className="card-img-top imgDashboard" src={plano}  alt="planos"/>
+            <img className="card-img-top imgDashboard" src={calendario}  alt="planos"/>
              <div className="card-body">
-             <h5 className="card-title">Calcula al ascensor que puedes poner</h5>
-             <p className="card-text">¿Tienes las medidas?</p>
-             <Link to="/Aplicacion" className="btn btn-outline-info">Calcula Hueco</Link>
+             <h5 className="card-title">Calendario</h5>
+             <p className="card-text">Trabaja tu calendario de trabajo es tu nueva Agenda</p>
+              <button  className="btn btn-outline-info" onClick={props.handleClickAgenda} >Agenda</button>
              </div>
           </div>
          </div>

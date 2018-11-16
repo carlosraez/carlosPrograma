@@ -6,6 +6,7 @@ import ListarVisitas from '../../listarVisitas/container/ListarVisitas.js'
 import { Administradores } from '../../Administradores/Container/Administradores.js'
 import { Presupuestos } from '../../Presupuestos/Container/Presupuestos.js'
 import { Visitas } from '../../datosVisita/container/Visitas.js'
+import { Agenda } from '../../Calendario/Container/Agenda.js'
 import './dashboard.css'
 
 
@@ -17,6 +18,7 @@ class Dashboard  extends Component {
     listarTrabajoUsuario:false,
     verAdministradores:false,
     hacerPresupuesto:false,
+    verAgenda:false,
   }
 
    handleClickAdministradores = () => {
@@ -38,6 +40,7 @@ class Dashboard  extends Component {
        verAdministradores: false,
        listarTrabajoUsuario: false,
        hacerPresupuesto: false,
+       verAgenda:false,
      })
    }
 
@@ -51,6 +54,12 @@ class Dashboard  extends Component {
    handleClickPresupuestos = () => {
      this.setState({
        hacerPresupuesto: true,
+     })
+   }
+
+   handleClickAgenda = () => {
+     this.setState({
+       verAgenda:true
      })
    }
 
@@ -119,11 +128,17 @@ class Dashboard  extends Component {
          usuario = {this.state.usuario}
          />
          :
+         this.state.verAgenda ?
+         <Agenda
+         usuario = {this.state.usuario}
+         />
+         :
          <Dash
             handleClickAdministradores={this.handleClickAdministradores}
             handleClickVisitas={this.handleClickVisitas}
             handleVerTrabajo={this.handleVerTrabajo}
             handleClickPresupuestos={this.handleClickPresupuestos}
+            handleClickAgenda={this.handleClickAgenda}
           />
        }
        </div>

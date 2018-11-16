@@ -5,10 +5,7 @@ import { firebaseApp } from '../../index.js'
 import Extras from '../Components/Extras.js'
 import swal from 'sweetalert';
 
-
-
-
-export class Configurador extends Component {
+export class ConfiguradorPrecio extends Component {
   state = {
      precioBasicoOferta: 60,
      paradasMinimasBasicoOferta:4,
