@@ -1,6 +1,7 @@
 import React from 'react';
 
 
+
 function ConfiguradorItemPrecioLayout(props) {
    return (
      <div className="card cardStyle" >

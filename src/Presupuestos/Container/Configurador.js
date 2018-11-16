@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ConfiguradorItemPrecioLayout from '../Components/ConfiguradorItemPrecioLayout.js'
 import InputsConfigurador from '../Components/InputsConfigurador.js'
-import Extras from '../Components/Extras.js'
 import { firebaseApp } from '../../index.js'
+import Extras from '../Components/Extras.js'
 import swal from 'sweetalert';
 
 
@@ -225,11 +225,11 @@ export class Configurador extends Component {
                                  defaultValue={this.state.calculoParaEstasParadas}
                                  handleChange={this.handleChange}
                                />
-                   <Extras  label={'Horario Ampliado'} />
-                   <Extras  label={'Tubos Leed de Regalo '} />
-                   <Extras  label={'Tubos led regalo y dector de presencia'} />
-                   <Extras  label={'Linea de telefono Ascensor'} />
-                   <Extras  label={'Gsm'} />
+                               <Extras  label={'Horario Ampliado'} />
+                               <Extras  label={'Tubos Leed de Regalo '} />
+                               <Extras  label={'Tubos led regalo y dector de presencia'} />
+                               <Extras  label={'Linea de telefono Ascensor'} />
+                               <Extras  label={'Gsm'} />
                   <button   className="btn btn-outline-info mt-10" onClick={this.handleClickGuardarConfiguracion}>Guardar Configuracion</button>
               </ConfiguradorItemPrecioLayout>
          </div>

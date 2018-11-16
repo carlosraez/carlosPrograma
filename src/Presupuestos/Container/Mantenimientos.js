@@ -14,34 +14,37 @@ export class Mantenimientos extends Component {
    render() {
 
      return (
+      <div className="container">
        <div className="row">
-              <div className="col-12 col-md-3">
+              <div className="col-12 col-md-6">
                  <Configurador
                    nombreOferta={'Oferta Mantenimiento'}
                    nombreConfiguracionGuardar={'Oferta Mantenimiento'}
                  />
               </div>
-          <div className="col-12 col-md-3">
+          <div className="col-12 col-md-6">
               <Configurador
                 nombreOferta={'Oferta Normal'}
                 nombreConfiguracionGuardar={'Oferta Normal'}
 
                />
-         </div>
-         <div className="col-12 col-md-3">
+          </div>
+        </div>
+        <div className="row">
+         <div className="col-12 col-md-6">
             <Configurador
                 nombreOferta={'Administrador Estrella'}
                 nombreConfiguracionGuardar={'Administrador Estrella'}
             />
-        </div>
-        <div className="col-12 col-md-3">
+          </div>
+           <div className="col-12 col-md-6">
             <Configurador
                 nombreOferta={'Administrador Normal'}
                 nombreConfiguracionGuardar={'Administrador Normal'}
              />
+           </div>
         </div>
        </div>
-
      )
    }
 }
