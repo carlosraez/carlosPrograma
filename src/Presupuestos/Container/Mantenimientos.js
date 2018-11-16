@@ -19,14 +19,13 @@ export class Mantenimientos extends Component {
               <div className="col-12 col-md-6">
                  <Configurador
                    nombreOferta={'Oferta Mantenimiento'}
-                   nombreConfiguracionGuardar={'Oferta Mantenimiento'}
+                   nombreConfiguracionGuardar={'Oferta Estrella'}
                  />
               </div>
           <div className="col-12 col-md-6">
               <Configurador
                 nombreOferta={'Oferta Normal'}
-                nombreConfiguracionGuardar={'Oferta Normal'}
-
+                nombreConfiguracionGuardar={'Normal'}
                />
           </div>
         </div>

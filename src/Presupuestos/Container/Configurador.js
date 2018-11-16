@@ -22,12 +22,18 @@ export class Configurador extends Component {
      precioMaximoBasicoOferta:80,
      incrementoSemiRiesgoPrecio:10,
      incrementoTodoRiesgoPrecio:20,
+     horarioAmpliado:false,
+     tubosLeed:false,
+     tubosLeedYDetector:false,
+     lineaTelefonica:false,
+     gsm:false,
    }
 
 
    handleChange = (event) => {
      const target = event.target
-     const value  = target.value
+     console.log(target);
+     const value  = target.type === 'checkbox' ? target.checked : target.value;
      const id  = target.id
      this.setState({
        [id]:  value,
@@ -48,6 +54,11 @@ export class Configurador extends Component {
           precioBasicoOferta:this.state.precioBasicoOferta || '',
           incrementoParadas:this.state.incrementoParadas || '',
           precioMaximoBasicoOferta:this.state.precioMaximoBasicoOferta || '',
+          horarioAmpliado:this.state.horarioAmpliado || '',
+          tubosLeed:this.state.tubosLeed || '',
+          tubosLeedYDetector:this.state.tubosLeedYDetector || '',
+          lineaTelefonica:this.state.lineaTelefonica || '',
+          gsm:this.state.gsm || '',
        }
      }
      ref.child(user.uid).child('configuracionMantenimiento').update(configuracion1)
@@ -225,11 +236,11 @@ export class Configurador extends Component {
                                  defaultValue={this.state.calculoParaEstasParadas}
                                  handleChange={this.handleChange}
                                />
-                               <Extras  label={'Horario Ampliado'} />
-                               <Extras  label={'Tubos Leed de Regalo '} />
-                               <Extras  label={'Tubos led regalo y dector de presencia'} />
-                               <Extras  label={'Linea de telefono Ascensor'} />
-                               <Extras  label={'Gsm'} />
+                               <Extras  checked={this.state.horarioAmpliado} handleChange={this.handleChange} id={"horarioAmpliado"} label={'Horario Ampliado'} />
+                               <Extras  checked={this.state.tubosLeed} handleChange={this.handleChange} id={"tubosLeed"} label={'Tubos Leed de Regalo '} />
+                               <Extras  checked={this.state.tubosLeedYDetector} handleChange={this.handleChange} id={"tubosLeedYDetector"} label={'Tubos led regalo y dector de presencia'} />
+                               <Extras  checked={this.state.lineaTelefonica} handleChange={this.handleChange} id={"lineaTelefonica"} label={'Linea de telefono Ascensor'} />
+                               <Extras  checked={this.state.gsm} handleChange={this.handleChange} id={"gsm"} label={'Gsm'} />
                   <button   className="btn btn-outline-info mt-10" onClick={this.handleClickGuardarConfiguracion}>Guardar Configuracion</button>
               </ConfiguradorItemPrecioLayout>
          </div>
