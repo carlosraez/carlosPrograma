@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ConfiguradorItemPrecioLayout from '../Components/ConfiguradorItemPrecioLayout.js'
 import InputsConfigurador from '../Components/InputsConfigurador.js'
 import Extras from '../Components/Extras.js'
+import { firebaseApp } from '../../index.js'
+import swal from 'sweetalert';
 
 
 
@@ -16,10 +18,9 @@ export class Configurador extends Component {
      precioTodoRiesgoOfertaTotal:0,
      incrementoParadas:5,
      incrementoParadasPrecio:1,
-     calculoParaEstasParadas:0,
+     calculoParaEstasParadas:6,
      precioMaximoBasicoOferta:80,
-     nombreConfiguracionBasica1:'Basico Oferta',
-     incrementoSemiRiesgoPrecio:12,
+     incrementoSemiRiesgoPrecio:10,
      incrementoTodoRiesgoPrecio:20,
    }
 
@@ -31,6 +32,26 @@ export class Configurador extends Component {
      this.setState({
        [id]:  value,
      }, this.caluculoPrecioBasicoOferta)
+
+   }
+
+   handleClickGuardarConfiguracion = (event) => {
+     event.preventDefault()
+     const ref  = firebaseApp.database().ref('usuarios')
+     const user = firebaseApp.auth().currentUser;
+     const nombreConfiguracion = this.props.nombreConfiguracionGuardar
+     const configuracion1 = { [nombreConfiguracion] : {
+          paradasMinimasBasicoOferta:this.state.paradasMinimasBasicoOferta,
+          paradasMaximoBasicoOferta:this.state.paradasMaximoBasicoOferta,
+          incrementoSemiRiesgoPrecio:this.state.incrementoSemiRiesgoPrecio || '',
+          incrementoTodoRiesgoPrecio:this.state.incrementoTodoRiesgoOfertaTotal || '',
+          precioBasicoOferta:this.state.precioBasicoOferta || '',
+          incrementoParadas:this.state.incrementoParadas || '',
+          precioMaximoBasicoOferta:this.state.precioMaximoBasicoOferta || '',
+       }
+     }
+     ref.child(user.uid).child('configuracionMantenimiento').update(configuracion1)
+     swal('Guardada')
 
    }
 
@@ -109,13 +130,12 @@ export class Configurador extends Component {
 
    render() {
      return (
-       <div className="row">
-       <div className="col-12 col-md-3">
+          <div>
              <ConfiguradorItemPrecioLayout
                   precioBasicoOfertaTotal={this.state.precioBasicoOfertaTotal}
                   precioSemiRiesgoOfertaTotal={this.state.precioSemiRiesgoOfertaTotal}
                   precioTodoRiesgoOfertaTotal={this.state.precioTodoRiesgoOfertaTotal}
-                  nombre={this.state.nombreConfiguracionBasica1}
+                  nombre={this.props.nombreOferta}
              >
              <InputsConfigurador
                  label={`Precio Base: ${this.state.precioBasicoOferta}`}
@@ -143,7 +163,7 @@ export class Configurador extends Component {
                      label={`Paradas Maximas: ${this.state.paradasMaximoBasicoOferta}`}
                      type={'range'}
                      className={'form-control-range'}
-                     id={'paradasMaximoBasicoOferta'}
+                     id={'paradasMaximoBasicoOferta1'}
                      max={30}
                      min={1}
                      step={1}
@@ -154,7 +174,7 @@ export class Configurador extends Component {
                        label={`Incremento por tramo de ${this.state.incrementoParadas} paradas`}
                        type={'number'}
                        className={'form-control-range'}
-                       id={'incrementoParadasPrecio'}
+                       id={'incrementoParadasPrecio1'}
                        max={30}
                        min={0}
                        step={1}
@@ -177,8 +197,8 @@ export class Configurador extends Component {
                              type={'number'}
                              className={'form-control-range'}
                              id={'incrementoSemiRiesgoPrecio'}
-                             min={1}
-                             max={100}
+                             min={0}
+                             max={200}
                              step={1}
                              defaultValue={this.state.incrementoSemiRiesgoPrecio}
                              handleChange={this.handleChange}
@@ -188,8 +208,8 @@ export class Configurador extends Component {
                                type={'number'}
                                className={'form-control-range'}
                                id={'incrementoTodoRiesgoPrecio'}
-                               min={1}
-                               max={100}
+                               min={0}
+                               max={200}
                                step={1}
                                defaultValue={this.state.incrementoTodoRiesgoPrecio}
                                handleChange={this.handleChange}
@@ -206,25 +226,13 @@ export class Configurador extends Component {
                                  handleChange={this.handleChange}
                                />
                    <Extras  label={'Horario Ampliado'} />
-                   <Extras  label={'24/horas 365 dias al año'} />
                    <Extras  label={'Tubos Leed de Regalo '} />
                    <Extras  label={'Tubos led regalo y dector de presencia'} />
                    <Extras  label={'Linea de telefono Ascensor'} />
                    <Extras  label={'Gsm'} />
-                  <button   className="btn btn-outline-info mt-10">Guardar Configuracion</button>
+                  <button   className="btn btn-outline-info mt-10" onClick={this.handleClickGuardarConfiguracion}>Guardar Configuracion</button>
               </ConfiguradorItemPrecioLayout>
-          </div>
-          <div className="col-12 col-md-3">
-
          </div>
-         <div className="col-12 col-md-3">
-
-        </div>
-        <div className="col-12 col-md-3">
-
-        </div>
-   </div>
-
      )
    }
 }

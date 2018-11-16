@@ -69,7 +69,6 @@ class FileUpload extends Component {
   }
 
   componentWillUpdate = (nextProps) => {
-    console.log('soy el componentWillUpdate', nextProps)
     if (nextProps.imagenesAscensor !== this.props.imagenesAscensor) {
         this.setState({
           listaImagenes: nextProps.imagenesAscensor
@@ -78,7 +77,6 @@ class FileUpload extends Component {
   }
 
   shouldComponentUpdate = (nextProps) => {
-    console.log('soy el shouldComponentUpdate');
     if (nextProps.imagenesAscensores === this.props.imagenesAscensor) {
       return false
     }
@@ -88,7 +86,6 @@ class FileUpload extends Component {
   }
 
    render() {
-     console.log(this.state.listaImagenes);
      return (
        <div>
        <ForumularioSubirImagen

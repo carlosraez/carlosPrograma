@@ -15,7 +15,7 @@ function ConfiguradorItemPrecioLayout(props) {
        <form>
            {props.children}
         </form>
-       </div>
+        </div>
     </div>
    )
 }
