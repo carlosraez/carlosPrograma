@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
 
-
+const DIAS = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sábado']
+const MESES = ['Diciembre','Enero','Febrero','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre']
 
 export class VisitasARealizar extends Component {
 
+
+  calcularFecha =  () => {
+    const date = new Date()
+    const mesActual = date.getMonth()
+    const diaActual = date.getDay()
+    const diaDeMes = date.getDate()
+    const ano = date.getFullYear()
+    return `Hoy es ${DIAS[diaActual]} dia ${diaDeMes}  del ${MESES[mesActual]} del ${ano}`
+  }
 
    render() {
 
      return (
        <AgendaComponentLayaout
         nombre={'Trabajo para hoy'}
+        fechaActual={this.calcularFecha()}
+        verSiguiente={'Día siguiente'}
+        verAnterior={'Día anterior'}
        >
         <div className="table-responsive">
            <table className="table table-bordered table-sm">

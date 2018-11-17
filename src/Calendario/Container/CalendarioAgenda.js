@@ -1,30 +1,73 @@
 import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
-import moment from 'moment'
+import DiaSemana from '../Components/DiaSemana.js'
+
+const DIAS = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sábado']
+const MESES = ['Diciembre','Enero','Febrero','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre']
 
 export class CalendarioAgenda extends Component {
   state = {
 
    }
 
+   calcularFecha =  () => {
+     const date = new Date()
+     const mesActual = date.getMonth()
+     const diaActual = date.getDay()
+     const diaDeMes = date.getDate()
+     const ano = date.getFullYear()
+     return `Hoy es ${DIAS[diaActual]} dia ${diaDeMes}  del ${MESES[mesActual]} del ${ano}`
+   }
+
+   calculoSemanaDias = () => {
+    const date = new Date()
+    const mesActual = date.getMonth()
+    const diaActual = date.getDay()
+    const diaDeMes = date.getDate()
+    const ano = date.getFullYear()
+    console.log(mesActual,diaActual,diaDeMes,ano);
+    //con esto averiguo el dia Actual
+    const MesActualDia1 = new Date(ano,mesActual)
+    //con esto la fecha se pone en el mes Actual
+    console.log(MesActualDia1);
+    const d = MesActualDia1.setDate(1)
+     console.log(d)
+     const timestamp = Math.floor(d / 1000);
+     console.log(timestamp);
+     return DIAS.map((dia) => {
+       if (dia === 'Domingo') {
+          return false
+       }
+       else  {
+         return (
+           <DiaSemana
+              key={dia}
+              hora={'Hora'}
+              diaSemana={dia}
+              diaDeMes={1}
+            />
+         )
+       }
+
+     })
+   }
+
    render() {
-    const fechaHoy = moment().format('MMMM Do YYYY, h:mm:ss a')
      return (
        <AgendaComponentLayaout
         nombre={'dias libres'}
+        fechaActual={this.calcularFecha()}
+        verSiguiente={'Siguiente Semana'}
+        verAnterior={'Anterior Semana'}
        >
        <div className="table-responsive">
-       <span>{fechaHoy}</span>
           <table className="table table-bordered table-sm">
                <thead>
-                <tr>
-                  <th scope="col">Hora</th>
-                  <th scope="col">Lunes</th>
-                  <th scope="col">Martes</th>
-                  <th scope="col">Miercoles</th>
-                  <th scope="col">Jueves</th>
-                  <th scope="col">Viernes</th>
-                  <th scope="col">Sábado</th>
+                  <tr>
+                      <th scope="col">Hora</th>
+               {
+                 this.calculoSemanaDias()
+               }
                 </tr>
                </thead>
                <tbody>

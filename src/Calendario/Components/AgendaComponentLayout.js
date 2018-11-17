@@ -9,6 +9,9 @@ function AgendaComponentLayaout(props) {
                <h4 className="tituloVisita">{props.nombre}</h4>
              </div>
              <div className="card-body">
+             <h5 className="card-title">{props.fechaActual}</h5>
+             <p className="card-text"><button className="btn btn-link" >{props.verSiguiente}</button> | <button className="btn btn-link">{props.verAnterior}</button>  </p>
+
                {props.children}
              </div>
             </div>
