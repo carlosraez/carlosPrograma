@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
 import DiaSemana from '../Components/DiaSemana.js'
+import moment from 'moment'
 
 const DIAS = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sábado']
 const MESES = ['Diciembre','Enero','Febrero','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre']
@@ -26,15 +27,15 @@ export class CalendarioAgenda extends Component {
     const diaDeMes = date.getDate()
     const ano = date.getFullYear()
     console.log(mesActual,diaActual,diaDeMes,ano);
-    //con esto averiguo el dia Actual
-    const MesActualDia1 = new Date(ano,mesActual)
-    //con esto la fecha se pone en el mes Actual
-    console.log(MesActualDia1);
-    const d = MesActualDia1.setDate(1)
-     console.log(d)
-     const timestamp = Math.floor(d / 1000);
-     console.log(timestamp);
-     return DIAS.map((dia) => {
+    const semana = []
+    for (var i=0;i < parseInt(7,10);i++){
+    var dia =moment().startOf('week').add(MESES, "month").add(i,"days").format("DD")
+    semana.push(dia)
+   }
+   console.log(semana);
+
+
+     return DIAS.map((dia,i) => {
        if (dia === 'Domingo') {
           return false
        }
@@ -44,7 +45,7 @@ export class CalendarioAgenda extends Component {
               key={dia}
               hora={'Hora'}
               diaSemana={dia}
-              diaDeMes={1}
+              diaDeMes={semana[i]}
             />
          )
        }
