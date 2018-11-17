@@ -8,7 +8,8 @@ const MESES = ['Diciembre','Enero','Febrero','Abril','Mayo','Junio','Julio','Ago
 
 export class CalendarioAgenda extends Component {
   state = {
-
+      siguienteSemana:0,
+      mesActual:0
    }
 
    calcularFecha =  () => {
@@ -20,20 +21,28 @@ export class CalendarioAgenda extends Component {
      return `Hoy es ${DIAS[diaActual]} dia ${diaDeMes}  del ${MESES[mesActual]} del ${ano}`
    }
 
-   calculoSemanaDias = () => {
-    const date = new Date()
-    const mesActual = date.getMonth()
-    const diaActual = date.getDay()
-    const diaDeMes = date.getDate()
-    const ano = date.getFullYear()
-    console.log(mesActual,diaActual,diaDeMes,ano);
-    const semana = []
-    for (var i=0;i < parseInt(7,10);i++){
-    var dia =moment().startOf('week').add(MESES, "month").add(i,"days").format("DD")
-    semana.push(dia)
+   handleClickSiguiente = () => {
+      this.setState({
+        siguienteSemana:this.state.siguienteSemana + 1
+      })
    }
-   console.log(semana);
 
+
+   handleClickAnteriorSemana = () => {
+     this.setState({
+       siguienteSemana:this.state.siguienteSemana - 1
+     })
+   }
+
+   calculoSemanaDias = () => {
+    const semana = []
+    let mesActual = ''
+    for (var i=0;i < DIAS.length;i++){
+    var dia = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("DD")
+    var mes = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("MM")
+    mesActual = mes
+    semana.push(dia)
+    }
 
      return DIAS.map((dia,i) => {
        if (dia === 'Domingo') {
@@ -57,9 +66,12 @@ export class CalendarioAgenda extends Component {
      return (
        <AgendaComponentLayaout
         nombre={'dias libres'}
+        mes={MESES[this.state.mesActual]}
         fechaActual={this.calcularFecha()}
         verSiguiente={'Siguiente Semana'}
         verAnterior={'Anterior Semana'}
+        handleClickSiguiente={this.handleClickSiguiente}
+        handleClickAnterior={this.handleClickAnteriorSemana}
        >
        <div className="table-responsive">
           <table className="table table-bordered table-sm">
