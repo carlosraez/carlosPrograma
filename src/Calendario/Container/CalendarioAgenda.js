@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
 import DiaSemana from '../Components/DiaSemana.js'
+import DiaLibre from '../Components/DiaLibre.js'
 import moment from 'moment'
+import '../../../src/locale.js'
 
 const DIAS = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sábado']
-const MESES = ['Diciembre','Enero','Febrero','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre']
+const MESES = ['Enero','Febrero','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
 
 export class CalendarioAgenda extends Component {
   state = {
@@ -13,12 +15,9 @@ export class CalendarioAgenda extends Component {
    }
 
    calcularFecha =  () => {
-     const date = new Date()
-     const mesActual = date.getMonth()
-     const diaActual = date.getDay()
-     const diaDeMes = date.getDate()
-     const ano = date.getFullYear()
-     return `Hoy es ${DIAS[diaActual]} dia ${diaDeMes}  del ${MESES[mesActual]} del ${ano}`
+     const fecha = moment().format('LLLL')
+     return fecha
+
    }
 
    handleClickSiguiente = () => {
@@ -34,13 +33,24 @@ export class CalendarioAgenda extends Component {
      })
    }
 
+   reservaHora = () => {
+
+   }
+
+   calcularMes = () => {
+     for (var i = 0; i < DIAS.length; i++) {
+     var mes =  moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("MMMM")
+   }
+
+     return mes
+   }
+
+
+
    calculoSemanaDias = () => {
     const semana = []
-    let mesActual = ''
     for (var i=0;i < DIAS.length;i++){
     var dia = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("DD")
-    var mes = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("MM")
-    mesActual = mes
     semana.push(dia)
     }
 
@@ -62,12 +72,13 @@ export class CalendarioAgenda extends Component {
      })
    }
 
+
    render() {
      return (
        <AgendaComponentLayaout
         nombre={'dias libres'}
-        mes={MESES[this.state.mesActual]}
         fechaActual={this.calcularFecha()}
+        mes={this.calcularMes()}
         verSiguiente={'Siguiente Semana'}
         verAnterior={'Anterior Semana'}
         handleClickSiguiente={this.handleClickSiguiente}
@@ -84,133 +95,9 @@ export class CalendarioAgenda extends Component {
                 </tr>
                </thead>
                <tbody>
-                <tr>
-                    <th scope="row">8:00</th>
-                    <td><button className="btn btn-success btn-block">Libre</button></td>
-                    <td><button className="btn btn-success btn-block">Libre</button></td>
-                    <td><button className="btn btn-success btn-block">Libre</button></td>
-                    <td><button className="btn btn-success btn-block">Libre</button></td>
-                    <td><button className="btn btn-success btn-block">Libre</button></td>
-                    <td><button className="btn btn-success btn-block">Libre</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">9:00</th>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">10:00</th>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                 </tr>
-                 <tr>
-                 <th scope="row">11:00</th>
-                 <td><button className="btn btn-success btn-block">Libre</button></td>
-                 <td><button className="btn btn-success btn-block">Libre</button></td>
-                 <td><button className="btn btn-success btn-block">Libre</button></td>
-                 <td><button className="btn btn-success btn-block">Libre</button></td>
-                 <td><button className="btn btn-success btn-block">Libre</button></td>
-                 <td><button className="btn btn-success btn-block">Libre</button></td>
-                </tr>
-                <tr>
-                <th scope="row">12:00</th>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-               </tr>
-               <tr>
-                  <th scope="row">13:00</th>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-              </tr>
-              <tr>
-                  <th scope="row">14:00</th>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-             </tr>
-             <tr>
-                  <th scope="row">15:00</th>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-                  <td><button className="btn btn-success btn-block">Libre</button></td>
-            </tr>
-            <tr>
-                <th scope="row">16:00</th>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-           </tr>
-           <tr>
-               <th scope="row">17:00</th>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-
-          </tr>
-          <tr>
-              <th scope="row">18:00</th>
-              <td><button className="btn btn-success btn-block">Libre</button></td>
-              <td><button className="btn btn-success btn-block">Libre</button></td>
-              <td><button className="btn btn-success btn-block">Libre</button></td>
-              <td><button className="btn btn-success btn-block">Libre</button></td>
-              <td><button className="btn btn-success btn-block">Libre</button></td>
-              <td><button className="btn btn-success btn-block">Libre</button></td>
-            </tr>
-            <tr>
-               <th scope="row">19:00</th>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-               <td><button className="btn btn-success btn-block">Libre</button></td>
-            </tr>
-            <tr>
-                <th scope="row">20:00</th>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-              </tr>
-              <tr>
-                <th scope="row">21:00</th>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-                <td><button className="btn btn-success btn-block">Libre</button></td>
-             </tr>
+                 {
+                   this.reservaHora()
+                 }
                </tbody>
           </table>
        </div>
