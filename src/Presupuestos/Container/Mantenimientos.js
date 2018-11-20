@@ -5,7 +5,6 @@ import { ConfiguradorPrecio } from './ConfiguradorPrecio.js'
 export class Mantenimientos extends Component {
   state = {
 
-
    }
 
    render() {
