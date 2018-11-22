@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
-import Horas from '../Components/Horas.js'
+import { Horas } from '../Components/Horas.js'
 import moment from 'moment'
 import '../../../src/locale.js'
 
@@ -82,6 +82,7 @@ export class CalendarioAgenda extends Component {
         horas.map((hora) => {
           return (
            <Horas
+           semana={semana}
            lunes={semana[1]}
            id={hora}
            key={hora}
