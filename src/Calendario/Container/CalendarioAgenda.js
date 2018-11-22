@@ -11,10 +11,6 @@ export class CalendarioAgenda extends Component {
   state = {
       siguienteSemana:0,
       mesActual:0,
-      estilo:'libre',
-      textoBoton:'Reservar',
-      id:'',
-      name:'',
    }
 
 
@@ -46,13 +42,7 @@ export class CalendarioAgenda extends Component {
      return mes
    }
 
-   handleClickLibreLunes = (event) => {
-     const target = event.target
-     const  id = target.id
-      this.setState({
-       id:id,
-     })
-   }
+
 
    reserva = () => {
      const semana = []
@@ -83,12 +73,8 @@ export class CalendarioAgenda extends Component {
           return (
            <Horas
            semana={semana}
-           lunes={semana[1]}
-           id={hora}
            key={hora}
            hora={hora}
-           textoBoton={this.state.textoBoton}
-           handleClickLibreLunes={this.handleClickLibreLunes}
            />
           )
         })
