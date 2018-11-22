@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './DiaLibre.css'
-//
-// especificar de que mes es y de que año
+
+
 export class Horas extends Component {
   state = {
       reservados : [],
@@ -10,8 +10,8 @@ export class Horas extends Component {
 
 
   handleClickReserva = (event,dia,hora) => {
-   console.log(event.target);
-   let reserva = this.state.reservados
+   const { reservados } =  this.state
+   let reserva = reservados
    reserva.push(`${dia} ${hora}`)
    this.setState({
     reservados: reserva,
@@ -20,15 +20,15 @@ export class Horas extends Component {
   }
 
    render() {
-     const { semana , hora } = this.props
-     const { reservados , textoBoton} = this.state
-    return (
-      <tr>
-        <th scope="row">{hora}</th>
-        <td ref={(ref) => {this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[1]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button
-        onClick={(event) => { this.handleClickReserva(event,semana[1],hora) }} className="btn btn-link btn-block">{textoBoton}</button></td>
+     const { textoBoton, reservados }  = this.state
+     const { hora , semana } = this.props
+     return (
+       <tr>
+         <th scope="row">{hora}</th>
+         <td ref={(ref) => { this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[1]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button
+         onClick={(event) => { this.handleClickReserva(event,this.props.semana[1],this.props.hora) }} className="btn btn-link btn-block">{textoBoton}</button></td>
 
-    </tr>
-    )
-  }
+     </tr>
+     )
+   }
 }

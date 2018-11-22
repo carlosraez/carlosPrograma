@@ -10,7 +10,7 @@ const MESES = ['Enero','Febrero','Abril','Mayo','Junio','Julio','Agosto','Septie
 export class CalendarioAgenda extends Component {
   state = {
       siguienteSemana:0,
-      mesActual:0,
+
    }
 
 
@@ -35,19 +35,14 @@ export class CalendarioAgenda extends Component {
 
 
 
-   calcularMes = () => {
-     for (var i = 0; i < DIAS.length; i++) {
-     var mes =  moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("MMMM")
-   }
-     return mes
-   }
-
-
 
    reserva = () => {
      const semana = []
+     const mesesActual = []
      for (var i=0;i < DIAS.length;i++){
      var dia = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("DD")
+     var mes = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("MM")
+     mesesActual.push(mes)
      semana.push(dia)
      }
      const horas = [
@@ -75,6 +70,7 @@ export class CalendarioAgenda extends Component {
            semana={semana}
            key={hora}
            hora={hora}
+           mes={mesesActual}
            />
           )
         })
@@ -92,7 +88,6 @@ export class CalendarioAgenda extends Component {
        <AgendaComponentLayaout
         nombre={'dias libres'}
         fechaActual={this.calcularFecha()}
-        mes={this.calcularMes()}
         verSiguiente={'Siguiente Semana'}
         verAnterior={'Anterior Semana'}
         handleClickSiguiente={this.handleClickSiguiente}
