@@ -39,11 +39,14 @@ export class CalendarioAgenda extends Component {
    reserva = () => {
      const semana = []
      const mesesActual = []
+     const year = []
      for (var i=0;i < DIAS.length;i++){
      var dia = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("DD")
      var mes = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("MM")
+     var ano = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("YY")
      mesesActual.push(mes)
      semana.push(dia)
+     year.push(ano)
      }
      const horas = [
      '8:00','8:15','8:30','8:45','9:00','9:15','9:30','9:45','10:00','10:15','10:30','10:45','11:00','11:15','11:30','11:45','12:00','12:15','12:30','12:45','13:00','13:15','13:30'
@@ -71,6 +74,7 @@ export class CalendarioAgenda extends Component {
            key={hora}
            hora={hora}
            mes={mesesActual}
+           year={year}
            />
           )
         })
