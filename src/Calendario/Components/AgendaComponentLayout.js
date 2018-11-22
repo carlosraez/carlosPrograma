@@ -10,8 +10,7 @@ function AgendaComponentLayaout(props) {
              </div>
              <div className="card-body">
              <h5 className="card-title">{props.fechaActual}</h5>
-             <p className="card-text"><button className="btn btn-info" onClick={props.handleClickAnterior} >{props.verAnterior}</button> | <button className="btn btn-info" onClick={props.handleClickSiguiente}  >{props.verSiguiente}</button>  {props.mes}</p>
-
+             <p className="card-text"><button className="btn btn-info" onClick={props.handleClickAnterior} >{props.verAnterior}</button> | <button className="btn btn-info" onClick={props.handleClickSiguiente}  >{props.verSiguiente}</button> </p>
                {props.children}
              </div>
             </div>

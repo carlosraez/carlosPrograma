@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
-import { Horas } from '../Components/Horas.js'
+import { Reservas } from './Reservas.js'
 import moment from 'moment'
 import '../../../src/locale.js'
 
@@ -33,6 +33,10 @@ export class CalendarioAgenda extends Component {
      })
    }
 
+   handleClickReserva = () => {
+
+
+   }
 
 
 
@@ -53,34 +57,34 @@ export class CalendarioAgenda extends Component {
      ,'13:45','14:00','14:15','14:30','14:45','15:00','15:15','15:30','15:45','16:00','16:15','16:30','16:45','17:00','17:15','17:30','17:45','18:00','18:15','18:30','18:45',
     '19:00','19:15','19:30','19:45','20:00','20:15','20:30','20:45','21:00']
      return (
-       <table className="table table-bordered table-sm table-striped">
-        <thead>
-           <tr>
-        <th scope="col">Hora</th>
-        <th scope="col">Lunes: {semana[1]}</th>
-        <th scope="col">Martes: {semana[2]}</th>
-        <th scope="col">Miercoles: {semana[3]}</th>
-        <th scope="col">Jueves: {semana[4]}</th>
-        <th scope="col">Viernes: {semana[5]}</th>
-        <th scope="col">Sabado: {semana[6]}</th>
-         </tr>
-          </thead>
-       <tbody>
-      {
-        horas.map((hora) => {
-          return (
-           <Horas
-           semana={semana}
-           key={hora}
-           hora={hora}
-           mes={mesesActual}
-           year={year}
-           />
-          )
-        })
-       }
-     </tbody>
-    </table>
+         <table className="table table-bordered table-sm table-striped">
+          <thead>
+             <tr>
+          <th scope="col">Hora</th>
+          <th scope="col">Lunes: {semana[1]}</th>
+          <th scope="col">Martes: {semana[2]}</th>
+          <th scope="col">Miercoles: {semana[3]}</th>
+          <th scope="col">Jueves: {semana[4]}</th>
+          <th scope="col">Viernes: {semana[5]}</th>
+          <th scope="col">Sabado: {semana[6]}</th>
+           </tr>
+            </thead>
+         <tbody>
+        {
+          horas.map((hora) => {
+            return (
+             <Reservas
+             semana={semana}
+             key={hora}
+             hora={hora}
+             mes={mesesActual}
+             year={year}
+             />
+            )
+          })
+         }
+       </tbody>
+      </table>
      )
    }
 
