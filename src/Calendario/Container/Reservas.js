@@ -3,28 +3,17 @@ import './DiaLibre.css'
 
 
 export class Reservas extends Component {
-  state = {
-      reservados : [],
-   }
 
-    handleClickReserva = (event,dia,hora,mes,year) => {
-    const { reservados } =  this.state
-    let reserva = reservados
-    reserva.push(`${dia} ${mes} ${year} ${hora}`)
-   this.setState({
-    reservados: reserva,
-    })
-  }
+
 
    render() {
-     const {  reservados  }  = this.state
-     const { hora , semana, mes, year, } = this.props
-
+     const { hora , semana, mes, year, handleClickReserva , reservados } = this.props
+  
      return (
        <tr>
          <th scope="row">{hora}</th>
-         <td ref={(ref) => { this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[1]} ${mes[1]} ${year[1]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button
-         onClick={(event) => {this.handleClickReserva(event,semana[1],hora,mes[1],year[1]) }} data-toggle="modal" data-target="#exampleModalCenter" className="btn btn-link btn-block">{reservados.indexOf(`${semana[1]} ${mes[1]} ${year[1]} ${hora}`) > - 1 ?  'Ocupado'  : 'Reservar' }</button></td>
+          <td ref={(ref) => { this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[1]} ${mes[1]} ${year[1]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button
+          onClick={(event) => {handleClickReserva(event,semana[1],mes[1],year[1],hora) }} data-toggle="modal" data-target="#exampleModalCenter" className="btn btn-link btn-block">{reservados.indexOf(`${semana[1]} ${mes[1]} ${year[1]} ${hora}`) > - 1 ?  'Ocupado'  : 'Reservar' }</button></td>
          <td ref={(ref) => { this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[2]} ${mes[2]} ${year[2]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button
          onClick={(event) => {this.handleClickReserva(event,semana[2],hora,mes[2],year[2]) }} className="btn btn-link btn-block">{reservados.indexOf(`${semana[2]} ${mes[2]} ${year[2]} ${hora}`) > - 1 ?  'Ocupado'  : 'Reservar' }</button></td>
          <td ref={(ref) => { this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[3]} ${mes[3]} ${year[3]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button

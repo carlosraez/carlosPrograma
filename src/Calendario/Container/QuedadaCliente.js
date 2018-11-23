@@ -4,6 +4,25 @@ import InputsAgenda from '../Components/InputsAgenda.js'
 
 
 export  class QuedadaCliente  extends Component {
+
+  state = {
+    diaQedada:'',
+    horaQuedada:'',
+    direccionQedada:'',
+    poblacionQedada:'',
+    motivoQedada:'',
+    tipoCliente:'',
+  }
+
+  handleChange = (event) => {
+    const target = event.target
+    const value  = target.value
+    const id     = target.id
+    this.setState({
+      [id]: value
+    })
+  }
+
   render() {
     return (
       <div className="card cardStyle" >
@@ -28,26 +47,28 @@ export  class QuedadaCliente  extends Component {
                handleChange={this.handleChange}
             />
             <InputsAgenda
-               label={'Direccion Visita'}
+               label={'Dirección de la Visita'}
                type={'text'}
                className={'form-control-range'}
                id={'direccionQedada'}
                handleChange={this.handleChange}
              />
              <InputsAgenda
-                label={'Poblacion Visita'}
+                label={'Población de la Visita'}
                 type={'text'}
                 className={'form-control-range'}
                 id={'poblacionQedada'}
                 handleChange={this.handleChange}
               />
-              <InputsAgenda
-                 label={'Tipo Cliente'}
-                 type={'text'}
-                 className={'form-control-range'}
-                 id={'tipoQedada'}
-                 handleChange={this.handleChange}
-               />
+              <label>Tipo de Cliente</label>
+              <select multiple className="form-control" id="tipoCliente" onChange={this.handleChange}>
+                   <option defaultValue="administrador">Administrador</option>
+                   <option defaultValue="presidente">Presidente</option>
+                   <option defaultValue="constructor">Constructor</option>
+                   <option defaultValue="arquitecto">Arquitecto</option>
+                   <option defaultValue="jefeDeObra">Jefe de Obra</option>
+                   <option defaultValue="promotor">Promotor</option>
+              </select>
                <InputsAgenda
                   label={'Motivo de reunión'}
                   type={'text'}

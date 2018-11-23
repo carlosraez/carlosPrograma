@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
 import { Reservas } from './Reservas.js'
+import  { QuedadaCliente }  from './QuedadaCliente.js'
 import moment from 'moment'
 import '../../../src/locale.js'
 
@@ -10,7 +11,7 @@ const MESES = ['Enero','Febrero','Abril','Mayo','Junio','Julio','Agosto','Septie
 export class CalendarioAgenda extends Component {
   state = {
       siguienteSemana:0,
-
+      reservados: []
    }
 
 
@@ -33,8 +34,14 @@ export class CalendarioAgenda extends Component {
      })
    }
 
-   handleClickReserva = () => {
-
+   handleClickReserva = (event,dia,mes,year,hora) => {
+     const { reservados } =  this.state
+    console.log(dia,mes,year,hora);
+    let reserva = reservados
+     reserva.push(`${dia} ${mes} ${year} ${hora}`)
+    this.setState({
+     reservados: reserva,
+     })
 
    }
 
@@ -79,6 +86,8 @@ export class CalendarioAgenda extends Component {
              hora={hora}
              mes={mesesActual}
              year={year}
+             handleClickReserva={this.handleClickReserva}
+             reservados={this.state.reservados}
              />
             )
           })
@@ -91,20 +100,26 @@ export class CalendarioAgenda extends Component {
 
 
    render() {
-     console.log(this.state.id, this.state.name);
      return (
-       <AgendaComponentLayaout
-        nombre={'dias libres'}
-        fechaActual={this.calcularFecha()}
-        verSiguiente={'Siguiente Semana'}
-        verAnterior={'Anterior Semana'}
-        handleClickSiguiente={this.handleClickSiguiente}
-        handleClickAnterior={this.handleClickAnteriorSemana}
-       >
-       <div className="table-responsive">
-          {this.reserva()}
-       </div>
-      </AgendaComponentLayaout>
+       <div className="row">
+       <div className="col-12 col-md-8">
+           <AgendaComponentLayaout
+            nombre={'dias libres'}
+            fechaActual={this.calcularFecha()}
+            verSiguiente={'Siguiente Semana'}
+            verAnterior={'Anterior Semana'}
+            handleClickSiguiente={this.handleClickSiguiente}
+            handleClickAnterior={this.handleClickAnteriorSemana}
+           >
+           <div className="table-responsive">
+              {this.reserva()}
+           </div>
+          </AgendaComponentLayaout>
+      </div>
+        <div className="col-12 col-md-4">
+            <QuedadaCliente />
+        </div>
+      </div>
      )
    }
 }

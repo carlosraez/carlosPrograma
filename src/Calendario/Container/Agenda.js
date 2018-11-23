@@ -3,6 +3,7 @@ import { VisitasARealizar } from './VisitasARealizar.js'
 import { CalendarioAgenda } from './CalendarioAgenda.js'
 
 
+
 export class Agenda extends Component {
   state = {
 
@@ -16,9 +17,9 @@ export class Agenda extends Component {
              <div className="col-12 col-md-12">
                <VisitasARealizar />
                <CalendarioAgenda />
+            </div>
          </div>
         </div>
-       </div>
      )
    }
 }
