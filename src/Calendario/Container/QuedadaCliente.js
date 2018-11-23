@@ -3,27 +3,15 @@ import InputsAgenda from '../Components/InputsAgenda.js'
 
 
 
+
 export  class QuedadaCliente  extends Component {
 
-  state = {
-    diaQedada:'',
-    horaQuedada:'',
-    direccionQedada:'',
-    poblacionQedada:'',
-    motivoQedada:'',
-    tipoCliente:'',
-  }
 
-  handleChange = (event) => {
-    const target = event.target
-    const value  = target.value
-    const id     = target.id
-    this.setState({
-      [id]: value
-    })
-  }
+
 
   render() {
+    const { handleChange } = this.props
+
     return (
       <div className="card cardStyle" >
          <div className="card-header">
@@ -37,31 +25,32 @@ export  class QuedadaCliente  extends Component {
             type={'date'}
             className={'form-control-range'}
             id={'diaQedada'}
-            handleChange={this.handleChange}
+            defaultValue={'12/12/2018'}
+            handleChange={handleChange}
           />
            <InputsAgenda
                label={'Introduce la Hora'}
                type={'time'}
                className={'form-control-range'}
                id={'horaQuedada'}
-               handleChange={this.handleChange}
+               handleChange={handleChange}
             />
             <InputsAgenda
                label={'Dirección de la Visita'}
                type={'text'}
                className={'form-control-range'}
                id={'direccionQedada'}
-               handleChange={this.handleChange}
+               handleChange={handleChange}
              />
              <InputsAgenda
                 label={'Población de la Visita'}
                 type={'text'}
                 className={'form-control-range'}
                 id={'poblacionQedada'}
-                handleChange={this.handleChange}
+                handleChange={handleChange}
               />
               <label>Tipo de Cliente</label>
-              <select multiple className="form-control" id="tipoCliente" onChange={this.handleChange}>
+              <select multiple className="form-control" id="tipoCliente" onChange={handleChange}>
                    <option defaultValue="administrador">Administrador</option>
                    <option defaultValue="presidente">Presidente</option>
                    <option defaultValue="constructor">Constructor</option>
@@ -74,7 +63,7 @@ export  class QuedadaCliente  extends Component {
                   type={'text'}
                   className={'form-control-range'}
                   id={'motivoQedada'}
-                  handleChange={this.handleChange}
+                  handleChange={handleChange}
                 />
                 <InputsAgenda
                    label={'Duracion Aproximada de la reunion'}
@@ -83,6 +72,7 @@ export  class QuedadaCliente  extends Component {
                    id={'tiempoQedada'}
                    handleChange={this.handleChange}
                  />
+          <button onClick={this.props.handleClickReservaForm} className="btn btn-info mr-2">Reservar Cita</button>
          </form>
          </div>
      </div>
