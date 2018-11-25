@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Landing from './landingWeb/container/landing.js'
+import './App.css'
 
 
 class App extends Component {

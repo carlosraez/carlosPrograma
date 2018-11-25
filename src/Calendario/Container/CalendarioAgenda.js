@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
 import { Reservas } from './Reservas.js'
-import  { QuedadaCliente }  from './QuedadaCliente.js'
 import moment from 'moment'
 import swal from 'sweetalert';
 import '../../../src/locale.js'
@@ -19,6 +18,7 @@ export class CalendarioAgenda extends Component {
       poblacionQedada:'',
       motivoQedada:'',
       tipoCliente:'',
+      tiempoQedada:'',
 
    }
 
@@ -33,7 +33,7 @@ export class CalendarioAgenda extends Component {
 
    calcularFecha =  () => {
      const fecha = moment().format('LLLL')
-     return fecha
+     return `hoy es ${fecha}`
 
    }
 
@@ -62,15 +62,6 @@ export class CalendarioAgenda extends Component {
 
    handleClickReservaForm = (event) => {
      event.preventDefault()
-     const { reservados, horaQuedada, diaQedada } =  this.state
-     const diaReserva = moment(diaQedada).format('DD')
-     const mesReserva = moment(diaQedada).format('MM')
-     const anoReserva = moment(diaQedada).format('YYYY')
-     let reserva = reservados
-     reserva.push(`${diaReserva} ${mesReserva} ${anoReserva} ${horaQuedada}`)
-     this.setState({
-      reservados: reserva,
-      })
       swal('La visita ha sido efectuada')
    }
 
@@ -86,10 +77,7 @@ export class CalendarioAgenda extends Component {
      semana.push(dia)
      year.push(ano)
      }
-     const horas = [
-     '08:00','08:15','08:30','08:45','09:00','09:15','09:30','09:45','10:00','10:15','10:30','10:45','11:00','11:15','11:30','11:45','12:00','12:15','12:30','12:45','13:00','13:15','13:30'
-     ,'13:45','14:00','14:15','14:30','14:45','15:00','15:15','15:30','15:45','16:00','16:15','16:30','16:45','17:00','17:15','17:30','17:45','18:00','18:15','18:30','18:45',
-    '19:00','19:15','19:30','19:45','20:00','20:15','20:30','20:45','21:00']
+     const horas = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00',]
      return (
          <table className="table table-bordered table-sm table-striped">
           <thead>
@@ -130,7 +118,7 @@ export class CalendarioAgenda extends Component {
      console.log(this.state.diaQedada);
      return (
        <div className="row">
-       <div className="col-12 col-md-8">
+       <div className="col-12">
            <AgendaComponentLayaout
             nombre={'dias libres'}
             fechaActual={this.calcularFecha()}
@@ -143,12 +131,6 @@ export class CalendarioAgenda extends Component {
               {this.reserva()}
            </div>
           </AgendaComponentLayaout>
-      </div>
-        <div className="col-12 col-md-4">
-            <QuedadaCliente
-              handleChange={this.handleChange}
-              handleClickReservaForm={this.handleClickReservaForm}
-            />
         </div>
       </div>
      )

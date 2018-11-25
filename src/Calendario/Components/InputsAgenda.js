@@ -1,10 +1,11 @@
 import React from 'react';
+import './InputsAgenda.css'
 
 
 function InputsAgenda(props) {
    return (
         <div className="form-group">
-             <label htmlFor="formControlRange">{props.label}</label>
+             <label className="formControl labelInputReserva">{props.label}</label>
              <input
              type={props.type}
              className={props.className}

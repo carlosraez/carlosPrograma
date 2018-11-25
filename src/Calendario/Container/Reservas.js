@@ -1,29 +1,53 @@
 import React, { Component } from 'react';
+import { InputReserva } from './InputReserva.js'
 import './DiaLibre.css'
 
 
 export class Reservas extends Component {
 
+   state = {
+     tituloReserva:'',
+     horaInicio:'',
+     horaFin:'',
+     motivoReunion:'',
+     poblacion:'',
+     direccion:'',
 
+   }
+
+   handleChange = (event) => {
+     const target = event.target
+     const value = target.value
+     const id = target.id
+     this.setState({
+       [id]: value
+     })
+   }
 
    render() {
-     const { hora , semana, mes, year, handleClickReserva , reservados } = this.props
-     
+     const { hora } = this.props
+     console.log(this.state);
      return (
        <tr>
          <th scope="row">{hora}</th>
-          <td ref={(ref) => { this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[1]} ${mes[1]} ${year[1]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button
-          onClick={(event) => {handleClickReserva(event,semana[1],mes[1],year[1],hora) }} data-toggle="modal" data-target="#exampleModalCenter" className="btn btn-link btn-block">{reservados.indexOf(`${semana[1]} ${mes[1]} ${year[1]} ${hora}`) > - 1 ?  'Ocupado'  : 'Reservar' }</button></td>
-         <td ref={(ref) => { this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[2]} ${mes[2]} ${year[2]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button
-         onClick={(event) => {this.handleClickReserva(event,semana[2],hora,mes[2],year[2]) }} className="btn btn-link btn-block">{reservados.indexOf(`${semana[2]} ${mes[2]} ${year[2]} ${hora}`) > - 1 ?  'Ocupado'  : 'Reservar' }</button></td>
-         <td ref={(ref) => { this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[3]} ${mes[3]} ${year[3]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button
-         onClick={(event) => {this.handleClickReserva(event,semana[3],hora,mes[3],year[3]) }} className="btn btn-link btn-block">{reservados.indexOf(`${semana[3]} ${mes[3]} ${year[3]} ${hora}`) > - 1 ?  'Ocupado'  : 'Reservar' }</button></td>
-         <td ref={(ref) => { this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[4]} ${mes[4]} ${year[4]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button
-         onClick={(event) => {this.handleClickReserva(event,semana[4],hora,mes[4],year[4]) }} className="btn btn-link btn-block">{reservados.indexOf(`${semana[4]} ${mes[4]} ${year[4]} ${hora}`) > - 1 ?  'Ocupado'  : 'Reservar' }</button></td>
-         <td ref={(ref) => { this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[5]} ${mes[5]} ${year[5]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button
-         onClick={(event) => {this.handleClickReserva(event,semana[5],hora,mes[5],year[5]) }} className="btn btn-link btn-block">{reservados.indexOf(`${semana[5]} ${mes[5]} ${year[5]} ${hora}`) > - 1 ?  'Ocupado'  : 'Reservar' }</button></td>
-         <td ref={(ref) => { this.referenciaPrueba = ref }} className={reservados.indexOf(`${semana[6]} ${mes[6]} ${year[6]} ${hora}`) > - 1 ?  'ocupado'  : 'libre' }><button
-         onClick={(event) => {this.handleClickReserva(event,semana[6],hora,mes[6],year[6]) }} className="btn btn-link btn-block">{reservados.indexOf(`${semana[6]} ${mes[6]} ${year[6]} ${hora}`) > - 1 ?  'Ocupado'  : 'Reservar' }</button></td>
+         <InputReserva
+         handleChange={this.handleChange}
+         />
+         <InputReserva
+         handleChange={this.handleChange}
+         />
+         <InputReserva
+         handleChange={this.handleChange}
+         />
+         <InputReserva
+         handleChange={this.handleChange}
+         />
+         <InputReserva
+         handleChange={this.handleChange}
+         />
+         <InputReserva
+         handleChange={this.handleChange}
+         />
      </tr>
      )
    }
