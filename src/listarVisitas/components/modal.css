@@ -1,4 +1,4 @@
-.Modal {
+.ModalListarVisitas {
   max-width: 90%;
   width: 100%;
   margin: 0 auto;
@@ -13,7 +13,7 @@
 }
 
 
-.Modal-close {
+.Modal-closeListarVisitas {
   width: 50px;
   height: 50px;
   position: absolute;
@@ -27,7 +27,7 @@
 }
 
 
-.Modal-close:after {
+.Modal-closeListarVisitas:after {
   content: "X";
   font-weight: bold;
   font-size: 30px;

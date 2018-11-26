@@ -84,7 +84,7 @@ class ListarVisitaCompleta extends Component {
     if (this.state.modalVisible) {
       return (
         <ModalContainer>
-            <div className="Modal">
+            <div className="ModalListarVisitas">
             <div className="container">
              <h1 className="tituloPrincipal">Descripcion de la visita Realizada</h1>
              <ModalPrincipal
@@ -96,7 +96,7 @@ class ListarVisitaCompleta extends Component {
             <button type="button" onClick={this.handleBorrarVisita} className="btn btn-danger botonBorrar">Borrar Visita</button>
             </div>
             <div>
-             <button type="button " className="Modal-close" onClick={this.handleCerrarModal} ></button>
+             <button type="button " className="Modal-closeListarVisitas" onClick={this.handleCerrarModal} ></button>
              </div>
             </div>
            </div>

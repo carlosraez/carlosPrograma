@@ -14,10 +14,26 @@ export class InputReserva extends Component {
    }
 
    handleClickModalReserva = () => {
+     const { horaReserva } = this.props
      const { year , mes , dia } = this.state
+      const horaNumero  = parseInt(horaReserva,10)
+      const horaSuma = horaNumero + 1
+      if (horaSuma === 9) {
+        this.setState({
+          horaFinTiempo:`0${horaSuma}:00`
+        })
+      }
+      else {
+        this.setState({
+          horaFinTiempo:`${horaSuma}:00`
+        })
+
+      }
+
+
      this.setState({
        modalVisible: true,
-       horaInicioTiempo: this.props.horaReserva,
+       horaInicioTiempo: horaReserva,
        fechaDefault: `${year}-${mes}-${dia}`
      })
    }
