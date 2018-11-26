@@ -54,9 +54,7 @@ export class CalendarioAgenda extends Component {
     const { reservados } =  this.state
     let reserva = reservados
     reserva.push(`${dia} ${mes} ${year} ${hora}`)
-    this.setState({
-     reservados: reserva,
-     })
+
 
    }
 
@@ -67,13 +65,13 @@ export class CalendarioAgenda extends Component {
 
    reserva = () => {
      const semana = []
-     const mesesActual = []
+     const mesActual = []
      const year = []
      for (var i=0;i < DIAS.length;i++){
      var dia = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("DD")
      var mes = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("MM")
      var ano = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("YYYY")
-     mesesActual.push(mes)
+     mesActual.push(mes)
      semana.push(dia)
      year.push(ano)
      }
@@ -99,7 +97,7 @@ export class CalendarioAgenda extends Component {
              semana={semana}
              key={hora}
              hora={hora}
-             mes={mesesActual}
+             mes={mesActual}
              year={year}
              handleClickReserva={this.handleClickReserva}
              reservados={this.state.reservados}

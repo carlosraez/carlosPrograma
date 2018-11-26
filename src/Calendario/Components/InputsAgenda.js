@@ -14,6 +14,7 @@ function InputsAgenda(props) {
              min={props.min}
              step={props.step}
              defaultValue={props.defaultValue}
+             placeholder={props.placeholder}
              onChange={props.handleChange}
              />
         </div>

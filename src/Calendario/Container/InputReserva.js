@@ -5,12 +5,20 @@ import ModalReserva from '../Components/ModalReserva.js'
 export class InputReserva extends Component {
    state = {
      modalVisible: false,
-     horaInicioTiempo:''
+     fechaDefault:'',
+     horaInicioTiempo:'',
+     horaFinTiempo:'',
+     dia:this.props.dia,
+     mes:this.props.mes,
+     year:this.props.year,
    }
 
    handleClickModalReserva = () => {
+     const { year , mes , dia } = this.state
      this.setState({
-       modalVisible: true
+       modalVisible: true,
+       horaInicioTiempo: this.props.horaReserva,
+       fechaDefault: `${year}-${mes}-${dia}`
      })
    }
 
@@ -21,7 +29,7 @@ export class InputReserva extends Component {
    }
 
    render() {
-     console.log(this.state.modalVisible);
+     const { horaInicioTiempo , horaFinTiempo ,  fechaDefault } = this.state
      return (
      <td>
      {
@@ -30,7 +38,9 @@ export class InputReserva extends Component {
        <ModalReserva
         handleClickCloseModal={this.handleClickCloseModal}
         handleChange={this.props.handleChange}
-        horaInicioTiempo={this.state.horaInicioTiempo}
+        horaInicioTiempo={horaInicioTiempo}
+        horaFinTiempo={horaFinTiempo}
+        fechaDefault={fechaDefault}
        />
      </ModalContainer>
      :

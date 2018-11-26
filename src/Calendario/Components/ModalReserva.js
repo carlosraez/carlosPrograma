@@ -3,30 +3,40 @@ import InputsAgenda from './InputsAgenda.js'
 import './ModalReserva.css'
 
 
+
 function ModalReserva(props) {
+
    return (
      <div className="Modal">
      <div className="container">
       <h1 className="tituloPrincipal">Reserva tu cita</h1>
+      <InputsAgenda
+      label={'Fecha Reunión'}
+      type={'date'}
+      id={'fechaReserva'}
+      defaultValue={props.fechaDefault}
+      handleChange={props.handleChange}
+      />
       <div className="row">
       <div className="col-12 col-md-6">
        <InputsAgenda
        label={'Introduce el Titulo'}
        type={'text'}
+       placeholder={'Escribe un Titulo de Reserva'}
        id={'tituloReserva'}
        handleChange={props.handleChange}
        />
        <InputsAgenda
-       label={'hora de quedada'}
+       label={'hora de Reunión'}
        type={'time'}
-       defaultValue={'08:00'}
+       defaultValue={props.horaInicioTiempo}
        id={'horaInicio'}
        handleChange={props.handleChange}
        />
        <InputsAgenda
        label={'hora de Terminacion'}
        type={'time'}
-       defaultValue={'10:00'}
+       defaultValue={props.horaFinTiempo}
        id={'horaFin'}
        handleChange={props.handleChange}
        />
@@ -40,20 +50,20 @@ function ModalReserva(props) {
       handleChange={props.handleChange}
       />
       <InputsAgenda
-      label={'Direccion'}
+      label={'Dirección'}
       type={'text'}
       id={'direccion'}
       handleChange={props.handleChange}
       />
       <InputsAgenda
-      label={'Poblacion'}
+      label={'Población'}
       type={'text'}
       id={'poblacion'}
       handleChange={props.handleChange}
       />
       </div>
      </div>
-     <button type="button"  className="btn btn-danger botonReservar">Reservar</button>
+     <button type="button" className="btn btn-danger botonReservar">Reservar</button>
      </div>
      <div>
       <button type="button" onClick={props.handleClickCloseModal} className="Modal-close"></button>
