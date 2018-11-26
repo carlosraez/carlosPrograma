@@ -30,7 +30,6 @@ export class InputReserva extends Component {
 
       }
 
-
      this.setState({
        modalVisible: true,
        horaInicioTiempo: horaReserva,
@@ -43,6 +42,7 @@ export class InputReserva extends Component {
        modalVisible: false
      })
    }
+
 
    render() {
      const { horaInicioTiempo , horaFinTiempo ,  fechaDefault } = this.state

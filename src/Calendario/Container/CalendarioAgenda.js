@@ -12,24 +12,9 @@ export class CalendarioAgenda extends Component {
   state = {
       siguienteSemana:0,
       reservados: [],
-      diaQedada:'',
-      horaQuedada:'',
-      direccionQedada:'',
-      poblacionQedada:'',
-      motivoQedada:'',
-      tipoCliente:'',
-      tiempoQedada:'',
 
    }
 
-   handleChange = (event) => {
-     const target = event.target
-     const value  = target.value
-     const id     = target.id
-     this.setState({
-       [id]: value
-     })
-   }
 
    calcularFecha =  () => {
      const fecha = moment().format('LLLL')
@@ -113,7 +98,6 @@ export class CalendarioAgenda extends Component {
 
 
    render() {
-     console.log(this.state.diaQedada);
      return (
        <div className="row">
        <div className="col-12">
