@@ -43,6 +43,11 @@ export class InputReserva extends Component {
      })
    }
 
+   static getDerivedStateFromProps = (props, state) => {
+     return props
+
+   }
+
 
    render() {
      const { horaInicioTiempo , horaFinTiempo ,  fechaDefault } = this.state
