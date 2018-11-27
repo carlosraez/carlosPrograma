@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ModalContainer from '../../widgets/container/modal-container.js'
 import ModalReserva from '../Components/ModalReserva.js'
+import { firebaseApp } from '../../index.js'
 import swal from 'sweetalert';
 
 export class InputReserva extends Component {
@@ -66,6 +67,31 @@ export class InputReserva extends Component {
 
 
    handleClickGuardarReserva = (event) => {
+     const ref  = firebaseApp.database().ref('usuarios')
+     const user = firebaseApp.auth().currentUser;
+     const {
+       horaInicio ,
+       horaFin ,
+      fechaReserva ,
+      tituloReserva,
+      motivoReunion ,
+      direccion ,
+      poblacion
+    } = this.state
+     const nombreReunion = this.state.tituloReserva
+     const nuevaReunion = {
+          [nombreReunion] : {
+          tituloReserva: tituloReserva,
+          fechaReserva:fechaReserva,
+          horaInicio:horaInicio,
+          horaFin:horaFin,
+          motivoReunion:motivoReunion,
+          direccion: direccion,
+          poblacion: poblacion
+        }
+     }
+
+   ref.child(user.uid).child('reuniones').update(nuevaReunion)
      swal('La Reserva ha sido Guardada')
      this.setState({
        modalVisible:false

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
 import { Reservas } from './Reservas.js'
 import moment from 'moment'
+import { firebaseApp } from '../../index.js'
 import '../../../src/locale.js'
 
 const DIAS = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sábado']
@@ -34,17 +35,22 @@ export class CalendarioAgenda extends Component {
      })
    }
 
-   handleClickReserva = (event,dia,mes,year,hora) => {
-    const { reservados } =  this.state
-    let reserva = reservados
-    reserva.push(`${dia} ${mes} ${year} ${hora}`)
+   
+
+   componentDidMount = () => {
+     const ref  = firebaseApp.database().ref('usuarios')
+     const user = firebaseApp.auth().currentUser;
+     const listaReunionesBaseDatos = []
+     ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
+     listaReunionesBaseDatos.push(sanpshot.val())
+     this.setState({
+       reservados:listaReunionesBaseDatos,
+      })
+    })
+  }
 
 
-   }
-
-
-
-   reserva = () => {
+    reserva = () => {
      const semana = []
      const mesActual = []
      const year = []
@@ -94,6 +100,7 @@ export class CalendarioAgenda extends Component {
 
 
    render() {
+     console.log(this.state.reservados);
      return (
        <div className="row">
        <div className="col-12">
