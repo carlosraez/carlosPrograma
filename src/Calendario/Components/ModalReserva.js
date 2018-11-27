@@ -14,7 +14,7 @@ function ModalReserva(props) {
       label={'Fecha Reunión'}
       type={'date'}
       id={'fechaReserva'}
-      defaultValue={props.fechaDefault}
+      defaultValue={props.fechaReserva}
       handleChange={props.handleChange}
       />
       <div className="row">
@@ -29,14 +29,14 @@ function ModalReserva(props) {
        <InputsAgenda
        label={'hora de Reunión'}
        type={'time'}
-       defaultValue={props.horaInicioTiempo}
+       defaultValue={props.horaInicio}
        id={'horaInicio'}
        handleChange={props.handleChange}
        />
        <InputsAgenda
        label={'hora de Terminacion'}
        type={'time'}
-       defaultValue={props.horaFinTiempo}
+       defaultValue={props.horaFin}
        id={'horaFin'}
        handleChange={props.handleChange}
        />
@@ -63,7 +63,7 @@ function ModalReserva(props) {
       />
       </div>
      </div>
-     <button type="button" className="btn btn-danger botonReservar">Reservar</button>
+     <button type="button" onClick={props.handleClickGuardarReserva} className="btn btn-danger botonReservar">Reservar</button>
      </div>
      <div>
       <button type="button" onClick={props.handleClickCloseModal} className="Modal-close"></button>

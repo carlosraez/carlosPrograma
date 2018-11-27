@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
 import { Reservas } from './Reservas.js'
 import moment from 'moment'
-import swal from 'sweetalert';
 import '../../../src/locale.js'
 
 const DIAS = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sábado']
@@ -43,10 +42,7 @@ export class CalendarioAgenda extends Component {
 
    }
 
-   handleClickReservaForm = (event) => {
-     event.preventDefault()
-      swal('La visita ha sido efectuada')
-   }
+
 
    reserva = () => {
      const semana = []

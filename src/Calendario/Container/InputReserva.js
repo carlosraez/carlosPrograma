@@ -1,16 +1,31 @@
 import React, { Component } from 'react';
 import ModalContainer from '../../widgets/container/modal-container.js'
 import ModalReserva from '../Components/ModalReserva.js'
+import swal from 'sweetalert';
 
 export class InputReserva extends Component {
    state = {
      modalVisible: false,
-     fechaDefault:'',
-     horaInicioTiempo:'',
-     horaFinTiempo:'',
+     fechaReserva:'',
+     horaInicio:'',
+     horaFin:'',
+     poblacion:'',
+     direccion:'',
+     motivoReunion:'',
+     tituloReserva:'',
      dia:this.props.dia,
      mes:this.props.mes,
      year:this.props.year,
+   }
+
+   handleChange = (event) => {
+     const target = event.target
+     const value = target.value
+     const id =  target.id
+     this.setState({
+       [id]:value
+     })
+
    }
 
    handleClickModalReserva = () => {
@@ -18,22 +33,23 @@ export class InputReserva extends Component {
      const { year , mes , dia } = this.state
       const horaNumero  = parseInt(horaReserva,10)
       const horaSuma = horaNumero + 1
+
       if (horaSuma === 9) {
         this.setState({
-          horaFinTiempo:`0${horaSuma}:00`
+          horaFin:`0${horaSuma}:00`
         })
       }
       else {
         this.setState({
-          horaFinTiempo:`${horaSuma}:00`
+          horaFin:`${horaSuma}:00`
         })
 
       }
 
      this.setState({
        modalVisible: true,
-       horaInicioTiempo: horaReserva,
-       fechaDefault: `${year}-${mes}-${dia}`
+       horaInicio: horaReserva,
+       fechaReserva: `${year}-${mes}-${dia}`
      })
    }
 
@@ -49,8 +65,15 @@ export class InputReserva extends Component {
    }
 
 
+   handleClickGuardarReserva = (event) => {
+     swal('La Reserva ha sido Guardada')
+     this.setState({
+       modalVisible:false
+     })
+   }
+
    render() {
-     const { horaInicioTiempo , horaFinTiempo ,  fechaDefault } = this.state
+     const { horaInicio , horaFin ,  fechaReserva } = this.state
      return (
      <td>
      {
@@ -58,10 +81,11 @@ export class InputReserva extends Component {
      <ModalContainer>
        <ModalReserva
         handleClickCloseModal={this.handleClickCloseModal}
-        handleChange={this.props.handleChange}
-        horaInicioTiempo={horaInicioTiempo}
-        horaFinTiempo={horaFinTiempo}
-        fechaDefault={fechaDefault}
+        handleChange={this.handleChange}
+        horaInicio={horaInicio}
+        horaFin={horaFin}
+        fechaReserva={fechaReserva}
+        handleClickGuardarReserva={this.handleClickGuardarReserva}
        />
      </ModalContainer>
      :
