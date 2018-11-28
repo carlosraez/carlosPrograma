@@ -115,16 +115,19 @@ export class InputReserva extends Component {
    tipoCss = () => {
       const {  reservados , year,mes,dia } = this.state
       const { horaReserva } = this.props
-      const horasReservas = []
-      const fechaReservas = []
+      const reservasdosTotales = []
+      let fecha = ''
      for (let i = 0; i < reservados.length; i++) {
        const horas = reservados[i].horaInicio
        const fechas = reservados[i].fechaReserva
-       fechaReservas.push(fechas)
-       horasReservas.push(horas)
+        fecha = `${fechas} ${horas}`
+        reservasdosTotales.push(fecha)
      }
-     if (fechaReservas === `${year}-${mes}-${dia}` && horasReservas === horaReserva ) {
-       return  'ocupadoReserva'
+     console.log(reservasdosTotales);
+     console.log(`soy la hora reserva ${horaReserva}`);
+     console.log(reservasdosTotales.indexOf(`${year}-${mes}-${dia} ${horaReserva}`  ));
+     if (reservasdosTotales.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) > -1) {
+        return 'ocupadoReserva'
      }
      else {
        return 'libre'
