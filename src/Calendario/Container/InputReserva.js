@@ -113,11 +113,13 @@ export class InputReserva extends Component {
   }
 
    render() {
-     const { horaInicio , horaFin ,  fechaReserva , reservados } = this.state
-     console.log(reservados);
+     const { horaInicio , horaFin ,  fechaReserva , reservados, year , mes , dia } = this.state
+     const unareserva = reservados[0] || []
+     const hora = unareserva.horaInicio || ''
+     const diaReserva = unareserva.fechaReserva || ''
 
      return (
-     <td className={'libre'}>
+     <td className={hora === this.props.horaReserva && diaReserva === `${year}-${mes}-${dia}` ? 'ocupadoReserva' : 'libre'}>
      {
      this.state.modalVisible ?
      <ModalContainer>
