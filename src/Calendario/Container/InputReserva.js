@@ -112,14 +112,31 @@ export class InputReserva extends Component {
     })
   }
 
+   tipoCss = () => {
+      const {  reservados , year,mes,dia } = this.state
+      const { horaReserva } = this.props
+      const horasReservas = []
+      const fechaReservas = []
+     for (let i = 0; i < reservados.length; i++) {
+       const horas = reservados[i].horaInicio
+       const fechas = reservados[i].fechaReserva
+       fechaReservas.push(fechas)
+       horasReservas.push(horas)
+     }
+     if (fechaReservas === `${year}-${mes}-${dia}` && horasReservas === horaReserva ) {
+       return  'ocupadoReserva'
+     }
+     else {
+       return 'libre'
+     }
+   }
+
+
    render() {
-     const { horaInicio , horaFin ,  fechaReserva , reservados, year , mes , dia } = this.state
-     const unareserva = reservados[0] || []
-     const hora = unareserva.horaInicio || ''
-     const diaReserva = unareserva.fechaReserva || ''
+     const { horaInicio , horaFin ,  fechaReserva  } = this.state
 
      return (
-     <td className={hora === this.props.horaReserva && diaReserva === `${year}-${mes}-${dia}` ? 'ocupadoReserva' : 'libre'}>
+     <td className={this.tipoCss()}>
      {
      this.state.modalVisible ?
      <ModalContainer>
