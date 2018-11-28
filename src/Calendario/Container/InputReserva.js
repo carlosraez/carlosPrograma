@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import ModalContainer from '../../widgets/container/modal-container.js'
 import ModalReserva from '../Components/ModalReserva.js'
 import { firebaseApp } from '../../index.js'
+import './InputReserva.css'
 import swal from 'sweetalert';
 
 export class InputReserva extends Component {
    state = {
+     reservados: [],
      modalVisible: false,
      fechaReserva:'',
      horaInicio:'',
@@ -98,10 +100,24 @@ export class InputReserva extends Component {
      })
    }
 
+   componentDidMount = () => {
+     const ref  = firebaseApp.database().ref('usuarios')
+     const user = firebaseApp.auth().currentUser;
+     const listaReunionesBaseDatos = []
+     ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
+     listaReunionesBaseDatos.push(sanpshot.val())
+     this.setState({
+      reservados:listaReunionesBaseDatos,
+      })
+    })
+  }
+
    render() {
-     const { horaInicio , horaFin ,  fechaReserva } = this.state
+     const { horaInicio , horaFin ,  fechaReserva , reservados } = this.state
+     console.log(reservados);
+
      return (
-     <td>
+     <td className={'libre'}>
      {
      this.state.modalVisible ?
      <ModalContainer>
@@ -118,6 +134,7 @@ export class InputReserva extends Component {
 
        <button onClick={this.handleClickModalReserva} className="btn btn-link  btn-block">Reservar</button>
      }
+
      </td>
      )
    }

@@ -9,7 +9,7 @@ export class Reservas extends Component {
 
 
    render() {
-     const { hora, handleClickReserva , semana, mes, year} = this.props
+     const { hora, handleClickReserva , semana, mes, year } = this.props
      return (
        <tr>
          <th scope="row">{hora}</th>
