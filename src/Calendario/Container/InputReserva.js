@@ -123,9 +123,7 @@ export class InputReserva extends Component {
         fecha = `${fechas} ${horas}`
         reservasdosTotales.push(fecha)
      }
-     console.log(reservasdosTotales);
-     console.log(`soy la hora reserva ${horaReserva}`);
-     console.log(reservasdosTotales.indexOf(`${year}-${mes}-${dia} ${horaReserva}`  ));
+     
      if (reservasdosTotales.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) > -1) {
         return 'ocupadoReserva'
      }
