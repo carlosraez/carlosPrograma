@@ -134,6 +134,9 @@ export class InputReserva extends Component {
      }
    }
 
+   verOcupado = () => {
+     alert('Hola')
+   }
 
    render() {
      const { horaInicio , horaFin ,  fechaReserva } = this.state
@@ -154,7 +157,7 @@ export class InputReserva extends Component {
      </ModalContainer>
      :
 
-       <button onClick={this.handleClickModalReserva} className="btn btn-link  btn-block">{this.tipoCss() === 'ocupadoReserva' ? 'Ocupado' : 'Reservar' }</button>
+       <button onClick={this.tipoCss() === 'ocupadoReserva' ? this.verOcupado : this.handleClickModalReserva} className="btn btn-link  btn-block">{this.tipoCss() === 'ocupadoReserva' ? 'Ocupado' : 'Reservar' }</button>
      }
 
      </td>
