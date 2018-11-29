@@ -156,8 +156,10 @@ export class InputReserva extends Component {
        />
      </ModalContainer>
      :
-
+       <div>
+       <p>{this.tipoCss() === 'ocupadoReserva' ? 'Quedar a Almorzar Machancoses' : ''}</p>
        <button onClick={this.tipoCss() === 'ocupadoReserva' ? this.verOcupado : this.handleClickModalReserva} className="btn btn-link  btn-block">{this.tipoCss() === 'ocupadoReserva' ? 'Ocupado' : 'Reservar' }</button>
+       </div>
      }
 
      </td>

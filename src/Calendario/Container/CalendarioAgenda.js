@@ -36,13 +36,11 @@ export class CalendarioAgenda extends Component {
 
 
 
-
-
-
     reserva = () => {
      const semana = []
      const mesActual = []
      const year = []
+     const hoy = moment().format('l')
      for (var i=0;i < DIAS.length;i++){
      var dia = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("DD")
      var mes = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("MM")
@@ -51,18 +49,20 @@ export class CalendarioAgenda extends Component {
      semana.push(dia)
      year.push(ano)
      }
+
+
      const horas = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00',]
      return (
          <table className="table table-bordered table-sm table-striped">
           <thead>
              <tr>
           <th scope="col">Hora</th>
-          <th scope="col">Lunes: {semana[1]}</th>
-          <th scope="col">Martes: {semana[2]}</th>
-          <th scope="col">Miercoles: {semana[3]}</th>
-          <th scope="col">Jueves: {semana[4]}</th>
-          <th scope="col">Viernes: {semana[5]}</th>
-          <th scope="col">Sabado: {semana[6]}</th>
+          <th scope="col">Lunes: {semana[1]} {hoy === `${semana[1]}/${mesActual[1]}/${year[1]}` ? 'Hoy' : ''}</th>
+          <th scope="col">Martes: {semana[2]} {hoy === `${semana[2]}/${mesActual[2]}/${year[2]}` ? 'Hoy es' : ''}</th>
+          <th scope="col">Miercoles: {semana[3]} {hoy === `${semana[3]}/${mesActual[3]}/${year[3]}` ? 'Hoy es' : ''}</th>
+          <th scope="col">Jueves: {semana[4]} {hoy === `${semana[4]}/${mesActual[4]}/${year[4]}` ? 'Hoy es' : ''}</th>
+          <th scope="col">Viernes: {semana[5]} {hoy === `${semana[5]}/${mesActual[5]}/${year[5]}` ? 'Hoy es' : ''}</th>
+          <th scope="col">Sabado: {semana[6]} {hoy === `${semana[6]}/${mesActual[6]}/${year[6]}` ? 'Hoy es' : ''}</th>
            </tr>
             </thead>
          <tbody>
@@ -89,7 +89,6 @@ export class CalendarioAgenda extends Component {
 
 
    render() {
-     
      return (
        <div className="row">
        <div className="col-12">
