@@ -123,9 +123,11 @@ export class InputReserva extends Component {
         fecha = `${fechas} ${horas}`
         reservasdosTotales.push(fecha)
      }
-     
+
      if (reservasdosTotales.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) > -1) {
+
         return 'ocupadoReserva'
+
      }
      else {
        return 'libre'
@@ -134,7 +136,7 @@ export class InputReserva extends Component {
 
 
    render() {
-     const { horaInicio , horaFin ,  fechaReserva  } = this.state
+     const { horaInicio , horaFin ,  fechaReserva } = this.state
 
      return (
      <td className={this.tipoCss()}>
@@ -152,7 +154,7 @@ export class InputReserva extends Component {
      </ModalContainer>
      :
 
-       <button onClick={this.handleClickModalReserva} className="btn btn-link  btn-block">Reservar</button>
+       <button onClick={this.handleClickModalReserva} className="btn btn-link  btn-block">{this.tipoCss() === 'ocupadoReserva' ? 'Ocupado' : 'Reservar' }</button>
      }
 
      </td>

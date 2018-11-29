@@ -125,30 +125,7 @@ export class VisitaPuertaFria extends Component {
     }
     ref.child(user.uid).child('visitas').child('puertaFria').push(nuevaVisita)
     swal('Se ha guardado , ahora realiza un buen seguimiento para poder cerrar la venta')
-    this.setState({
-      usuarioMakeVisita:false,
-      calle: '',
-      poblacion:'',
-      postal:'',
-      interes:'Medio Interesados',
-      nombrePresidente:'',
-      telefonoPresidente:'',
-      emailPresidente:'',
-      tipoPresupuesto:'Mantenimiento',
-      horaVisita:{value: 'Preferiblemente por la Mañana'},
-      nombreAdministrador:'',
-      marca:'',
-      mantenedor:'',
-      oca:'',
-      proxVisita: '',
-      ascensor: [],
-      textoInfoVista: '',
-      observacionAscensor:'',
-      paradas: '',
-      personas:'',
-      rae:'',
-      embarques:'',
-    })
+    
   }
 
 
