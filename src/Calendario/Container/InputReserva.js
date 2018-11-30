@@ -123,7 +123,7 @@ export class InputReserva extends Component {
         fecha = `${fechas} ${horas}`
         reservasdosTotales.push(fecha)
      }
-
+     console.log(reservasdosTotales)
      if (reservasdosTotales.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) > -1) {
 
         return 'ocupadoReserva'
@@ -134,12 +134,16 @@ export class InputReserva extends Component {
      }
    }
 
+
+
+
    verOcupado = () => {
      alert('Hola')
    }
 
+
    render() {
-     const { horaInicio , horaFin ,  fechaReserva } = this.state
+     const { horaInicio , horaFin ,  fechaReserva, } = this.state
 
      return (
      <td className={this.tipoCss()}>
@@ -156,12 +160,11 @@ export class InputReserva extends Component {
        />
      </ModalContainer>
      :
-       <div>
-       <p>{this.tipoCss() === 'ocupadoReserva' ? 'Quedar a Almorzar Machancoses' : ''}</p>
-       <button onClick={this.tipoCss() === 'ocupadoReserva' ? this.verOcupado : this.handleClickModalReserva} className="btn btn-link  btn-block">{this.tipoCss() === 'ocupadoReserva' ? 'Ocupado' : 'Reservar' }</button>
-       </div>
-     }
-
+     <div>
+      <p>Titulo: </p>
+      <button onClick={this.tipoCss() === 'ocupadoReserva' ? this.verOcupado : this.handleClickModalReserva} className="btn btn-link  btn-block">{this.tipoCss() === 'ocupadoReserva' ? 'Ocupado' : 'Reservar' }</button>
+      </div>
+    }
      </td>
      )
    }
