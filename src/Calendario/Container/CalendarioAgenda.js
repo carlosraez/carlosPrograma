@@ -40,7 +40,7 @@ export class CalendarioAgenda extends Component {
      const semana = []
      const mesActual = []
      const year = []
-     const hoy = moment().format('l')
+     const hoy = moment().format('L')
      for (var i=0;i < DIAS.length;i++){
      var dia = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("DD")
      var mes = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("MM")
@@ -50,9 +50,8 @@ export class CalendarioAgenda extends Component {
      year.push(ano)
      }
 
-
-     const horas = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00',]
-     return (
+      const horas = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00',]
+      return (
          <table className="table table-bordered table-sm table-striped">
           <thead>
              <tr>

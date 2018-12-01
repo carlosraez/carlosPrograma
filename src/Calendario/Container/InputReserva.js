@@ -116,22 +116,34 @@ export class InputReserva extends Component {
       const {  reservados , year,mes,dia } = this.state
       const { horaReserva } = this.props
       const reservasdosTotales = []
+      let titulo = []
       let fecha = ''
      for (let i = 0; i < reservados.length; i++) {
+       const tituloReser = reservados[i].tituloReserva
        const horas = reservados[i].horaInicio
        const fechas = reservados[i].fechaReserva
         fecha = `${fechas} ${horas}`
         reservasdosTotales.push(fecha)
+        titulo.push(tituloReser)
      }
-     console.log(reservasdosTotales)
-     if (reservasdosTotales.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) > -1) {
+       if (reservasdosTotales[2] === `${year}-${mes}-${dia} ${horaReserva}`) {
+           return  (
+            <td className='ocupadoReserva'>
+              <p>{titulo[2]} </p>
+             <button onClick={this.verOcupado} className="btn btn-link  btn-block">Ocupado</button>
+            </td>
 
-        return 'ocupadoReserva'
+            )
+       }
+       else {
+         return (
+           <td className={'libre'}>
+           <button onClick={this.handleClickModalReserva} className="btn btn-link  btn-block">Reservar</button>
+          </td>
+         )
+       }
 
-     }
-     else {
-       return 'libre'
-     }
+
    }
 
 
@@ -146,8 +158,6 @@ export class InputReserva extends Component {
      const { horaInicio , horaFin ,  fechaReserva, } = this.state
 
      return (
-     <td className={this.tipoCss()}>
-     {
      this.state.modalVisible ?
      <ModalContainer>
        <ModalReserva
@@ -160,12 +170,7 @@ export class InputReserva extends Component {
        />
      </ModalContainer>
      :
-     <div>
-      <p>Titulo: </p>
-      <button onClick={this.tipoCss() === 'ocupadoReserva' ? this.verOcupado : this.handleClickModalReserva} className="btn btn-link  btn-block">{this.tipoCss() === 'ocupadoReserva' ? 'Ocupado' : 'Reservar' }</button>
-      </div>
-    }
-     </td>
+     this.tipoCss()
      )
    }
 }
