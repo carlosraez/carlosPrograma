@@ -6,6 +6,7 @@ import './InputReserva.css'
 import swal from 'sweetalert';
 
 
+
 export class InputReserva extends Component {
    state = {
      reservados: [],
@@ -115,7 +116,7 @@ export class InputReserva extends Component {
   }
 
    tipoCss = () => {
-
+      
       const { year,mes,dia, reservados  } = this.state
       const { horaReserva } = this.props
       const fecha = []
@@ -128,23 +129,24 @@ export class InputReserva extends Component {
           tituloReserva.push(titulo)
         
       }
-      if (fecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`)  > -1) {
-        return  (
-         <td className='ocupadoReserva'>
-           <p> </p>
-          <button onClick={this.verOcupado} className="btn btn-link  btn-block">Ocupado</button>
-         </td>
-
-         )
-    }
-    else  {
-      return (
+    return fecha.length >= 1 ?  
+          fecha.map((reserva, i) => {                   
+     return  reserva === `${year}-${mes}-${dia} ${horaReserva}` ?
+             <td className='ocupadoReserva'>
+             <p>{tituloReserva[i]}</p>
+              <button onClick={this.verOcupado} className="btn btn-link  btn-block">Ocupado</button>
+             </td>
+             :
+             <td className={'libre'}>
+             <button onClick={this.handleClickModalReserva} className="btn btn-link  btn-block">Reservar</button>
+            </td>
+     })
+     :
       <td className={'libre'}>
       <button onClick={this.handleClickModalReserva} className="btn btn-link  btn-block">Reservar</button>
      </td>
-    )
+    
    }
-  }
 
 
 
@@ -155,6 +157,7 @@ export class InputReserva extends Component {
 
 
    render() {
+  
      const { horaInicio , horaFin ,  fechaReserva, } = this.state
      return (
      this.state.modalVisible ?
