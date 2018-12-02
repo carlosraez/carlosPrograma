@@ -129,25 +129,17 @@ export class InputReserva extends Component {
           tituloReserva.push(titulo)
         
       }
-    return fecha.length >= 1 ?  
-          fecha.map((reserva, i) => {                   
-     return  reserva === `${year}-${mes}-${dia} ${horaReserva}` ?
+    const index = fecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`)                  
+       return  index > -1 ?
              <td className='ocupadoReserva'>
-             <p>{tituloReserva[i]}</p>
+             <p>{tituloReserva[index]}</p>
               <button onClick={this.verOcupado} className="btn btn-link  btn-block">Ocupado</button>
              </td>
              :
              <td className={'libre'}>
              <button onClick={this.handleClickModalReserva} className="btn btn-link  btn-block">Reservar</button>
-            </td>
-     })
-     :
-      <td className={'libre'}>
-      <button onClick={this.handleClickModalReserva} className="btn btn-link  btn-block">Reservar</button>
-     </td>
-    
+            </td>    
    }
-
 
 
 
