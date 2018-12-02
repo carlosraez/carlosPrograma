@@ -4,6 +4,7 @@ import ModalReserva from '../Components/ModalReserva.js'
 import { firebaseApp } from '../../index.js'
 import './InputReserva.css'
 import swal from 'sweetalert';
+import { Inputhoras } from './InputHoras.js';
 
 
 
@@ -115,28 +116,41 @@ export class InputReserva extends Component {
 
   }
 
-   tipoCss = () => {
+   reservas = () => {
       
       const { year,mes,dia, reservados  } = this.state
       const { horaReserva } = this.props
       const fecha = []
       const tituloReserva = []
+      const horaInicio = []
+      const horaFin = []
       for (let i = 0; i < reservados.length; i++) {
           const titulo = reservados[i].tituloReserva
           const fechaInicio = reservados[i].fechaReserva
           const hora = reservados[i].horaInicio
+          const fin = reservados[i].horaFin
+          horaInicio.push(hora)
+          horaFin.push(fin)
           fecha.push(`${fechaInicio} ${hora}`)
           tituloReserva.push(titulo)
         
       }
+    console.log(fecha);
+    
     const index = fecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`)                  
        return  index > -1 ?
-             <td className='ocupadoReserva'>
-             <p>{tituloReserva[index]}</p>
-              <button onClick={this.verOcupado} className="btn btn-link  btn-block">Ocupado</button>
+             <td className='CeldaReserva'>
+             <Inputhoras
+             horaInicio={horaInicio}
+             horaFin={horaFin}
+             tituloReserva={tituloReserva} 
+             verOcupado={this.verOcupado} 
+             cssReserva={'OcupadoReserva'} 
+             indice={index}
+             ></Inputhoras>
              </td>
              :
-             <td className={'libre'}>
+             <td className="">
              <button onClick={this.handleClickModalReserva} className="btn btn-link  btn-block">Reservar</button>
             </td>    
    }
@@ -144,7 +158,7 @@ export class InputReserva extends Component {
 
 
    verOcupado = () => {
-     alert('Hola')
+     swal('Hola')
    }
 
 
@@ -164,7 +178,7 @@ export class InputReserva extends Component {
        />
      </ModalContainer>
      :
-      this.tipoCss() 
+      this.reservas() 
      )
    }
 }

@@ -5,9 +5,6 @@ import { InputReserva } from './InputReserva.js'
 
 export class Reservas extends Component {
 
-
-
-
    render() {
      const { hora, handleClickReserva , semana, mes, year } = this.props
      return (

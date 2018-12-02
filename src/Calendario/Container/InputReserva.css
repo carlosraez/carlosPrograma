@@ -1,3 +1,11 @@
 .ocupadoReserva {
   background-color: #dc3545;
 }
+
+.libre {
+  background-color: aquamarine;
+}
+
+.CeldaReserva {
+  padding: 0px !important;
+}
