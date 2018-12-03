@@ -149,8 +149,8 @@ export class InputReserva extends Component {
              ></Inputhoras>
              </td>
              :
-             <td className="">
-             <button onClick={this.handleClickModalReserva} className="btn btn-link  btn-block">Reservar</button>
+             <td onClick={this.handleClickModalReserva}>
+             Reservar
             </td>    
    }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
-import { Reservas } from './Reservas.js'
+import { ReservasFilas } from './ReservasFilas.js'
 import moment from 'moment'
 
 import '../../../src/locale.js'
@@ -50,60 +50,67 @@ export class CalendarioAgenda extends Component {
      year.push(ano)
      }
      
-      const horas = ['08:00','08:10','08:20','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00',]
-      const horitas = []
+      const horasTotales = []
+      const horaNoMostrar = []
       for (let index = 8; index <= 22; index++) {
             let horaVacia = '00:00'
             let horaSimple = `0${index}`
             let horaSimpleUnica = `${index}`
                   if (index <= 9) {
                     horaVacia = `0${index}:00`
-                    horitas.push(horaVacia)
-                    for (let index = 0; index < 12; index++) {
-                      let minutos = `${index * 5}`  
+                    horasTotales.push(horaVacia)
+                    horaNoMostrar.push(`00:${index}`)
+                    for (let index = 0; index < 6; index++) {
+                      let minutos = `${index * 10}`  
                       if (minutos === '0') {
                         
                       }    
                       else if (minutos === '5') 
                           {
                           let horas = `${horaSimple}:05`
-                          horitas.push(horas)
+                          horasTotales.push(horas)
+                          horaNoMostrar.push(horas)
                           } 
                       else 
                           {
                           let horas = `${horaSimple}:${minutos}`
-                          horitas.push(horas)
+                          horasTotales.push(horas)
+                          horaNoMostrar.push(horas)
                           }     
                     }
                   } 
                   else {
                         horaVacia = `${index}:00`
-                        horitas.push(horaVacia)
-                          for (let index = 0; index < 12; index++) {
-                            let  minutos = `${index * 5}`
+                        horasTotales.push(horaVacia)
+                        horaNoMostrar.push(`00:${index}`)
+                          for (let index = 0; index < 6; index++) {
+                            let  minutos = `${index * 10}`
                             if (minutos === '0') {
                               
                             }    
                         else if (minutos === '5') 
                             {
                               let horas = `${horaSimpleUnica}:05`
-                              horitas.push(horas)
+                              horasTotales.push(horas)
+                              horaNoMostrar.push(horas)
                             } 
                           else 
                             {
                               let horas = `${horaSimpleUnica}:${minutos}`
-                              horitas.push(horas)
+                              horasTotales.push(horas)
+                              horaNoMostrar.push(horas)
                             }     
                         }
                   }
       }
-      console.log(horitas);
       
+      
+    
       
       
       
       return (
-         <table className="table table-bordered table-sm table-striped">
+         <table className="table table-bordered table-hover table-sm">
           <thead>
              <tr>
           <th scope="col">Hora</th>
@@ -117,9 +124,11 @@ export class CalendarioAgenda extends Component {
             </thead>
          <tbody>
         {
-          horas.map((hora) => {
+          horasTotales.map((hora,i) => {
+        
             return (
-             <Reservas
+             <ReservasFilas
+             horaNoMostrar={horaNoMostrar[i]}
              semana={semana}
              key={hora}
              hora={hora}

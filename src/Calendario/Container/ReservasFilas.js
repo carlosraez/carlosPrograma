@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import { InputReserva } from './InputReserva.js'
+import './ReservasFilas.css'
 
 
 
-export class Reservas extends Component {
+export class ReservasFilas extends Component {
    hora = () => {
-    const { hora } = this.props
-    const noMostrar = ['09:00','08:10','08:20']
-    if(hora ===  noMostrar[2] )
+    const { hora, horaNoMostrar  } = this.props
+      
+      if(hora === horaNoMostrar )
      {
        return ''
      }
      else {
        return hora
      }
-   }
-    
+   } 
+      
+  
    render() {
      const { hora, handleClickReserva , semana, mes, year } = this.props
-     
-     
-     
+    
      return (
-       <tr>
+       <tr className="filaBonita">
          <th scope="row">{this.hora()}</th>
          <InputReserva
          year={year[1]}
