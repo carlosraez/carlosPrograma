@@ -53,26 +53,52 @@ export class CalendarioAgenda extends Component {
       const horas = ['08:00','08:10','08:20','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00',]
       const horitas = []
       for (let index = 8; index <= 22; index++) {
-          let vacia = '00:00'
-          if (index <= 9) {
-            for (let index = 0; index < 12; index++) {
-            console.log(`${index * 5}`);
-            
-            let minutos = `${index * 5}`
-              vacia = `0${index}:${minutos}`
-            }
-          } else {
-            vacia = `${index}:00`
-            for (let index = 0; index < 12; index++) {
-            let  minutos = `${index * 5}`
-              vacia = `0${index}:${minutos}`
-            }
-          }
-          horitas.push(vacia)
-        
-        
+            let horaVacia = '00:00'
+            let horaSimple = `0${index}`
+            let horaSimpleUnica = `${index}`
+                  if (index <= 9) {
+                    horaVacia = `0${index}:00`
+                    horitas.push(horaVacia)
+                    for (let index = 0; index < 12; index++) {
+                      let minutos = `${index * 5}`  
+                      if (minutos === '0') {
+                        
+                      }    
+                      else if (minutos === '5') 
+                          {
+                          let horas = `${horaSimple}:05`
+                          horitas.push(horas)
+                          } 
+                      else 
+                          {
+                          let horas = `${horaSimple}:${minutos}`
+                          horitas.push(horas)
+                          }     
+                    }
+                  } 
+                  else {
+                        horaVacia = `${index}:00`
+                        horitas.push(horaVacia)
+                          for (let index = 0; index < 12; index++) {
+                            let  minutos = `${index * 5}`
+                            if (minutos === '0') {
+                              
+                            }    
+                        else if (minutos === '5') 
+                            {
+                              let horas = `${horaSimpleUnica}:05`
+                              horitas.push(horas)
+                            } 
+                          else 
+                            {
+                              let horas = `${horaSimpleUnica}:${minutos}`
+                              horitas.push(horas)
+                            }     
+                        }
+                  }
       }
       console.log(horitas);
+      
       
       
       
