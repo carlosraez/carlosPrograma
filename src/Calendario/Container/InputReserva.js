@@ -135,7 +135,6 @@ export class InputReserva extends Component {
           tituloReserva.push(titulo)
         
       }
-    console.log(fecha);
     
     const index = fecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`)                  
        return  index > -1 ?
@@ -178,7 +177,7 @@ export class InputReserva extends Component {
        />
      </ModalContainer>
      :
-      this.reservas() 
+     this.reservas() 
      )
    }
 }

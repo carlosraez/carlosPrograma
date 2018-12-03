@@ -4,12 +4,26 @@ import { InputReserva } from './InputReserva.js'
 
 
 export class Reservas extends Component {
-
+   hora = () => {
+    const { hora } = this.props
+    const noMostrar = ['09:00','08:10','08:20']
+    if(hora ===  noMostrar[2] )
+     {
+       return ''
+     }
+     else {
+       return hora
+     }
+   }
+    
    render() {
      const { hora, handleClickReserva , semana, mes, year } = this.props
+     
+     
+     
      return (
        <tr>
-         <th scope="row">{hora}</th>
+         <th scope="row">{this.hora()}</th>
          <InputReserva
          year={year[1]}
          mes={mes[1]}
@@ -52,7 +66,7 @@ export class Reservas extends Component {
          horaReserva={hora}
          handleClickReserva={handleClickReserva}
          />
-     </tr>
+      </tr>
      )
    }
 }

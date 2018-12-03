@@ -11,7 +11,7 @@ export class ReservasHechas extends Component {
         <p>{`${horaInicio[indice]}-${horaFin[indice]}`}</p>
         <p>{tituloReserva[indice]}</p>
          <button onClick={verOcupado} className="btn btn-link  btn-block">Ocupado</button>
-    </div>
+      </div>
      )
    }
 }

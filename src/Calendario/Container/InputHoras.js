@@ -16,7 +16,7 @@ export class Inputhoras extends Component {
              tituloReserva={tituloReserva}
              verOcupado={verOcupado}
              />
-    </div>
+       </div>
      )
    }
 }

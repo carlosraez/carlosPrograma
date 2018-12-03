@@ -49,8 +49,33 @@ export class CalendarioAgenda extends Component {
      semana.push(dia)
      year.push(ano)
      }
-
-      const horas = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00',]
+     
+      const horas = ['08:00','08:10','08:20','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00',]
+      const horitas = []
+      for (let index = 8; index <= 22; index++) {
+          let vacia = '00:00'
+          if (index <= 9) {
+            for (let index = 0; index < 12; index++) {
+            console.log(`${index * 5}`);
+            
+            let minutos = `${index * 5}`
+              vacia = `0${index}:${minutos}`
+            }
+          } else {
+            vacia = `${index}:00`
+            for (let index = 0; index < 12; index++) {
+            let  minutos = `${index * 5}`
+              vacia = `0${index}:${minutos}`
+            }
+          }
+          horitas.push(vacia)
+        
+        
+      }
+      console.log(horitas);
+      
+      
+      
       return (
          <table className="table table-bordered table-sm table-striped">
           <thead>
@@ -88,6 +113,7 @@ export class CalendarioAgenda extends Component {
 
 
    render() {
+   
      return (
        <div className="row">
        <div className="col-12">
@@ -100,7 +126,7 @@ export class CalendarioAgenda extends Component {
             handleClickAnterior={this.handleClickAnteriorSemana}
            >
            <div className="table-responsive">
-              {this.reserva()}
+           {this.reserva()}
            </div>
           </AgendaComponentLayaout>
         </div>
