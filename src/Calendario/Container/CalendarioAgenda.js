@@ -48,18 +48,33 @@ export class CalendarioAgenda extends Component {
      const final = moment.duration(horaFinal)
      const diferencia = moment.duration(final - principio).asMinutes()
      const resultado = diferencia / 10
-     const nuevaHora = moment.duration(horaInicial).add(10,'minutes')
-   
-     console.log(resultado,nuevaHora)
-         
+     const horayFecha = []
+     for (let index = 0; index < resultado + 1; index++) {
+      const sumaMinutos = index * 10
+      let nuevaHoraMinutos = moment.duration(horaInicial).add(sumaMinutos,'minutes').minutes()
+      let nuevaHoraHoras =  moment.duration(horaInicial).add(sumaMinutos,'minutes').hours()
+      if(nuevaHoraMinutos === 0){
+        let minutos = '00'
+        const horaGenerada = `${nuevaHoraHoras}:${minutos}`
+        horayFecha.push(horaGenerada)
+      }
+      else {
+        const horaGenerada = `${nuevaHoraHoras}:${nuevaHoraMinutos}`
+        horayFecha.push(horaGenerada)
+      }
+    }
+    console.log(horayFecha);
+      
 
      listaReunionesBaseDatos.push(`${fechaInicio} ${horaInicial}`)
      this.setState({
        reservasFecha:listaReunionesBaseDatos,
      })
    })
+  
 
  }
+
 
     reserva = () => {
      const semana = []
