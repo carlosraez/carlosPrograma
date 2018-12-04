@@ -109,17 +109,13 @@ export class InputReserva extends Component {
    reservas = () => {
       
       const { year,mes,dia, reservasFecha,   } = this.state
-      const { horaReserva } = this.props
-
-
-
-    
-      
+      const { horaReserva } = this.props    
+   
     const index = reservasFecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) 
-    
-    
-                    
+                   
        if (index > -1) {
+      console.log(index);
+      
        return <td className='ocupadoReserva'>
         <Inputhoras
         verOcupado={this.verOcupado} 
@@ -128,16 +124,7 @@ export class InputReserva extends Component {
         ></Inputhoras>
         </td>
        } 
-       else if(3 > 6) {
-       return  <td className='CeldaReserva'>
-       <Inputhoras
-       verOcupado={this.verOcupado} 
-       cssReserva={'OcupadoReserva'} 
-       indice={index}
-       ></Inputhoras>
-       </td>
-
-       }   
+       
        else {
          return <td onClick={this.handleClickModalReserva}>
          Reservar
