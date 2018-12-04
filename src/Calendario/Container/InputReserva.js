@@ -10,7 +10,8 @@ import { Inputhoras } from './InputHoras.js';
 
 export class InputReserva extends Component {
    state = {
-     reservados: [],
+     reservasFecha:[],
+     reservaFin:[],
      modalVisible: false,
      fechaReserva:'',
      horaInicio:'',
@@ -107,54 +108,61 @@ export class InputReserva extends Component {
      const ref  = firebaseApp.database().ref('usuarios')
      const user = firebaseApp.auth().currentUser;
      const listaReunionesBaseDatos = []
+     const horaFin = []
      ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
-     listaReunionesBaseDatos.push(sanpshot.val())
+     const fechaInicio = sanpshot.val().fechaReserva
+     const hora = sanpshot.val().horaInicio
+     const fin  = sanpshot.val().horaFin
+     listaReunionesBaseDatos.push(`${fechaInicio} ${hora}`)
+     horaFin.push(`${fechaInicio} ${fin}`)
      this.setState({
-      reservados:listaReunionesBaseDatos,
-      })
+       reservasFecha:listaReunionesBaseDatos,
+       reservaFin:horaFin
+     })
     })
 
   }
 
    reservas = () => {
       
-      const { year,mes,dia, reservados  } = this.state
+      const { year,mes,dia, reservasFecha, reservaFin  } = this.state
       const { horaReserva } = this.props
-      const fecha = []
-      const tituloReserva = []
-      const horaInicio = []
-      const horaFin = []
-      for (let i = 0; i < reservados.length; i++) {
-          const titulo = reservados[i].tituloReserva
-          const fechaInicio = reservados[i].fechaReserva
-          const hora = reservados[i].horaInicio
-          const fin = reservados[i].horaFin
-          horaInicio.push(hora)
-          horaFin.push(fin)
-          fecha.push(`${fechaInicio} ${hora}`)
-          tituloReserva.push(titulo)
-        
-      }
+
+    console.log(reservasFecha);
+    console.log(reservaFin);
     
-    const index = fecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`)                  
-       return  index > -1 ?
-             <td className='CeldaReserva'>
-             <Inputhoras
-             horaInicio={horaInicio}
-             horaFin={horaFin}
-             tituloReserva={tituloReserva} 
-             verOcupado={this.verOcupado} 
-             cssReserva={'OcupadoReserva'} 
-             indice={index}
-             ></Inputhoras>
-             </td>
-             :
-             <td onClick={this.handleClickModalReserva}>
-             Reservar
-            </td>    
+      
+    const index = reservasFecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) 
+    
+    
+                    
+       if (index > -1) {
+       return <td className='ocupadoReserva'>
+        <Inputhoras
+        verOcupado={this.verOcupado} 
+        cssReserva={'OcupadoReserva'} 
+        indice={index}
+        ></Inputhoras>
+        </td>
+       } 
+       else if(3 > 6) {
+       return  <td className='CeldaReserva'>
+       <Inputhoras
+       verOcupado={this.verOcupado} 
+       cssReserva={'OcupadoReserva'} 
+       indice={index}
+       ></Inputhoras>
+       </td>
+
+       }   
+       else {
+         return <td onClick={this.handleClickModalReserva}>
+         Reservar
+         </td> 
+      
+       }
+             
    }
-
-
 
    verOcupado = () => {
      swal('Hola')
@@ -162,7 +170,8 @@ export class InputReserva extends Component {
 
 
    render() {
-  
+     console.log('soy el render');
+     
      const { horaInicio , horaFin ,  fechaReserva, } = this.state
      return (
      this.state.modalVisible ?
