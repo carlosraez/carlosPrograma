@@ -4,6 +4,7 @@ import ModalReserva from '../Components/ModalReserva.js'
 import { firebaseApp } from '../../index.js'
 import './InputReserva.css'
 import swal from 'sweetalert';
+import moment from 'moment'
 import { Inputhoras } from './InputHoras.js';
 
 
@@ -11,7 +12,6 @@ import { Inputhoras } from './InputHoras.js';
 export class InputReserva extends Component {
    state = {
      reservasFecha:[],
-     reservaFin:[],
      modalVisible: false,
      fechaReserva:'',
      horaInicio:'',
@@ -84,6 +84,7 @@ export class InputReserva extends Component {
       direccion ,
       poblacion
     } = this.state
+  
      const nombreReunion = this.state.tituloReserva
      const nuevaReunion = {
           [nombreReunion] : {
@@ -108,16 +109,21 @@ export class InputReserva extends Component {
      const ref  = firebaseApp.database().ref('usuarios')
      const user = firebaseApp.auth().currentUser;
      const listaReunionesBaseDatos = []
-     const horaFin = []
      ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
      const fechaInicio = sanpshot.val().fechaReserva
-     const hora = sanpshot.val().horaInicio
-     const fin  = sanpshot.val().horaFin
-     listaReunionesBaseDatos.push(`${fechaInicio} ${hora}`)
-     horaFin.push(`${fechaInicio} ${fin}`)
+     const horaInicial = sanpshot.val().horaInicio
+     const horaFinal  = sanpshot.val().horaFin
+     const principio = moment.duration(horaInicial);
+     const final = moment.duration(horaFinal)
+     const diferencia = moment.duration(final - principio).asMinutes()
+     const resultado = diferencia / 10
+     console.log(resultado)
+        
+     
+     
+     listaReunionesBaseDatos.push(`${fechaInicio} ${horaInicial}`)
      this.setState({
        reservasFecha:listaReunionesBaseDatos,
-       reservaFin:horaFin
      })
     })
 
@@ -125,11 +131,11 @@ export class InputReserva extends Component {
 
    reservas = () => {
       
-      const { year,mes,dia, reservasFecha, reservaFin  } = this.state
+      const { year,mes,dia, reservasFecha,   } = this.state
       const { horaReserva } = this.props
 
-    console.log(reservasFecha);
-    console.log(reservaFin);
+
+
     
       
     const index = reservasFecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) 
@@ -169,9 +175,7 @@ export class InputReserva extends Component {
    }
 
 
-   render() {
-     console.log('soy el render');
-     
+   render() {     
      const { horaInicio , horaFin ,  fechaReserva, } = this.state
      return (
      this.state.modalVisible ?

@@ -124,9 +124,7 @@ export class CalendarioAgenda extends Component {
             </thead>
          <tbody>
         {
-          horasTotales.map((hora,i) => {
-           console.log(i);
-           
+          horasTotales.map((hora,i) => {  
             return (
              <ReservasFilas
              horaNoMostrar={horaNoMostrar[i]}
