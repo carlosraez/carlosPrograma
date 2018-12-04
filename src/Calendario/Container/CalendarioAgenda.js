@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
 import { ReservasFilas } from './ReservasFilas.js'
+import { firebaseApp } from '../../index.js'
 import moment from 'moment'
 
 import '../../../src/locale.js'
@@ -11,6 +12,7 @@ const MESES = ['Enero','Febrero','Abril','Mayo','Junio','Julio','Agosto','Septie
 export class CalendarioAgenda extends Component {
   state = {
       siguienteSemana:0,
+      reservasFecha:[]
 
    }
 
@@ -34,7 +36,30 @@ export class CalendarioAgenda extends Component {
      })
    }
 
+   componentDidMount = () => {
+    const ref  = firebaseApp.database().ref('usuarios')
+    const user = firebaseApp.auth().currentUser;
+    const listaReunionesBaseDatos = []
+    ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
+     const fechaInicio = sanpshot.val().fechaReserva
+     const horaInicial = sanpshot.val().horaInicio
+     const horaFinal  = sanpshot.val().horaFin
+     const principio = moment.duration(horaInicial);
+     const final = moment.duration(horaFinal)
+     const diferencia = moment.duration(final - principio).asMinutes()
+     const resultado = diferencia / 10
+     const nuevaHora = moment.duration(horaInicial).add(10,'minutes')
+   
+     console.log(resultado,nuevaHora)
+         
 
+     listaReunionesBaseDatos.push(`${fechaInicio} ${horaInicial}`)
+     this.setState({
+       reservasFecha:listaReunionesBaseDatos,
+     })
+   })
+
+ }
 
     reserva = () => {
      const semana = []
@@ -104,11 +129,7 @@ export class CalendarioAgenda extends Component {
                   }
       }
       
-      
-    
-      
-      
-      
+        
       return (
          <table className="table table-bordered table-hover table-sm">
           <thead>
@@ -127,6 +148,7 @@ export class CalendarioAgenda extends Component {
           horasTotales.map((hora,i) => {  
             return (
              <ReservasFilas
+             reservasFecha={this.state.reservasFecha}
              horaNoMostrar={horaNoMostrar[i]}
              semana={semana}
              key={hora}

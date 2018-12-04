@@ -4,14 +4,13 @@ import ModalReserva from '../Components/ModalReserva.js'
 import { firebaseApp } from '../../index.js'
 import './InputReserva.css'
 import swal from 'sweetalert';
-import moment from 'moment'
 import { Inputhoras } from './InputHoras.js';
 
 
 
 export class InputReserva extends Component {
    state = {
-     reservasFecha:[],
+     reservasFecha:this.props,
      modalVisible: false,
      fechaReserva:'',
      horaInicio:'',
@@ -105,29 +104,7 @@ export class InputReserva extends Component {
      })
    }
 
-   componentDidMount = () => {
-     const ref  = firebaseApp.database().ref('usuarios')
-     const user = firebaseApp.auth().currentUser;
-     const listaReunionesBaseDatos = []
-     ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
-     const fechaInicio = sanpshot.val().fechaReserva
-     const horaInicial = sanpshot.val().horaInicio
-     const horaFinal  = sanpshot.val().horaFin
-     const principio = moment.duration(horaInicial);
-     const final = moment.duration(horaFinal)
-     const diferencia = moment.duration(final - principio).asMinutes()
-     const resultado = diferencia / 10
-     console.log(resultado)
-        
-     
-     
-     listaReunionesBaseDatos.push(`${fechaInicio} ${horaInicial}`)
-     this.setState({
-       reservasFecha:listaReunionesBaseDatos,
-     })
-    })
-
-  }
+ 
 
    reservas = () => {
       

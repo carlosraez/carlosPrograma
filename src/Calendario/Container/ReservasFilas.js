@@ -19,12 +19,13 @@ export class ReservasFilas extends Component {
       
   
    render() {
-     const { hora, handleClickReserva , semana, mes, year } = this.props
+     const { hora, handleClickReserva , semana, mes, year, reservasFecha } = this.props
     
      return (
        <tr className="filaBonita">
          <th scope="row">{this.hora()}</th>
          <InputReserva
+         reservasFecha={reservasFecha}
          year={year[1]}
          mes={mes[1]}
          dia={semana[1]}
@@ -32,6 +33,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         reservasFecha={reservasFecha}
          year={year[2]}
          mes={mes[2]}
          dia={semana[2]}
@@ -39,6 +41,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         reservasFecha={reservasFecha}
          year={year[3]}
          mes={mes[3]}
          dia={semana[3]}
@@ -46,6 +49,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         reservasFecha={reservasFecha}
          year={year[4]}
          mes={mes[4]}
          dia={semana[4]}
@@ -53,6 +57,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         reservasFecha={reservasFecha}
          year={year[5]}
          mes={mes[5]}
          dia={semana[5]}
@@ -60,6 +65,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         reservasFecha={reservasFecha}
          year={year[5]}
          mes={mes[6]}
          dia={semana[6]}
