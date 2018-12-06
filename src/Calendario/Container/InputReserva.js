@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ModalContainer from '../../widgets/container/modal-container.js'
 import ModalReserva from '../Components/ModalReserva.js'
 import { firebaseApp } from '../../index.js'
-import './InputReserva.css'
 import swal from 'sweetalert';
 import { Inputhoras } from './InputHoras.js';
 
@@ -109,27 +108,32 @@ export class InputReserva extends Component {
    reservas = () => {
       
       const { year,mes,dia, reservasFecha,   } = this.state
-      const { horaReserva } = this.props    
+      const { horaReserva , tituloReservaBaseDatos , fechaInicioReunion , fechaFinalReunion} = this.props    
    
-    const index = reservasFecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) 
+
+      
+       const index = reservasFecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) 
                    
        if (index > -1) {
-      console.log(index);
       
-       return <td className='ocupadoReserva'>
+       return (
+        <td>
         <Inputhoras
+        tituloReservaBaseDatos={tituloReservaBaseDatos[index]}
         verOcupado={this.verOcupado} 
-        cssReserva={'OcupadoReserva'} 
-        indice={index}
+        fechaInicioReunion={fechaInicioReunion[index]}
+        fechaFinalReunion={fechaFinalReunion[index]}
         ></Inputhoras>
         </td>
+       )
        } 
        
        else {
-         return <td onClick={this.handleClickModalReserva}>
+         return (
+         <td onClick={this.handleClickModalReserva}>
          Reservar
          </td> 
-      
+         )
        }
              
    }

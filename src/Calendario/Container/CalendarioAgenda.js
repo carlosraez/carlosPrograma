@@ -12,7 +12,11 @@ const MESES = ['Enero','Febrero','Abril','Mayo','Junio','Julio','Agosto','Septie
 export class CalendarioAgenda extends Component {
   state = {
       siguienteSemana:0,
-      reservasFecha:[]
+      reservasFecha:[],
+      titulosReuniones:[],
+      fechaInicioReunion:[],
+      fechaFinalReunion:[],
+      
 
    }
 
@@ -39,43 +43,24 @@ export class CalendarioAgenda extends Component {
    componentDidMount = () => {
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
-    const listaReunionesBaseDatos = []
+    const fechasReuniones = []
+    const titulos = []
+    const inicio = []
+    const final = []
     ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
      const fechaInicio = sanpshot.val().fechaReserva
      const horaInicial = sanpshot.val().horaInicio
      const horaFinal  = sanpshot.val().horaFin
-     const principio = moment.duration(horaInicial);
-     const final = moment.duration(horaFinal)
-     const diferencia = moment.duration(final - principio).asMinutes()
-     const resultado = diferencia / 10
-     for (let index = 0; index < resultado + 1; index++) {
-      const sumaMinutos = index * 10
-      let nuevaHoraMinutos = moment.duration(horaInicial).add(sumaMinutos,'minutes').minutes()
-      let nuevaHoraHoras =  moment.duration(horaInicial).add(sumaMinutos,'minutes').hours()
-      if (nuevaHoraHoras === 8 ) 
-      {
-        nuevaHoraHoras = '08'
-      } 
-      else  if (nuevaHoraHoras === 9 )
-      {
-        nuevaHoraHoras = '09'
-      }
-      
-
-      if(nuevaHoraMinutos === 0){
-        let minutos = '00'
-        const horaGenerada = `${nuevaHoraHoras}:${minutos}`
-        listaReunionesBaseDatos.push(`${fechaInicio} ${horaGenerada}`)
-        
-      }
-      else {
-        const horaGenerada = `${nuevaHoraHoras}:${nuevaHoraMinutos}`
-        listaReunionesBaseDatos.push(`${fechaInicio} ${horaGenerada}`)
-      }
-    }
-    
+     const reunionNombres  = sanpshot.val().tituloReserva     
+     fechasReuniones.push(`${fechaInicio} ${horaInicial}`)
+     titulos.push(reunionNombres)
+     inicio.push(horaInicial)
+     final.push(horaFinal)
      this.setState({
-       reservasFecha:listaReunionesBaseDatos,
+       reservasFecha:fechasReuniones,
+       titulosReuniones:titulos,
+       fechaInicioReunion:inicio,
+       fechaFinalReunion:final
      })
    })
   
@@ -151,18 +136,19 @@ export class CalendarioAgenda extends Component {
                   }
       }
       
+      const { reservasFecha , titulosReuniones , fechaInicioReunion , fechaFinalReunion } = this.state
         
       return (
          <table className="table table-bordered table-hover table-sm">
           <thead>
              <tr>
           <th scope="col">Hora</th>
-          <th scope="col">Lunes: {semana[1]} {hoy === `${semana[1]}/${mesActual[1]}/${year[1]}` ? 'Hoy' : ''}</th>
-          <th scope="col">Martes: {semana[2]} {hoy === `${semana[2]}/${mesActual[2]}/${year[2]}` ? 'Hoy es' : ''}</th>
-          <th scope="col">Miercoles: {semana[3]} {hoy === `${semana[3]}/${mesActual[3]}/${year[3]}` ? 'Hoy es' : ''}</th>
-          <th scope="col">Jueves: {semana[4]} {hoy === `${semana[4]}/${mesActual[4]}/${year[4]}` ? 'Hoy es' : ''}</th>
-          <th scope="col">Viernes: {semana[5]} {hoy === `${semana[5]}/${mesActual[5]}/${year[5]}` ? 'Hoy es' : ''}</th>
-          <th scope="col">Sabado: {semana[6]} {hoy === `${semana[6]}/${mesActual[6]}/${year[6]}` ? 'Hoy es' : ''}</th>
+          <th scope="col">Lunes: {semana[1]} {hoy === `${semana[1]}/${mesActual[1]}/${year[1]}` ? '' : ''}</th>
+          <th scope="col">Martes: {semana[2]} {hoy === `${semana[2]}/${mesActual[2]}/${year[2]}` ? '' : ''}</th>
+          <th scope="col">Miercoles: {semana[3]} {hoy === `${semana[3]}/${mesActual[3]}/${year[3]}` ? '' : ''}</th>
+          <th scope="col">Jueves: {semana[4]} {hoy === `${semana[4]}/${mesActual[4]}/${year[4]}` ? '' : ''}</th>
+          <th scope="col">Viernes: {semana[5]} {hoy === `${semana[5]}/${mesActual[5]}/${year[5]}` ? '' : ''}</th>
+          <th scope="col">Sabado: {semana[6]} {hoy === `${semana[6]}/${mesActual[6]}/${year[6]}` ? '' : ''}</th>
            </tr>
             </thead>
          <tbody>
@@ -170,8 +156,11 @@ export class CalendarioAgenda extends Component {
           horasTotales.map((hora,i) => {  
             return (
              <ReservasFilas
-             reservasFecha={this.state.reservasFecha}
+             reservasFecha={reservasFecha}
              horaNoMostrar={horaNoMostrar[i]}
+             tituloReservaBaseDatos={titulosReuniones}
+             fechaInicioReunion={fechaInicioReunion}
+             fechaFinalReunion={fechaFinalReunion}
              semana={semana}
              key={hora}
              hora={hora}
@@ -191,7 +180,7 @@ export class CalendarioAgenda extends Component {
 
 
    render() {
-   
+    
      return (
        <div className="row">
        <div className="col-12">
