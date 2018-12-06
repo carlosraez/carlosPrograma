@@ -8,9 +8,10 @@ import './InputReserva.css'
 export class Inputhoras extends Component {
    state = {
        height:parseInt(this.props.minutosTotales,10) * 3.3,
+       fechaFinalReunion:this.props.fechaFinalReunion
        
    }
-
+   
    render() {
 
     const { fechaInicioReunion ,fechaFinalReunion, tituloReservaBaseDatos,  } = this.props
@@ -22,11 +23,12 @@ export class Inputhoras extends Component {
     size={{ height: this.state.height, width:170 }}
     minHeight={66}
     className='reservaBorder' 
-    onResizeStop={(e, direction, ref, delta, position) => {
-        console.log('h');
+    onResizeStop={(ref) => {
+
         
         this.setState({
             height: ref.style.height,
+            
         });
       }}
     >
