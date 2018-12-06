@@ -26,13 +26,15 @@ export class ReservasFilas extends Component {
       year, 
       reservasFecha, 
       tituloReservaBaseDatos , 
-      fechaInicioReunion , 
+      fechaInicioReunion ,
+      minutosTotales, 
       fechaFinalReunion } = this.props
     
      return (
        <tr>
          <th scope="row">{this.hora()}</th>
          <InputReserva
+         minutosTotales={minutosTotales}
          tituloReservaBaseDatos={tituloReservaBaseDatos}
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}
@@ -44,6 +46,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         minutosTotales={minutosTotales}
          tituloReservaBaseDatos={tituloReservaBaseDatos}
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}
@@ -55,6 +58,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         minutosTotales={minutosTotales}
          tituloReservaBaseDatos={tituloReservaBaseDatos}
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}
@@ -66,6 +70,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         minutosTotales={minutosTotales}
         tituloReservaBaseDatos={tituloReservaBaseDatos}
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}
@@ -77,6 +82,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         minutosTotales={minutosTotales}
          tituloReservaBaseDatos={tituloReservaBaseDatos}
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}
@@ -88,6 +94,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         minutosTotales={minutosTotales}
          tituloReservaBaseDatos={tituloReservaBaseDatos}
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}

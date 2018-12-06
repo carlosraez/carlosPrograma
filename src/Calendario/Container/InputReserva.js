@@ -108,7 +108,7 @@ export class InputReserva extends Component {
    reservas = () => {
       
       const { year,mes,dia, reservasFecha,   } = this.state
-      const { horaReserva , tituloReservaBaseDatos , fechaInicioReunion , fechaFinalReunion} = this.props    
+      const { horaReserva , tituloReservaBaseDatos , fechaInicioReunion , minutosTotales, fechaFinalReunion} = this.props    
    
 
       
@@ -119,6 +119,7 @@ export class InputReserva extends Component {
        return (
         <td>
         <Inputhoras
+        minutosTotales={minutosTotales[index]}
         tituloReservaBaseDatos={tituloReservaBaseDatos[index]}
         verOcupado={this.verOcupado} 
         fechaInicioReunion={fechaInicioReunion[index]}

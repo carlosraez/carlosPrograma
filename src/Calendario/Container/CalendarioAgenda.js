@@ -16,6 +16,7 @@ export class CalendarioAgenda extends Component {
       titulosReuniones:[],
       fechaInicioReunion:[],
       fechaFinalReunion:[],
+      minutosTotales:[],
       
 
    }
@@ -47,11 +48,16 @@ export class CalendarioAgenda extends Component {
     const titulos = []
     const inicio = []
     const final = []
+    const minutosTotales = []
     ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
      const fechaInicio = sanpshot.val().fechaReserva
      const horaInicial = sanpshot.val().horaInicio
      const horaFinal  = sanpshot.val().horaFin
-     const reunionNombres  = sanpshot.val().tituloReserva     
+     const reunionNombres  = sanpshot.val().tituloReserva  
+     const principio = moment.duration(horaInicial);
+     const horaFinalTiempo = moment.duration(horaFinal)
+     const diferencia = moment.duration(horaFinalTiempo - principio).asMinutes() 
+     minutosTotales.push(diferencia)
      fechasReuniones.push(`${fechaInicio} ${horaInicial}`)
      titulos.push(reunionNombres)
      inicio.push(horaInicial)
@@ -60,7 +66,8 @@ export class CalendarioAgenda extends Component {
        reservasFecha:fechasReuniones,
        titulosReuniones:titulos,
        fechaInicioReunion:inicio,
-       fechaFinalReunion:final
+       fechaFinalReunion:final,
+       minutosTotales:minutosTotales
      })
    })
   
@@ -136,7 +143,7 @@ export class CalendarioAgenda extends Component {
                   }
       }
       
-      const { reservasFecha , titulosReuniones , fechaInicioReunion , fechaFinalReunion } = this.state
+      const { reservasFecha , titulosReuniones , fechaInicioReunion , fechaFinalReunion, minutosTotales } = this.state
         
       return (
          <table className="table table-bordered table-hover table-sm">
@@ -167,7 +174,7 @@ export class CalendarioAgenda extends Component {
              mes={mesActual}
              year={year}
              handleClickReserva={this.handleClickReserva}
-
+             minutosTotales={minutosTotales}
              />
             )
           })

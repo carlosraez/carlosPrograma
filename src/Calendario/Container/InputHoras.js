@@ -7,11 +7,12 @@ import './InputReserva.css'
 export class Inputhoras extends Component {
  
  divStyle() {
-   const tiempo  =  33  * 4
-
+   const tiempo  =   parseInt(this.props.minutosTotales,10) * 3.3
      return   {
         borderWidth: 1,
         border: 'solid',
+        borderColor:  '#212529',
+        textAlign:'center',
         width:  170,
         borderRadius: 5,
         height: tiempo,
@@ -20,6 +21,7 @@ export class Inputhoras extends Component {
         marginTop: -5,
         backgroundColor: '#17a2b8',
         fontSize: 12,
+        color: '#fff'
      }
  }
 
