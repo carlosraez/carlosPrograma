@@ -12,12 +12,8 @@
 
 .reservaBorder {
   border: 2px solid;
-  width:  170px;
   border-radius: 5px;
-  height: 198px;
   position: absolute;
-  margin-left: -5px;
-  margin-top: -5px;
   background-color: #17a2b8;;
   font-size: 12px;
 }
