@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Rnd }  from 'react-rnd'
 import './InputReserva.css'
-import swal from 'sweetalert';
+import { firebaseApp } from '../../index.js'
 import moment from 'moment'
 
 
@@ -9,7 +9,8 @@ export class Inputhoras extends Component {
    state = {
        height:parseInt(this.props.minutosTotales,10) * 3.3,
        fechaFinalReunion:this.props.fechaFinalReunion,
-       tituloReservaBaseDatos: this.props.tituloReservaBaseDatos,   
+       tituloReservaBaseDatos: this.props.tituloReservaBaseDatos, 
+       direccionReservaBaseDatos: this.props.direccionReservaBaseDatos  
    }
 
    tiempoFinal = () => {
@@ -24,15 +25,42 @@ export class Inputhoras extends Component {
 
    modificarTituloReserva = () => {
     const titulo = prompt('Escribe tu nuevo titulo')
+    const tituloActual = this.props.tituloReservaBaseDatos
+    const ref  = firebaseApp.database().ref('usuarios')
+    const user = firebaseApp.auth().currentUser;
+    const tituloModificado = {
+        tituloReserva: titulo
+    }
+   
+   ref.child(user.uid).child('reuniones').child(tituloActual).update(tituloModificado)
+   this.setState({
+       tituloReservaBaseDatos:titulo
+   })
         
    }
    modificarDireccion = () => {
     const direccion = prompt('Escribe tu nuevo Dirección')
+    const tituloActual = this.props.tituloReservaBaseDatos
+    const ref  = firebaseApp.database().ref('usuarios')
+    const user = firebaseApp.auth().currentUser;
+    const direccionModificada = {
+        direccion: direccion
+    }
+   ref.child(user.uid).child('reuniones').child(tituloActual).update(direccionModificada)
+   this.setState({
+       direccionReservaBaseDatos:direccion
+   })
+   }
+
+   handleClickBorrarReserva = () => {
+    const ref  = firebaseApp.database().ref('usuarios')
+    const user = firebaseApp.auth().currentUser
+    ref.child(user.uid).child('reuniones').child(1).remove()
    }
    
    render() {
-    const { tituloReservaBaseDatos } = this.state
-    const { fechaInicioReunion , direccionReservaBaseDatos  } = this.props
+    const { tituloReservaBaseDatos , direccionReservaBaseDatos } = this.state
+    const { fechaInicioReunion  } = this.props
 
      return (
     <Rnd
@@ -47,7 +75,7 @@ export class Inputhoras extends Component {
         });
       }}
     >
-    <h5 className="tituloReserva"><span><button type="button"  className="btn btn-danger btn-sm">Borrar</button></span>{`${fechaInicioReunion} - ${this.tiempoFinal()}`}</h5>
+    <h5 className="tituloReserva"><span><button type="button" onClick={this.handleClickBorrarReserva}  className="btn btn-danger btn-sm">Borrar</button></span>{`${fechaInicioReunion} - ${this.tiempoFinal()}`}</h5>
     <p onDoubleClick={this.modificarTituloReserva}>{tituloReservaBaseDatos}</p>  
     <p onDoubleClick={this.modificarDireccion}>{direccionReservaBaseDatos}</p> 
     
