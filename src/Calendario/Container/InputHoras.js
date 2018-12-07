@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Rnd }  from 'react-rnd'
 import './InputReserva.css'
+import swal from 'sweetalert';
 import moment from 'moment'
 
 
@@ -8,9 +9,7 @@ export class Inputhoras extends Component {
    state = {
        height:parseInt(this.props.minutosTotales,10) * 3.3,
        fechaFinalReunion:this.props.fechaFinalReunion,
-       
-       
-       
+       tituloReservaBaseDatos: this.props.tituloReservaBaseDatos,   
    }
 
    tiempoFinal = () => {
@@ -20,12 +19,21 @@ export class Inputhoras extends Component {
     const tiempoDeAumento = (Math.trunc(tiempoInicio - minutosNuevos) * -1)
     const horaFinal = moment(fechaFinalReunion, 'h:mm').add(tiempoDeAumento, 'minutes').format('h:mm')
     return horaFinal
+    
+   }
+
+   modificarTituloReserva = () => {
+    const titulo = prompt('Escribe tu nuevo titulo')
+        
+   }
+   modificarDireccion = () => {
+    const direccion = prompt('Escribe tu nuevo Dirección')
    }
    
    render() {
+    const { tituloReservaBaseDatos } = this.state
+    const { fechaInicioReunion , direccionReservaBaseDatos  } = this.props
 
-    const { fechaInicioReunion , tituloReservaBaseDatos,  } = this.props
-    
      return (
     <Rnd
     enableResizing={{bottom:true}}
@@ -39,8 +47,10 @@ export class Inputhoras extends Component {
         });
       }}
     >
-    <h5>{`${fechaInicioReunion} - ${this.tiempoFinal()}`}</h5>
-    <p>{tituloReservaBaseDatos}</p>    
+    <h5 className="tituloReserva"><span><button type="button"  className="btn btn-danger btn-sm">Borrar</button></span>{`${fechaInicioReunion} - ${this.tiempoFinal()}`}</h5>
+    <p onDoubleClick={this.modificarTituloReserva}>{tituloReservaBaseDatos}</p>  
+    <p onDoubleClick={this.modificarDireccion}>{direccionReservaBaseDatos}</p> 
+    
     </Rnd>
      )
    }

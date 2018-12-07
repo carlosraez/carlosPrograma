@@ -28,6 +28,7 @@ export class ReservasFilas extends Component {
       tituloReservaBaseDatos , 
       fechaInicioReunion ,
       minutosTotales, 
+      direccionReservaBaseDatos,
       fechaFinalReunion } = this.props
     
      return (
@@ -35,6 +36,7 @@ export class ReservasFilas extends Component {
          <th scope="row">{this.hora()}</th>
          <InputReserva
          minutosTotales={minutosTotales}
+         direccionReservaBaseDatos={direccionReservaBaseDatos}
          tituloReservaBaseDatos={tituloReservaBaseDatos}
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}
@@ -47,6 +49,7 @@ export class ReservasFilas extends Component {
          />
          <InputReserva
          minutosTotales={minutosTotales}
+         direccionReservaBaseDatos={direccionReservaBaseDatos}
          tituloReservaBaseDatos={tituloReservaBaseDatos}
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}
@@ -59,6 +62,7 @@ export class ReservasFilas extends Component {
          />
          <InputReserva
          minutosTotales={minutosTotales}
+         direccionReservaBaseDatos={direccionReservaBaseDatos}
          tituloReservaBaseDatos={tituloReservaBaseDatos}
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}
@@ -71,6 +75,7 @@ export class ReservasFilas extends Component {
          />
          <InputReserva
          minutosTotales={minutosTotales}
+         direccionReservaBaseDatos={direccionReservaBaseDatos}
         tituloReservaBaseDatos={tituloReservaBaseDatos}
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}
@@ -87,6 +92,7 @@ export class ReservasFilas extends Component {
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}
          reservasFecha={reservasFecha}
+         direccionReservaBaseDatos={direccionReservaBaseDatos}
          year={year[5]}
          mes={mes[5]}
          dia={semana[5]}
@@ -99,6 +105,7 @@ export class ReservasFilas extends Component {
          fechaInicioReunion={fechaInicioReunion}
          fechaFinalReunion={fechaFinalReunion}
          reservasFecha={reservasFecha}
+         direccionReservaBaseDatos={direccionReservaBaseDatos}
          year={year[5]}
          mes={mes[6]}
          dia={semana[6]}

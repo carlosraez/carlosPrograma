@@ -17,6 +17,7 @@ export class CalendarioAgenda extends Component {
       fechaInicioReunion:[],
       fechaFinalReunion:[],
       minutosTotales:[],
+      direccionReservaBaseDatos:[],
       
 
    }
@@ -49,11 +50,13 @@ export class CalendarioAgenda extends Component {
     const inicio = []
     const final = []
     const minutosTotales = []
+    const direcionReserva = []
     ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
      const fechaInicio = sanpshot.val().fechaReserva
      const horaInicial = sanpshot.val().horaInicio
      const horaFinal  = sanpshot.val().horaFin
-     const reunionNombres  = sanpshot.val().tituloReserva  
+     const reunionNombres  = sanpshot.val().tituloReserva 
+     const direcion =  sanpshot.val().direccion
      const principio = moment.duration(horaInicial);
      const horaFinalTiempo = moment.duration(horaFinal)
      const diferencia = moment.duration(horaFinalTiempo - principio).asMinutes() 
@@ -62,12 +65,14 @@ export class CalendarioAgenda extends Component {
      titulos.push(reunionNombres)
      inicio.push(horaInicial)
      final.push(horaFinal)
+     direcionReserva.push(direcion)
      this.setState({
        reservasFecha:fechasReuniones,
        titulosReuniones:titulos,
        fechaInicioReunion:inicio,
        fechaFinalReunion:final,
-       minutosTotales:minutosTotales
+       minutosTotales:minutosTotales,
+       direccionReservaBaseDatos:direcionReserva,
      })
    })
   
@@ -143,7 +148,13 @@ export class CalendarioAgenda extends Component {
                   }
       }
       
-      const { reservasFecha , titulosReuniones , fechaInicioReunion , fechaFinalReunion, minutosTotales } = this.state
+      const { reservasFecha , 
+        titulosReuniones ,
+         fechaInicioReunion , 
+         fechaFinalReunion,
+          minutosTotales,
+          direccionReservaBaseDatos,
+        } = this.state
         
       return (
          <table className="table table-bordered table-hover table-sm">
@@ -168,6 +179,7 @@ export class CalendarioAgenda extends Component {
              tituloReservaBaseDatos={titulosReuniones}
              fechaInicioReunion={fechaInicioReunion}
              fechaFinalReunion={fechaFinalReunion}
+             direccionReservaBaseDatos={direccionReservaBaseDatos}
              semana={semana}
              key={hora}
              hora={hora}

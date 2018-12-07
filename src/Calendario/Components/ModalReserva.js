@@ -55,12 +55,6 @@ function ModalReserva(props) {
       id={'direccion'}
       handleChange={props.handleChange}
       />
-      <InputsAgenda
-      label={'Población'}
-      type={'text'}
-      id={'poblacion'}
-      handleChange={props.handleChange}
-      />
       </div>
      </div>
      <button type="button" onClick={props.handleClickGuardarReserva} className="btn btn-danger botonReservar">Reservar</button>

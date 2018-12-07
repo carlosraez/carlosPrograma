@@ -108,10 +108,13 @@ export class InputReserva extends Component {
    reservas = () => {
       
       const { year,mes,dia, reservasFecha,   } = this.state
-      const { horaReserva , tituloReservaBaseDatos , fechaInicioReunion , minutosTotales, fechaFinalReunion} = this.props    
+      const { horaReserva , 
+        tituloReservaBaseDatos ,
+         fechaInicioReunion ,
+          minutosTotales, 
+          direccionReservaBaseDatos,
+          fechaFinalReunion} = this.props    
    
-
-      
        const index = reservasFecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) 
                    
        if (index > -1) {
@@ -121,7 +124,8 @@ export class InputReserva extends Component {
         <Inputhoras
         minutosTotales={minutosTotales[index]}
         tituloReservaBaseDatos={tituloReservaBaseDatos[index]}
-        verOcupado={this.verOcupado} 
+        verOcupado={this.verOcupado}
+        direccionReservaBaseDatos={direccionReservaBaseDatos[index]} 
         fechaInicioReunion={fechaInicioReunion[index]}
         fechaFinalReunion={fechaFinalReunion[index]}
         ></Inputhoras>
