@@ -25,14 +25,14 @@ export class Inputhoras extends Component {
 
    modificarTituloReserva = () => {
     const titulo = prompt('Escribe tu nuevo titulo')
-    const tituloActual = this.props.tituloReservaBaseDatos
+    const nombreReserva = this.props.nombreReservasBaseDatos
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
     const tituloModificado = {
         tituloReserva: titulo
     }
    
-   ref.child(user.uid).child('reuniones').child(tituloActual).update(tituloModificado)
+   ref.child(user.uid).child('reuniones').child(nombreReserva).update(tituloModificado)
    this.setState({
        tituloReservaBaseDatos:titulo
    })
@@ -40,28 +40,30 @@ export class Inputhoras extends Component {
    }
    modificarDireccion = () => {
     const direccion = prompt('Escribe tu nuevo Dirección')
-    const tituloActual = this.props.tituloReservaBaseDatos
+    const nombreReserva = this.props.nombreReservasBaseDatos
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
     const direccionModificada = {
         direccion: direccion
     }
-   ref.child(user.uid).child('reuniones').child(tituloActual).update(direccionModificada)
+   ref.child(user.uid).child('reuniones').child(nombreReserva).update(direccionModificada)
    this.setState({
        direccionReservaBaseDatos:direccion
    })
    }
 
-   handleClickBorrarReserva = () => {
+   handleClickBorrarReserva = () => { 
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser
-    ref.child(user.uid).child('reuniones').child(1).remove()
+    const nombreReserva = this.props.nombreReservasBaseDatos
+    ref.child(user.uid).child('reuniones').child(nombreReserva).remove()
    }
    
    render() {
     const { tituloReservaBaseDatos , direccionReservaBaseDatos } = this.state
     const { fechaInicioReunion  } = this.props
 
+     
      return (
     <Rnd
     enableResizing={{bottom:true}}

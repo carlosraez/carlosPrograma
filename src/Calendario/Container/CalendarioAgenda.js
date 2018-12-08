@@ -18,8 +18,7 @@ export class CalendarioAgenda extends Component {
       fechaFinalReunion:[],
       minutosTotales:[],
       direccionReservaBaseDatos:[],
-      
-
+      nombreReservasBaseDatos:[]
    }
 
 
@@ -45,6 +44,13 @@ export class CalendarioAgenda extends Component {
    componentDidMount = () => {
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
+    let reservas = []
+    ref.child(user.uid).child('reuniones').on('value', (sanpshot) => {
+       reservas =  Object.keys(sanpshot.val() || [] )  
+       this.setState({
+        nombreReservasBaseDatos:reservas
+       })  
+     })
     const fechasReuniones = []
     const titulos = []
     const inicio = []
@@ -73,10 +79,9 @@ export class CalendarioAgenda extends Component {
        fechaFinalReunion:final,
        minutosTotales:minutosTotales,
        direccionReservaBaseDatos:direcionReserva,
+       nombreReservasBaseDatos:reservas
      })
    })
-  
-
  }
 
 
@@ -154,8 +159,9 @@ export class CalendarioAgenda extends Component {
          fechaFinalReunion,
           minutosTotales,
           direccionReservaBaseDatos,
+          nombreReservasBaseDatos,
         } = this.state
-        
+   
       return (
          <table className="table table-bordered table-hover table-sm">
           <thead>
@@ -174,6 +180,7 @@ export class CalendarioAgenda extends Component {
           horasTotales.map((hora,i) => {  
             return (
              <ReservasFilas
+             nombreReservasBaseDatos={nombreReservasBaseDatos}
              reservasFecha={reservasFecha}
              horaNoMostrar={horaNoMostrar[i]}
              tituloReservaBaseDatos={titulosReuniones}
@@ -198,8 +205,7 @@ export class CalendarioAgenda extends Component {
 
 
 
-   render() {
-    
+   render() {     
      return (
        <div className="row">
        <div className="col-12">
