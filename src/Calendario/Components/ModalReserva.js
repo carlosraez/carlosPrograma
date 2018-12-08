@@ -20,9 +20,9 @@ function ModalReserva(props) {
       <div className="row">
       <div className="col-12 col-md-6">
        <InputsAgenda
-       label={'Introduce el Titulo'}
+       label={'¿Con quien has Quedado?'}
        type={'text'}
-       placeholder={'Escribe un Titulo de Reserva'}
+       placeholder={'Escribe la parsona con la que vas a quedar'}
        id={'tituloReserva'}
        handleChange={props.handleChange}
        />

@@ -23,7 +23,7 @@ export class Inputhoras extends Component {
     
    }
 
-   modificarTituloReserva = () => {
+   modificarTituloReserva = (index) => {
     const titulo = prompt('Escribe tu nuevo titulo')
     const nombreReserva = this.props.nombreReservasBaseDatos
     const ref  = firebaseApp.database().ref('usuarios')
@@ -52,16 +52,11 @@ export class Inputhoras extends Component {
    })
    }
 
-   handleClickBorrarReserva = () => { 
-    const ref  = firebaseApp.database().ref('usuarios')
-    const user = firebaseApp.auth().currentUser
-    const nombreReserva = this.props.nombreReservasBaseDatos
-    ref.child(user.uid).child('reuniones').child(nombreReserva).remove()
-   }
+   
    
    render() {
     const { tituloReservaBaseDatos , direccionReservaBaseDatos } = this.state
-    const { fechaInicioReunion  } = this.props
+    const { fechaInicioReunion , handleClickBorrarReserva   } = this.props
 
      
      return (
@@ -77,7 +72,7 @@ export class Inputhoras extends Component {
         });
       }}
     >
-    <h5 className="tituloReserva"><span><button type="button" onClick={this.handleClickBorrarReserva}  className="btn btn-danger btn-sm">Borrar</button></span>{`${fechaInicioReunion} - ${this.tiempoFinal()}`}</h5>
+    <h5 className="tituloReserva"><span><button type="button" onClick={handleClickBorrarReserva}  className="btn btn-danger btn-sm">Borrar</button></span>{`${fechaInicioReunion} - ${this.tiempoFinal()}`}</h5>
     <p onDoubleClick={this.modificarTituloReserva}>{tituloReservaBaseDatos}</p>  
     <p onDoubleClick={this.modificarDireccion}>{direccionReservaBaseDatos}</p> 
     

@@ -41,47 +41,48 @@ export class CalendarioAgenda extends Component {
      })
    }
 
-   componentDidMount = () => {
+   componentDidMount = () => {    
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
     let reservas = []
-    ref.child(user.uid).child('reuniones').on('value', (sanpshot) => {
-       reservas =  Object.keys(sanpshot.val() || [] )  
-       this.setState({
-        nombreReservasBaseDatos:reservas
-       })  
-     })
     const fechasReuniones = []
     const titulos = []
     const inicio = []
     const final = []
     const minutosTotales = []
     const direcionReserva = []
-    ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
-     const fechaInicio = sanpshot.val().fechaReserva
-     const horaInicial = sanpshot.val().horaInicio
-     const horaFinal  = sanpshot.val().horaFin
-     const reunionNombres  = sanpshot.val().tituloReserva 
-     const direcion =  sanpshot.val().direccion
-     const principio = moment.duration(horaInicial);
-     const horaFinalTiempo = moment.duration(horaFinal)
-     const diferencia = moment.duration(horaFinalTiempo - principio).asMinutes() 
-     minutosTotales.push(diferencia)
-     fechasReuniones.push(`${fechaInicio} ${horaInicial}`)
-     titulos.push(reunionNombres)
-     inicio.push(horaInicial)
-     final.push(horaFinal)
-     direcionReserva.push(direcion)
-     this.setState({
-       reservasFecha:fechasReuniones,
+    ref.child(user.uid).child('reuniones').on('value', (sanpshot) => {
+       reservas =  Object.keys(sanpshot.val() || [] ) 
+       const data = sanpshot.val()
+       for (const key in data) {
+         if (data.hasOwnProperty(key)) {           
+            const objetoReserva = data[key]
+            const fechaInicio = objetoReserva.fechaReserva
+            const horaInicial = objetoReserva.horaInicio
+            const horaFinal  = objetoReserva.horaFin
+            const reunionNombres  = objetoReserva.tituloReserva 
+            const direcion =  objetoReserva.direccion
+            const principio = moment.duration(horaInicial);
+            const horaFinalTiempo = moment.duration(horaFinal)
+            const diferencia = moment.duration(horaFinalTiempo - principio).asMinutes() 
+            minutosTotales.push(diferencia)
+            fechasReuniones.push(`${fechaInicio} ${horaInicial}`)
+            titulos.push(reunionNombres)
+            inicio.push(horaInicial)
+            final.push(horaFinal)
+            direcionReserva.push(direcion)  
+         }
+       } 
+       this.setState({
+      nombreReservasBaseDatos:reservas,
+        reservasFecha:fechasReuniones,
        titulosReuniones:titulos,
        fechaInicioReunion:inicio,
        fechaFinalReunion:final,
        minutosTotales:minutosTotales,
        direccionReservaBaseDatos:direcionReserva,
-       nombreReservasBaseDatos:reservas
+       })  
      })
-   })
  }
 
 
@@ -205,7 +206,7 @@ export class CalendarioAgenda extends Component {
 
 
 
-   render() {     
+   render() {      
      return (
        <div className="row">
        <div className="col-12">

@@ -64,9 +64,8 @@ export class InputReserva extends Component {
      })
    }
 
-   static getDerivedStateFromProps = (props, state) => {
+   static getDerivedStateFromProps = (props, state) => {         
      return props
-
    }
 
 
@@ -103,11 +102,30 @@ export class InputReserva extends Component {
      })
    }
 
- 
+   handleClickBorrarReserva = (index) =>{ 
+      const ref  = firebaseApp.database().ref('usuarios')
+      const user = firebaseApp.auth().currentUser
+      const { reservasFecha } = this.state
+      const nombreReserva = this.props.nombreReservasBaseDatos[index]
+      ref.child(user.uid).child('reuniones').child(nombreReserva).remove()
+      swal('La Reserva ha sido Borrada')
+      const nuevoArrayReservas = reservasFecha.splice(index, 1)
+      if (reservasFecha ===  nuevoArrayReservas) {
+        this.setState({
+          reservasFecha:nuevoArrayReservas
+        })
+      } else {
+        this.setState({
+          reservasFecha:nuevoArrayReservas
+        })
+      }
+      
+   }
+   
+    
 
    reservas = () => {
-      
-      const { year,mes,dia, reservasFecha,   } = this.state
+      const { year,mes,dia, reservasFecha, } = this.state
       const { horaReserva , 
         minutosTotales, 
         tituloReservaBaseDatos, 
@@ -116,9 +134,9 @@ export class InputReserva extends Component {
         fechaFinalReunion,
         nombreReservasBaseDatos
         } = this.props    
-       
+        
        const index = reservasFecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) 
-                   
+
        if (index > -1) { 
        return (
         <td>
@@ -130,6 +148,7 @@ export class InputReserva extends Component {
         direccionReservaBaseDatos={direccionReservaBaseDatos[index]} 
         fechaInicioReunion={fechaInicioReunion[index]}
         fechaFinalReunion={fechaFinalReunion[index]}
+        handleClickBorrarReserva={() => { this.handleClickBorrarReserva(index) }}
         ></Inputhoras>
         </td>
        )
@@ -138,16 +157,14 @@ export class InputReserva extends Component {
        else {
          return (
          <td onClick={this.handleClickModalReserva}>
-         Reservar
+         Reserva
          </td> 
          )
        }
              
    }
 
-   verOcupado = () => {
-     swal('Hola')
-   }
+  
 
 
    render() {     
