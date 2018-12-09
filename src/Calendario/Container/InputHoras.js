@@ -23,7 +23,7 @@ export class Inputhoras extends Component {
     
    }
 
-   modificarTituloReserva = (index) => {
+   modificarTituloReserva = () => {
     const titulo = prompt('Escribe tu nuevo titulo')
     const nombreReserva = this.props.nombreReservasBaseDatos
     const ref  = firebaseApp.database().ref('usuarios')
@@ -33,9 +33,6 @@ export class Inputhoras extends Component {
     }
    
    ref.child(user.uid).child('reuniones').child(nombreReserva).update(tituloModificado)
-   this.setState({
-       tituloReservaBaseDatos:titulo
-   })
         
    }
    modificarDireccion = () => {
@@ -47,17 +44,16 @@ export class Inputhoras extends Component {
         direccion: direccion
     }
    ref.child(user.uid).child('reuniones').child(nombreReserva).update(direccionModificada)
-   this.setState({
-       direccionReservaBaseDatos:direccion
-   })
    }
 
-   
+   static getDerivedStateFromProps = (props, state) => {         
+    return props
+  }
    
    render() {
     const { tituloReservaBaseDatos , direccionReservaBaseDatos } = this.state
     const { fechaInicioReunion , handleClickBorrarReserva   } = this.props
-
+    
      
      return (
     <Rnd

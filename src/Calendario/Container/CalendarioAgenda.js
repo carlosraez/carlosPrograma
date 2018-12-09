@@ -24,7 +24,7 @@ export class CalendarioAgenda extends Component {
 
    calcularFecha =  () => {
      const fecha = moment().format('LLLL')
-     return `hoy es ${fecha}`
+     return `Hoy es ${fecha}`
 
    }
 

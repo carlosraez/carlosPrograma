@@ -109,7 +109,7 @@ export class InputReserva extends Component {
       const nombreReserva = this.props.nombreReservasBaseDatos[index]
       ref.child(user.uid).child('reuniones').child(nombreReserva).remove()
       swal('La Reserva ha sido Borrada')
-      const nuevoArrayReservas = reservasFecha.splice(index, 1)
+      const nuevoArrayReservas = reservasFecha.splice(index, 1)      
       if (reservasFecha ===  nuevoArrayReservas) {
         this.setState({
           reservasFecha:nuevoArrayReservas
