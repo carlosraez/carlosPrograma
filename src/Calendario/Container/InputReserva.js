@@ -5,12 +5,11 @@ import { firebaseApp } from '../../index.js'
 import swal from 'sweetalert';
 import { Inputhoras } from './InputHoras.js';
 
-
-
 export class InputReserva extends Component {
    state = {
      reservasFecha:this.props,
      modalVisible: false,
+     nombreReservasBaseDatos: this.props.nombreReservasBaseDatos,
      fechaReserva:'',
      horaInicio:'',
      horaFin:'',
@@ -102,11 +101,13 @@ export class InputReserva extends Component {
      })
    }
 
+
+
    handleClickBorrarReserva = (index) =>{ 
       const ref  = firebaseApp.database().ref('usuarios')
       const user = firebaseApp.auth().currentUser
-      const { reservasFecha } = this.state
-      const nombreReserva = this.props.nombreReservasBaseDatos[index]
+      const { reservasFecha , nombreReservasBaseDatos } = this.state
+      const nombreReserva = nombreReservasBaseDatos[index]
       ref.child(user.uid).child('reuniones').child(nombreReserva).remove()
       swal('La Reserva ha sido Borrada')
       const nuevoArrayReservas = reservasFecha.splice(index, 1)      
@@ -169,6 +170,7 @@ export class InputReserva extends Component {
 
    render() {     
      const { horaInicio , horaFin ,  fechaReserva, } = this.state
+     
      return (
      this.state.modalVisible ?
      <ModalContainer>

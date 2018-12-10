@@ -54,6 +54,7 @@ export class Inputhoras extends Component {
     const { tituloReservaBaseDatos , direccionReservaBaseDatos } = this.state
     const { fechaInicioReunion , handleClickBorrarReserva   } = this.props
     
+    
      
      return (
     <Rnd
