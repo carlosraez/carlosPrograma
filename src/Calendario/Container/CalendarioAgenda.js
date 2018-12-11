@@ -39,7 +39,7 @@ export class CalendarioAgenda extends Component {
      })
    }
 
-   componentDidMount = ()  => {  
+   componentDidMount = ()  => {       
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
     let reservas = []
@@ -78,7 +78,7 @@ export class CalendarioAgenda extends Component {
      })
  }
 
-
+ 
 
 
     reserva = () => {
@@ -176,6 +176,7 @@ export class CalendarioAgenda extends Component {
           horasTotales.map((hora,i) => {  
             return (
              <ReservasFilas
+             recargarComponenteCalendario={this.componentDidMount}
              nombreReservasBaseDatos={nombreReservasBaseDatos}
              reservasFecha={reservasFecha}
              horaNoMostrar={horaNoMostrar[i]}
@@ -198,12 +199,11 @@ export class CalendarioAgenda extends Component {
       </table>
      )
    }
-
+   
+ 
    
 
-   render() {  
-      console.log(this.state);
-       
+   render() {             
      return (
        <div className="row">
        <div className="col-12">

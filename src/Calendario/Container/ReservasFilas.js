@@ -30,12 +30,14 @@ export class ReservasFilas extends Component {
       minutosTotales, 
       direccionReservaBaseDatos,
       nombreReservasBaseDatos,
+      recargarComponenteCalendario,
       fechaFinalReunion, } = this.props
     
      return (
        <tr>
          <th scope="row">{this.hora()}</th>
          <InputReserva
+         recargarComponenteCalendario={recargarComponenteCalendario}
          nombreReservasBaseDatos={nombreReservasBaseDatos}
          minutosTotales={minutosTotales}
          direccionReservaBaseDatos={direccionReservaBaseDatos}
@@ -50,6 +52,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         recargarComponenteCalendario={recargarComponenteCalendario}
          nombreReservasBaseDatos={nombreReservasBaseDatos}
          minutosTotales={minutosTotales}
          direccionReservaBaseDatos={direccionReservaBaseDatos}
@@ -64,6 +67,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         recargarComponenteCalendario={recargarComponenteCalendario}
          nombreReservasBaseDatos={nombreReservasBaseDatos}
          minutosTotales={minutosTotales}
          direccionReservaBaseDatos={direccionReservaBaseDatos}
@@ -78,6 +82,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         recargarComponenteCalendario={recargarComponenteCalendario}
          nombreReservasBaseDatos={nombreReservasBaseDatos}
          minutosTotales={minutosTotales}
          direccionReservaBaseDatos={direccionReservaBaseDatos}
@@ -92,6 +97,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         recargarComponenteCalendario={recargarComponenteCalendario}
          nombreReservasBaseDatos={nombreReservasBaseDatos}
          minutosTotales={minutosTotales}
          tituloReservaBaseDatos={tituloReservaBaseDatos}
@@ -106,6 +112,7 @@ export class ReservasFilas extends Component {
          handleClickReserva={handleClickReserva}
          />
          <InputReserva
+         recargarComponenteCalendario={recargarComponenteCalendario}
          nombreReservasBaseDatos={nombreReservasBaseDatos}
          minutosTotales={minutosTotales}
          tituloReservaBaseDatos={tituloReservaBaseDatos}

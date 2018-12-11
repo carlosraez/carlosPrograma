@@ -33,7 +33,7 @@ export class Inputhoras extends Component {
     }
    
    ref.child(user.uid).child('reuniones').child(nombreReserva).update(tituloModificado)
-        
+   this.props.recargarComponenteCalendario()     
    }
    modificarDireccion = () => {
     const direccion = prompt('Escribe tu nuevo Dirección')
@@ -44,6 +44,7 @@ export class Inputhoras extends Component {
         direccion: direccion
     }
    ref.child(user.uid).child('reuniones').child(nombreReserva).update(direccionModificada)
+   this.props.recargarComponenteCalendario()
    }
 
    static getDerivedStateFromProps = (props, state) => {         
