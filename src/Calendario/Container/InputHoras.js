@@ -25,9 +25,9 @@ export class Inputhoras extends Component {
     const tiempoInicio = parseInt(minutosTotales,10)  
     const minutosNuevos = height / 3.3
     const tiempoDeAumento = (Math.trunc(tiempoInicio - minutosNuevos) * -1)
-    const horaFinal = moment(fechaFinalReunion, 'h:mm').add(tiempoDeAumento, 'minutes').format('h:mm')
+    const horaFinal = moment(fechaFinalReunion, 'h:mm').add(tiempoDeAumento, 'minutes').format('HH:mm')
     const reservaHoraFin = {
-        horaFinal: horaFinal
+        horaFin: horaFinal
     }
    
     ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraFin)
@@ -72,7 +72,7 @@ export class Inputhoras extends Component {
      
      return (
     <Rnd
-    enableResizing={{bottom:true}}
+    enableResizing={{bottom:true,top:true}}
     disableDragging={true}
     size={{ height: this.state.height, width:170 }}
     minHeight={66}
