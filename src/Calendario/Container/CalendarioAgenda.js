@@ -40,45 +40,47 @@ export class CalendarioAgenda extends Component {
    }
 
    componentDidMount = ()  => {       
-    const ref  = firebaseApp.database().ref('usuarios')
-    const user = firebaseApp.auth().currentUser;
-    let reservas = []
-    const fechasReuniones = []
-    const titulos = []
-    const inicio = []
-    const horaFinalReserva = []
-    const minutosTotales = []
-    const direcionReserva = []
-    ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
-      const reserva = sanpshot.key 
-      const fechaInicio = sanpshot.val().fechaReserva	     
-      const horaInicial = sanpshot.val().horaInicio	     
-      const horaFinal  = sanpshot.val().horaFin	  
-      const reunionNombres  = sanpshot.val().tituloReserva 
-      const direccion  = sanpshot.val().direccion  
-      const principio = moment.duration(horaInicial);	        
-      const final = moment.duration(horaFinal)	     
-      const diferencia = moment.duration( final - principio).asMinutes()	                    
-      minutosTotales.push(diferencia)
-      fechasReuniones.push(`${fechaInicio} ${horaInicial}`)
-      titulos.push(reunionNombres)
-      inicio.push(horaInicial)
-      horaFinalReserva.push(horaFinal)
-      direcionReserva.push(direccion) 
-      reservas.push(reserva)  
-     this.setState({
-      nombreReservasBaseDatos:reservas,
-        reservasFecha:fechasReuniones,
-       titulosReuniones:titulos,
-       fechaInicioReunion:inicio,
-       fechaFinalReunion:horaFinalReserva,
-       minutosTotales:minutosTotales,
-       direccionReservaBaseDatos:direcionReserva,
-       })  
-     })
+     this.recargarCalendario()
  }
 
- 
+    recargarCalendario = () => {
+      const ref  = firebaseApp.database().ref('usuarios')
+      const user = firebaseApp.auth().currentUser;
+      let reservas = []
+      const fechasReuniones = []
+      const titulos = []
+      const inicio = []
+      const horaFinalReserva = []
+      const minutosTotales = []
+      const direcionReserva = []
+      ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
+        const reserva = sanpshot.key 
+        const fechaInicio = sanpshot.val().fechaReserva	     
+        const horaInicial = sanpshot.val().horaInicio	     
+        const horaFinal  = sanpshot.val().horaFin	  
+        const reunionNombres  = sanpshot.val().tituloReserva 
+        const direccion  = sanpshot.val().direccion  
+        const principio = moment.duration(horaInicial);	        
+        const final = moment.duration(horaFinal)	     
+        const diferencia = moment.duration( final - principio).asMinutes()	                    
+        minutosTotales.push(diferencia)
+        fechasReuniones.push(`${fechaInicio} ${horaInicial}`)
+        titulos.push(reunionNombres)
+        inicio.push(horaInicial)
+        horaFinalReserva.push(horaFinal)
+        direcionReserva.push(direccion) 
+        reservas.push(reserva)  
+       this.setState({
+        nombreReservasBaseDatos:reservas,
+          reservasFecha:fechasReuniones,
+         titulosReuniones:titulos,
+         fechaInicioReunion:inicio,
+         fechaFinalReunion:horaFinalReserva,
+         minutosTotales:minutosTotales,
+         direccionReservaBaseDatos:direcionReserva,
+         })  
+       })
+    }
 
 
     reserva = () => {
@@ -176,7 +178,7 @@ export class CalendarioAgenda extends Component {
           horasTotales.map((hora,i) => {  
             return (
              <ReservasFilas
-             recargarComponenteCalendario={this.componentDidMount}
+             recargarComponenteCalendario={this.recargarCalendario}
              nombreReservasBaseDatos={nombreReservasBaseDatos}
              reservasFecha={reservasFecha}
              horaNoMostrar={horaNoMostrar[i]}

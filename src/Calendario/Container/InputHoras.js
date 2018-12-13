@@ -13,15 +13,28 @@ export class Inputhoras extends Component {
        direccionReservaBaseDatos: this.props.direccionReservaBaseDatos  
    }
 
+  
+
    tiempoFinal = () => {
+    
     const { fechaFinalReunion ,height } = this.state 
-    const tiempoInicio = parseInt(this.props.minutosTotales,10)  
+    const {  minutosTotales } = this.props
+    const nombreReserva = this.props.nombreReservasBaseDatos
+    const ref  = firebaseApp.database().ref('usuarios')
+    const user = firebaseApp.auth().currentUser;
+    const tiempoInicio = parseInt(minutosTotales,10)  
     const minutosNuevos = height / 3.3
     const tiempoDeAumento = (Math.trunc(tiempoInicio - minutosNuevos) * -1)
     const horaFinal = moment(fechaFinalReunion, 'h:mm').add(tiempoDeAumento, 'minutes').format('h:mm')
-    return horaFinal
-    
+    const reservaHoraFin = {
+        horaFinal: horaFinal
+    }
+   
+    ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraFin)
+    return horaFinal 
    }
+
+   
 
    modificarTituloReserva = () => {
     const titulo = prompt('Escribe tu nuevo titulo')
