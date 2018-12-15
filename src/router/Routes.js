@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   Route,
 } from "react-router-dom";
-import firebase from 'firebase';
+import { auth } from 'firebase'
 import PrivateRoute from './Private.js'
 
 class RutasApp extends Component {
@@ -16,7 +16,7 @@ class RutasApp extends Component {
    };
 
  componentWillMount() {
- firebase.auth().onAuthStateChanged(user => {
+ auth().onAuthStateChanged(user => {
    if (user) {
      this.setState({
        authenticated: true,

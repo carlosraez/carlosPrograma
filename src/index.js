@@ -5,7 +5,7 @@ import firebase from 'firebase/app'
 import registerServiceWorker from './registerServiceWorker';
 
 var config = {
-  apiKey: "AIzaSyB6aSFgoiqqxzedpMmjOomSwTQBxVoYOfE",
+ apiKey: "AIzaSyB6aSFgoiqqxzedpMmjOomSwTQBxVoYOfE",
  authDomain: "crm-ascensores-71c08.firebaseapp.com",
  databaseURL: "https://crm-ascensores-71c08.firebaseio.com",
  projectId: "crm-ascensores-71c08",

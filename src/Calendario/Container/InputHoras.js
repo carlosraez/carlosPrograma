@@ -10,26 +10,37 @@ export class Inputhoras extends Component {
        height:parseInt(this.props.minutosTotales,10) * 3.3,
        fechaFinalReunion:this.props.fechaFinalReunion,
        tituloReservaBaseDatos: this.props.tituloReservaBaseDatos, 
-       direccionReservaBaseDatos: this.props.direccionReservaBaseDatos  
+       direccionReservaBaseDatos: this.props.direccionReservaBaseDatos,
+       movimientoArriba:0,
+       movimientoAbajo:0
    }
-
+   
+  tiempoIncialCalculo = () => {
+     const { movimientoArriba } = this.state
+     const ref  = firebaseApp.database().ref('usuarios')
+     const user = firebaseApp.auth().currentUser;
+     const nombreReserva = this.props.nombreReservasBaseDatos
+     const { fechaInicioReunion } = this.props
+     const tiempoDeAumento = Math.trunc(movimientoArriba / 3.3) 
+     const horaFinal = moment(fechaInicioReunion, 'h:mm').subtract(tiempoDeAumento, 'minutes').format('HH:mm')
+     const reservaHoraInicio = {
+        horaInicio: horaFinal
+    }
+    ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraInicio)
+    return horaFinal
+         
+  }
   
-
    tiempoFinal = () => {
-    
-    const { fechaFinalReunion ,height } = this.state 
-    const {  minutosTotales } = this.props
+    const { fechaFinalReunion ,movimientoAbajo } = this.state 
     const nombreReserva = this.props.nombreReservasBaseDatos
     const ref  = firebaseApp.database().ref('usuarios')
-    const user = firebaseApp.auth().currentUser;
-    const tiempoInicio = parseInt(minutosTotales,10)  
-    const minutosNuevos = height / 3.3
-    const tiempoDeAumento = (Math.trunc(tiempoInicio - minutosNuevos) * -1)
+    const user = firebaseApp.auth().currentUser; 
+    const tiempoDeAumento = Math.trunc(movimientoAbajo / 3.3)
     const horaFinal = moment(fechaFinalReunion, 'h:mm').add(tiempoDeAumento, 'minutes').format('HH:mm')
     const reservaHoraFin = {
         horaFin: horaFinal
     }
-   
     ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraFin)
     return horaFinal 
    }
@@ -65,10 +76,8 @@ export class Inputhoras extends Component {
   }
    
    render() {
-    const { tituloReservaBaseDatos , direccionReservaBaseDatos } = this.state
-    const { fechaInicioReunion , handleClickBorrarReserva   } = this.props
-    
-    
+    const { tituloReservaBaseDatos , direccionReservaBaseDatos, movimientoArriba , movimientoAbajo } = this.state
+    const {  handleClickBorrarReserva   } = this.props
      
      return (
     <Rnd
@@ -77,17 +86,50 @@ export class Inputhoras extends Component {
     size={{ height: this.state.height, width:170 }}
     minHeight={66}
     className='reservaBorder' 
-    onResize={(e, direction, ref, delta, position) => {
+    onResizeStop={(e, direction, ref, delta, position) => { 
+        if (direction === 'top') {
+            const movimientoNuevo = delta.height + movimientoArriba
+            this.setState({
+                movimientoArriba: movimientoNuevo ,
+                height: parseInt(ref.style.height,10)
+            }); 
+        }
+        else {
+        const movimientoNuevo = delta.height + movimientoAbajo
         this.setState({
             height: parseInt(ref.style.height,10),
+            movimientoAbajo: movimientoNuevo
         });
+        }
       }}
     >
-    <h5 className="tituloReserva"><span><button type="button" onClick={handleClickBorrarReserva}  className="btn btn-danger btn-sm">Borrar</button></span>{`${fechaInicioReunion} - ${this.tiempoFinal()}`}</h5>
+    <h5 className="tituloReserva"><span><button type="button" onClick={handleClickBorrarReserva}  className="btn btn-danger btn-sm">Borrar</button></span>{`${this.tiempoIncialCalculo()} - ${this.tiempoFinal()}`}</h5>
     <p onDoubleClick={this.modificarTituloReserva}>{tituloReservaBaseDatos}</p>  
     <p onDoubleClick={this.modificarDireccion}>{direccionReservaBaseDatos}</p> 
-    
     </Rnd>
      )
    }
 }
+
+
+    // dragGrid={[1, 7]}
+    /*onDragStop={ (event,{x,y}) => {
+    if (x  < 125) {
+        this.setState({x:0,  })
+    }
+    else if(x < 250){
+        this.setState({x:179,  })
+    }
+    else if(x < 413){
+        this.setState({x:373,  })
+    }
+    else if(x < 700){
+        this.setState({x:613,  })
+    }
+    else if(x < 920){
+        this.setState({x:809,  })
+    }
+    else {
+        this.setState({x:1019,  })
+    }
+}}*/
