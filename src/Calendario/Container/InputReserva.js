@@ -11,7 +11,7 @@ export class InputReserva extends Component {
      reservasFecha:this.props,
      modalVisible: false,
      nombreReservasBaseDatos: this.props.nombreReservasBaseDatos,
-     fechaReserva:'',
+     fechaReservaModal:'',
      horaInicio:'',
      horaFin:'',
      poblacion:'',
@@ -41,7 +41,7 @@ export class InputReserva extends Component {
        modalVisible: true,
        horaInicio: horaReserva,
        horaFin:horaFinalSuma,
-       fechaReserva: `${year}-${mes}-${dia}`
+       fechaReservaModal: `${year}-${mes}-${dia}`
      })
    }
 
@@ -62,7 +62,7 @@ export class InputReserva extends Component {
      const {
        horaInicio ,
        horaFin ,
-      fechaReserva ,
+      fechaReservaModal ,
       tituloReserva,
       motivoReunion ,
       direccion ,
@@ -73,7 +73,7 @@ export class InputReserva extends Component {
      const nuevaReunion = {
           [nombreReunion] : {
           tituloReserva: tituloReserva,
-          fechaReserva:fechaReserva,
+          fechaReserva:fechaReservaModal,
           horaInicio:horaInicio,
           horaFin:horaFin,
           motivoReunion:motivoReunion,
@@ -115,7 +115,7 @@ export class InputReserva extends Component {
     
 
    reservas = () => {
-      const { year,mes,dia, reservasFecha, fechaReserva } = this.state
+      const { year,mes,dia, reservasFecha } = this.state
       const { horaReserva , 
         minutosTotales, 
         tituloReservaBaseDatos, 
@@ -127,6 +127,8 @@ export class InputReserva extends Component {
         } = this.props    
         
        const index = reservasFecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) 
+      
+       
        
        if (index > -1) { 
        return (
@@ -135,7 +137,7 @@ export class InputReserva extends Component {
         recargarComponenteCalendario={recargarComponenteCalendario}
         nombreReservasBaseDatos={nombreReservasBaseDatos[index]}
         minutosTotales={minutosTotales[index]}
-        fecha={fechaReserva[index]}
+        fecha={reservasFecha[index]}
         tituloReservaBaseDatos={tituloReservaBaseDatos[index]}
         verOcupado={this.verOcupado}
         direccionReservaBaseDatos={direccionReservaBaseDatos[index]} 

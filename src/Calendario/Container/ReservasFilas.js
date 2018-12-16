@@ -32,12 +32,17 @@ export class ReservasFilas extends Component {
       recargarComponenteCalendario,
       fechaFinalReunion,
      } = this.props
+    
+     const diasLaborales = ['lunes','martes','miercoles','jueves','viernes','sabado']
+     
+     
      
      return (
        <tr>
          <th scope="row">{this.hora()}</th>
-         {
-           semana.map((dia,index) => {
+         {  
+           diasLaborales.map((dia,index) => {
+             
              return (
               <InputReserva
               key={dia}
@@ -49,9 +54,9 @@ export class ReservasFilas extends Component {
               fechaInicioReunion={fechaInicioReunion}
               fechaFinalReunion={fechaFinalReunion}
               reservasFecha={reservasFecha}
-              year={year[index]}
-              mes={mes[index]}
-              dia={semana[index]}
+              year={year[index + 1]}
+              mes={mes[index + 1]}
+              dia={semana[index + 1]}
               horaReserva={hora}
               handleClickReserva={handleClickReserva}
               />

@@ -29,8 +29,9 @@ export class Inputhoras extends Component {
 
   modificacionDia  =  () => {
       const { x } =  this.state
-      const { fecha } = this.props
-      console.log(fecha);
+      const   { fecha } = this.props
+      const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(1, 'days').format('DD/MM/YYYY')
+      console.log(fechaFinal);
       
   }
 
