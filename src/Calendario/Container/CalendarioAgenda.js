@@ -17,7 +17,8 @@ export class CalendarioAgenda extends Component {
       fechaFinalReunion:[],
       minutosTotales:[],
       direccionReservaBaseDatos:[],
-      nombreReservasBaseDatos:[]
+      nombreReservasBaseDatos:[],
+      fechaReserva:[]
    }
 
    calcularFecha =  () => {
@@ -53,6 +54,7 @@ export class CalendarioAgenda extends Component {
       const horaFinalReserva = []
       const minutosTotales = []
       const direcionReserva = []
+      const fechaReserva = []
       ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
         const reserva = sanpshot.key 
         const fechaInicio = sanpshot.val().fechaReserva	     
@@ -62,7 +64,8 @@ export class CalendarioAgenda extends Component {
         const direccion  = sanpshot.val().direccion  
         const principio = moment.duration(horaInicial);	        
         const final = moment.duration(horaFinal)	     
-        const diferencia = moment.duration( final - principio).asMinutes()	                    
+        const diferencia = moment.duration( final - principio).asMinutes()	
+        fechaReserva.push(fechaInicio)                   
         minutosTotales.push(diferencia)
         fechasReuniones.push(`${fechaInicio} ${horaInicial}`)
         titulos.push(reunionNombres)
@@ -72,12 +75,13 @@ export class CalendarioAgenda extends Component {
         reservas.push(reserva)  
        this.setState({
         nombreReservasBaseDatos:reservas,
-          reservasFecha:fechasReuniones,
+         reservasFecha:fechasReuniones,
          titulosReuniones:titulos,
          fechaInicioReunion:inicio,
          fechaFinalReunion:horaFinalReserva,
          minutosTotales:minutosTotales,
          direccionReservaBaseDatos:direcionReserva,
+         fechaReserva
          })  
        })
     }
@@ -158,6 +162,7 @@ export class CalendarioAgenda extends Component {
           minutosTotales,
           direccionReservaBaseDatos,
           nombreReservasBaseDatos,
+          fechaReserva,
         } = this.state
    
       return (
@@ -178,6 +183,7 @@ export class CalendarioAgenda extends Component {
           horasTotales.map((hora,i) => {  
             return (
              <ReservasFilas
+             fechaReserva={fechaReserva}
              recargarComponenteCalendario={this.recargarCalendario}
              nombreReservasBaseDatos={nombreReservasBaseDatos}
              reservasFecha={reservasFecha}

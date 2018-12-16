@@ -27,6 +27,13 @@ export class Inputhoras extends Component {
 
   }
 
+  modificacionDia  =  () => {
+      const { x } =  this.state
+      const { fecha } = this.props
+      console.log(fecha);
+      
+  }
+
    guardarFirebase = () => {
     const horaFinal = this.tiempoFinalCalculo()
     const horaInicial = this.tiempoInicialCalculo()
@@ -83,7 +90,7 @@ export class Inputhoras extends Component {
    render() {
     const { tituloReservaBaseDatos , direccionReservaBaseDatos  } = this.state
     const {  handleClickBorrarReserva   } = this.props
-    
+    this.modificacionDia()
      
      return (
     <Rnd
