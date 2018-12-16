@@ -3,6 +3,7 @@ import ModalContainer from '../../widgets/container/modal-container.js'
 import ModalReserva from '../Components/ModalReserva.js'
 import { firebaseApp } from '../../index.js'
 import swal from 'sweetalert';
+import moment from 'moment'
 import { Inputhoras } from './InputHoras.js';
 
 export class InputReserva extends Component {
@@ -35,24 +36,11 @@ export class InputReserva extends Component {
    handleClickModalReserva = () => {
      const { horaReserva } = this.props
      const { year , mes , dia } = this.state
-      const horaNumero  = parseInt(horaReserva,10)
-      const horaSuma = horaNumero + 1
-
-      if (horaSuma === 9) {
-        this.setState({
-          horaFin:`0${horaSuma}:00`
-        })
-      }
-      else {
-        this.setState({
-          horaFin:`${horaSuma}:00`
-        })
-
-      }
-
+     const horaFinalSuma = moment(horaReserva, 'h:mm').add(1, 'hour').format('HH:mm')
      this.setState({
        modalVisible: true,
        horaInicio: horaReserva,
+       horaFin:horaFinalSuma,
        fechaReserva: `${year}-${mes}-${dia}`
      })
    }

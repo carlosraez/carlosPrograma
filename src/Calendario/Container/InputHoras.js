@@ -93,9 +93,7 @@ export class Inputhoras extends Component {
     minHeight={66}
     position={{ x:this.state.x, y:this.state.y }}
     dragGrid={[1, 7]}
-    onDragStop={ (event,{x,y}) => {
-        console.log(x);
-        
+    onDragStop={ (event,{x,y}) => {        
         if (x  < 125) {
             this.setState({x:0,  })
         }
@@ -116,9 +114,7 @@ export class Inputhoras extends Component {
       }
     }}
     className='reservaBorder' 
-    onResize={(e, direction, ref, delta, position) => { 
-        console.log(position);
-        
+    onResize={(e, direction, ref, delta, position) => {     
     const alturaActualModificada = this.state.height  - parseInt(ref.style.height,10)
     const { movimientoArriba , movimientoAbajo } = this.state    
         if (direction === 'top') {
