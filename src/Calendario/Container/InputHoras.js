@@ -12,7 +12,9 @@ export class Inputhoras extends Component {
        tituloReservaBaseDatos: this.props.tituloReservaBaseDatos, 
        direccionReservaBaseDatos: this.props.direccionReservaBaseDatos,
        movimientoArriba:0,
-       movimientoAbajo:0
+       movimientoAbajo:0,
+       x:null,
+       y:null,
    }
    
   tiempoInicialCalculo = () => {
@@ -81,22 +83,51 @@ export class Inputhoras extends Component {
    render() {
     const { tituloReservaBaseDatos , direccionReservaBaseDatos  } = this.state
     const {  handleClickBorrarReserva   } = this.props
+    
      
      return (
     <Rnd
     enableResizing={{bottom:true,top:true}}
-    disableDragging={true}
+    disableDragging={false}
     size={{ height: this.state.height, width:170 }}
     minHeight={66}
+    position={{ x:this.state.x, y:this.state.y }}
+    dragGrid={[1, 7]}
+    onDragStop={ (event,{x,y}) => {
+        console.log(x);
+        
+        if (x  < 125) {
+            this.setState({x:0,  })
+        }
+        else if(x < 250){
+            this.setState({x:179,  })
+        }
+        else if(x < 413){
+            this.setState({x:373,  })
+        }
+        else if(x < 700){
+            this.setState({x:613,  })
+        }
+        else if(x < 920){
+            this.setState({x:809,  })
+        }
+        else {
+            this.setState({x:1019,  })
+      }
+    }}
     className='reservaBorder' 
     onResize={(e, direction, ref, delta, position) => { 
+        console.log(position);
+        
     const alturaActualModificada = this.state.height  - parseInt(ref.style.height,10)
     const { movimientoArriba , movimientoAbajo } = this.state    
         if (direction === 'top') {
             const movimientoNuevo =  (movimientoArriba - alturaActualModificada) 
             this.setState({
                 movimientoArriba: movimientoNuevo ,
-                height: parseInt(ref.style.height,10)
+                height: parseInt(ref.style.height,10),
+                x:position.x,
+                y:position.y
             }); 
             
         }
@@ -120,24 +151,3 @@ export class Inputhoras extends Component {
 }
 
 
-    // dragGrid={[1, 7]}
-    /*onDragStop={ (event,{x,y}) => {
-    if (x  < 125) {
-        this.setState({x:0,  })
-    }
-    else if(x < 250){
-        this.setState({x:179,  })
-    }
-    else if(x < 413){
-        this.setState({x:373,  })
-    }
-    else if(x < 700){
-        this.setState({x:613,  })
-    }
-    else if(x < 920){
-        this.setState({x:809,  })
-    }
-    else {
-        this.setState({x:1019,  })
-    }
-}}*/
