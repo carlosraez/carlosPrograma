@@ -13,6 +13,7 @@ export class Inputhoras extends Component {
        direccionReservaBaseDatos: this.props.direccionReservaBaseDatos,
        movimientoArriba:0,
        movimientoAbajo:0,
+       xInicial: this.props.xInicial,
        x:null,
        y:null,
    }
@@ -27,23 +28,187 @@ export class Inputhoras extends Component {
 
   }
 
-  modificacionDia  =  () => {
-      const { x } =  this.state
-      const   { fecha } = this.props
-      const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(1, 'days').format('DD/MM/YYYY')
-      console.log(fechaFinal);
+  modificacionDia  =  () => {      
+      const { x, xInicial } =  this.state
+      const   { fecha } = this.props  
+      if (xInicial === 0) {
+        if(x === 0) {
+              const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(0, 'days').format('DD/MM/YYYY')
+              return  fechaFinal
+          }
+          else if (x === 179) {
+            
+            const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(1, 'days').format('DD/MM/YYYY') 
+            return fechaFinal
+          }
+          else if (x === 373) {
+            const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(2, 'days').format('DD/MM/YYYY')
+            return fechaFinal
+          }
+          else if (x === 613) {
+             const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(3, 'days').format('DD/MM/YYYY')
+             return  fechaFinal
+          }
+          else if (x === 809) {
+            const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(4, 'days').format('DD/MM/YYYY')
+            return  fechaFinal
+          }
+          else if (x === 1019) {
+            const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(5, 'days').format('DD/MM/YYYY')
+            return  fechaFinal
+          }
+      }
+      else if(x === 179) {
+        if(x === 0) {
+            const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(-1, 'days').format('DD/MM/YYYY')
+            return  fechaFinal
+        }
+        else if (x === 179) {
+          
+          const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(0, 'days').format('DD/MM/YYYY') 
+          return fechaFinal
+        }
+        else if (x === 373) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(1, 'days').format('DD/MM/YYYY')
+          return fechaFinal
+        }
+        else if (x === 613) {
+           const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(2, 'days').format('DD/MM/YYYY')
+           return  fechaFinal
+        }
+        else if (x === 809) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(3, 'days').format('DD/MM/YYYY')
+          return  fechaFinal
+        }
+        else if (x === 1019) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(4, 'days').format('DD/MM/YYYY')
+          return  fechaFinal
+        }
+      }
+      else if(x === 373) {
+        if(x === 0) {
+            const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(-2, 'days').format('DD/MM/YYYY')
+            return  fechaFinal
+        }
+        else if (x === 179) {
+          
+          const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(-1, 'days').format('DD/MM/YYYY') 
+          return fechaFinal
+        }
+        else if (x === 373) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(0, 'days').format('DD/MM/YYYY')
+          return fechaFinal
+        }
+        else if (x === 613) {
+           const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(1, 'days').format('DD/MM/YYYY')
+           return  fechaFinal
+        }
+        else if (x === 809) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(2, 'days').format('DD/MM/YYYY')
+          return  fechaFinal
+        }
+        else if (x === 1019) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(3, 'days').format('DD/MM/YYYY')
+          return  fechaFinal
+        }
+      }
+      else if(x === 613) {
+        if(x === 0) {
+            const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(-3, 'days').format('DD/MM/YYYY')
+            return  fechaFinal
+        }
+        else if (x === 179) {
+          
+          const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(-2, 'days').format('DD/MM/YYYY') 
+          return fechaFinal
+        }
+        else if (x === 373) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(-1, 'days').format('DD/MM/YYYY')
+          return fechaFinal
+        }
+        else if (x === 613) {
+           const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(0, 'days').format('DD/MM/YYYY')
+           return  fechaFinal
+        }
+        else if (x === 809) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(1, 'days').format('DD/MM/YYYY')
+          return  fechaFinal
+        }
+        else if (x === 1019) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(2, 'days').format('DD/MM/YYYY')
+          return  fechaFinal
+        }
+      }
+      else if(x === 809) {
+        if(x === 0) {
+            const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(-4, 'days').format('DD/MM/YYYY')
+            return  fechaFinal
+        }
+        else if (x === 179) {
+          
+          const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(-3, 'days').format('DD/MM/YYYY') 
+          return fechaFinal
+        }
+        else if (x === 373) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(-2, 'days').format('DD/MM/YYYY')
+          return fechaFinal
+        }
+        else if (x === 613) {
+           const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(-1, 'days').format('DD/MM/YYYY')
+           return  fechaFinal
+        }
+        else if (x === 809) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(0, 'days').format('DD/MM/YYYY')
+          return  fechaFinal
+        }
+        else if (x === 1019) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(1, 'days').format('DD/MM/YYYY')
+          return  fechaFinal
+        }
+      }
+      else if(x === 1019) {
+        if(x === 0) {
+            const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(-4, 'days').format('DD/MM/YYYY')
+            return  fechaFinal
+        }
+        else if (x === 179) {
+          
+          const fechaFinal =  moment(fecha, 'YYYY/MM/DD h:mm').add(-3, 'days').format('DD/MM/YYYY') 
+          return fechaFinal
+        }
+        else if (x === 373) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(-2, 'days').format('DD/MM/YYYY')
+          return fechaFinal
+        }
+        else if (x === 613) {
+           const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(-1, 'days').format('DD/MM/YYYY')
+           return  fechaFinal
+        }
+        else if (x === 809) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(1, 'days').format('DD/MM/YYYY')
+          return  fechaFinal
+        }
+        else if (x === 1019) {
+          const fechaFinal = moment(fecha, 'YYYY/MM/DD h:mm').add(0, 'days').format('DD/MM/YYYY')
+          return  fechaFinal
+        }
+      }
+     
+         
       
   }
 
    guardarFirebase = () => {
     const horaFinal = this.tiempoFinalCalculo()
     const horaInicial = this.tiempoInicialCalculo()
+    const fechaModificada = this.modificacionDia()
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
     const nombreReserva = this.props.nombreReservasBaseDatos
     const reservaHoraInicio = {
         horaInicio: horaInicial,
-        horaFin: horaFinal
+        horaFin: horaFinal,
+        fechaReserva:fechaModificada
     }
     ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraInicio) 
     
@@ -91,7 +256,7 @@ export class Inputhoras extends Component {
    render() {
     const { tituloReservaBaseDatos , direccionReservaBaseDatos  } = this.state
     const {  handleClickBorrarReserva   } = this.props
-    this.modificacionDia()
+    
      
      return (
     <Rnd
@@ -101,24 +266,30 @@ export class Inputhoras extends Component {
     minHeight={66}
     position={{ x:this.state.x, y:this.state.y }}
     dragGrid={[1, 7]}
-    onDragStop={ (event,{x,y}) => {        
+    onDragStop={ (event,{x,y}) => {      
         if (x  < 125) {
-            this.setState({x:0,  })
+            this.setState({x:0,  },this.guardarFirebase)
+            
         }
         else if(x < 250){
-            this.setState({x:179,  })
+            this.setState({x:179,  },this.guardarFirebase)
+            
         }
         else if(x < 413){
-            this.setState({x:373,  })
+            this.setState({x:373,  },this.guardarFirebase)
+         
         }
         else if(x < 700){
-            this.setState({x:613,  })
+            this.setState({x:613,  },this.guardarFirebase)
+      
         }
         else if(x < 920){
-            this.setState({x:809,  })
+            this.setState({x:809,  },this.guardarFirebase)
+   
         }
         else {
-            this.setState({x:1019,  })
+            this.setState({x:1019,  },this.guardarFirebase)
+
       }
     }}
     className='reservaBorder' 

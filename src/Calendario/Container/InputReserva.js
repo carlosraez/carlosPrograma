@@ -37,11 +37,12 @@ export class InputReserva extends Component {
      const { horaReserva } = this.props
      const { year , mes , dia } = this.state
      const horaFinalSuma = moment(horaReserva, 'h:mm').add(1, 'hour').format('HH:mm')
+     
      this.setState({
        modalVisible: true,
        horaInicio: horaReserva,
        horaFin:horaFinalSuma,
-       fechaReservaModal: `${year}-${mes}-${dia}`
+       fechaReservaModal: `${dia}/${mes}/${year}`
      })
    }
 
@@ -126,17 +127,18 @@ export class InputReserva extends Component {
         recargarComponenteCalendario,
         } = this.props    
         
-       const index = reservasFecha.indexOf(`${year}-${mes}-${dia} ${horaReserva}`) 
+       const index = reservasFecha.indexOf(`${dia}/${mes}/${year} ${horaReserva}`) 
+
+       
       
-       
-       
-       if (index > -1) { 
+       if (index > -1) {          
        return (
         <td>
         <Inputhoras
         recargarComponenteCalendario={recargarComponenteCalendario}
         nombreReservasBaseDatos={nombreReservasBaseDatos[index]}
         minutosTotales={minutosTotales[index]}
+        xInicial={index}
         fecha={reservasFecha[index]}
         tituloReservaBaseDatos={tituloReservaBaseDatos[index]}
         verOcupado={this.verOcupado}
@@ -163,8 +165,8 @@ export class InputReserva extends Component {
 
 
    render() {     
-     const { horaInicio , horaFin ,  fechaReserva, } = this.state
-     
+     const { horaInicio , horaFin ,  fechaReservaModal, } = this.state
+        
      return (
      this.state.modalVisible ?
      <ModalContainer>
@@ -173,7 +175,7 @@ export class InputReserva extends Component {
         handleChange={this.handleChange}
         horaInicio={horaInicio}
         horaFin={horaFin}
-        fechaReserva={fechaReserva}
+        fechaReserva={fechaReservaModal}
         handleClickGuardarReserva={this.handleClickGuardarReserva}
        />
      </ModalContainer>

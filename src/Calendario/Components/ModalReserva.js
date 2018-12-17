@@ -5,7 +5,8 @@ import './ModalReserva.css'
 
 
 function ModalReserva(props) {
-
+  const { fechaReserva , handleChange , horaInicio , horaFin } = props
+   
    return (
      <div className="Modal">
      <div className="container">
@@ -14,8 +15,8 @@ function ModalReserva(props) {
       label={'Fecha Reunión'}
       type={'date'}
       id={'fechaReserva'}
-      defaultValue={props.fechaReserva}
-      handleChange={props.handleChange}
+      defaultValue={fechaReserva.split('/').reverse().join('-')}
+      handleChange={handleChange}
       />
       <div className="row">
       <div className="col-12 col-md-6">
@@ -24,19 +25,19 @@ function ModalReserva(props) {
        type={'text'}
        placeholder={'Escribe la parsona con la que vas a quedar'}
        id={'tituloReserva'}
-       handleChange={props.handleChange}
+       handleChange={handleChange}
        />
        <InputsAgenda
        label={'hora de Reunión'}
        type={'time'}
-       defaultValue={props.horaInicio}
+       defaultValue={horaInicio}
        id={'horaInicio'}
-       handleChange={props.handleChange}
+       handleChange={handleChange}
        />
        <InputsAgenda
        label={'hora de Terminacion'}
        type={'time'}
-       defaultValue={props.horaFin}
+       defaultValue={horaFin}
        id={'horaFin'}
        handleChange={props.handleChange}
        />
@@ -47,13 +48,13 @@ function ModalReserva(props) {
       label={'Motivo de Reunión'}
       type={'text'}
       id={'motivoReunion'}
-      handleChange={props.handleChange}
+      handleChange={handleChange}
       />
       <InputsAgenda
       label={'Dirección'}
       type={'text'}
       id={'direccion'}
-      handleChange={props.handleChange}
+      handleChange={handleChange}
       />
       </div>
      </div>
