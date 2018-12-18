@@ -8,7 +8,7 @@ import moment from 'moment'
 export class Inputhoras extends Component {
    state = {
        height:parseInt(this.props.minutosTotales,10) * 1.1,
-       fechaFinalReunion:this.props.fechaFinalReunion,
+       horaFinalReunion:this.props.horaFinalReunion,
        tituloReservaBaseDatos: this.props.tituloReservaBaseDatos, 
        direccionReservaBaseDatos: this.props.direccionReservaBaseDatos,
        movimientoArriba:0,
@@ -17,9 +17,9 @@ export class Inputhoras extends Component {
    
   tiempoInicialCalculo = () => {
      const { movimientoArriba } = this.state
-     const { fechaInicioReunion } = this.props
+     const { horaInicioReunion } = this.props
      const tiempoDeAumento = Math.trunc(movimientoArriba / 1.1) 
-     const horaFinal = moment(fechaInicioReunion, 'h:mm').subtract(tiempoDeAumento, 'minutes').format('HH:mm')
+     const horaFinal = moment(horaInicioReunion, 'h:mm').subtract(tiempoDeAumento, 'minutes').format('HH:mm')
      
     return horaFinal
 
@@ -62,9 +62,9 @@ export class Inputhoras extends Component {
    }
   
    tiempoFinalCalculo = () => {
-    const { fechaFinalReunion ,movimientoAbajo } = this.state 
+    const { horaFinalReunion ,movimientoAbajo } = this.state 
     const tiempoDeAumento = Math.trunc(movimientoAbajo / 1.1)
-    const horaFinal = moment(fechaFinalReunion, 'h:mm').add(tiempoDeAumento, 'minutes').format('HH:mm')
+    const horaFinal = moment(horaFinalReunion, 'h:mm').add(tiempoDeAumento, 'minutes').format('HH:mm')
     
     return horaFinal 
 
@@ -106,7 +106,7 @@ export class Inputhoras extends Component {
     <Rnd
     enableResizing={{bottom:true,top:true}}
     disableDragging={false}
-    size={{ height: this.state.height, width:170 }}
+    size={{ height: this.state.height, width:213 }}
     minHeight={66}
     dragGrid={[1, 7]}
     onDragStop={ (event,{x,y}) => { this.modificacionDia(x) }}

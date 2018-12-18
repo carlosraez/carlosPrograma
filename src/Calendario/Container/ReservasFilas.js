@@ -24,12 +24,12 @@ export class ReservasFilas extends Component {
       year, 
       reservasFecha, 
       tituloReservaBaseDatos , 
-      fechaInicioReunion ,
+      horaInicioReunion ,
       minutosTotales, 
       direccionReservaBaseDatos,
       nombreReservasBaseDatos,
       recargarComponenteCalendario,
-      fechaFinalReunion,
+      horaFinalReunion,
      } = this.props
     
      const diasLaborales = ['lunes','martes','miercoles','jueves','viernes','sabado']
@@ -48,8 +48,8 @@ export class ReservasFilas extends Component {
               minutosTotales={minutosTotales}
               direccionReservaBaseDatos={direccionReservaBaseDatos}
               tituloReservaBaseDatos={tituloReservaBaseDatos}
-              fechaInicioReunion={fechaInicioReunion}
-              fechaFinalReunion={fechaFinalReunion}
+              horaInicioReunion={horaInicioReunion}
+              horaFinalReunion={horaFinalReunion}
               reservasFecha={reservasFecha}
               year={year[index + 1]}
               mes={mes[index + 1]}

@@ -13,8 +13,8 @@ export class CalendarioAgenda extends Component {
       siguienteSemana:0,
       reservasFecha:[],
       titulosReuniones:[],
-      fechaInicioReunion:[],
-      fechaFinalReunion:[],
+      horaInicioReunion:[],
+      horaFinalReunion:[],
       minutosTotales:[],
       direccionReservaBaseDatos:[],
       nombreReservasBaseDatos:[],
@@ -77,8 +77,8 @@ export class CalendarioAgenda extends Component {
         nombreReservasBaseDatos:reservas,
          reservasFecha:fechasReuniones,
          titulosReuniones:titulos,
-         fechaInicioReunion:inicio,
-         fechaFinalReunion:horaFinalReserva,
+         horaInicioReunion:inicio,
+         horaFinalReunion:horaFinalReserva,
          minutosTotales:minutosTotales,
          direccionReservaBaseDatos:direcionReserva,
          fechaReserva
@@ -100,7 +100,7 @@ export class CalendarioAgenda extends Component {
      year.push(ano)
      }
        
-     
+
       const horasTotales = ['08:00']
       horasTotales.push(moment(horasTotales, 'h:mm').add(30, 'minutes').format('HH:mm'))
       for (let index = 1; index < 30; index++) {
@@ -109,8 +109,8 @@ export class CalendarioAgenda extends Component {
       
       const { reservasFecha , 
         titulosReuniones ,
-         fechaInicioReunion , 
-         fechaFinalReunion,
+         horaInicioReunion , 
+         horaFinalReunion,
           minutosTotales,
           direccionReservaBaseDatos,
           nombreReservasBaseDatos,
@@ -139,8 +139,8 @@ export class CalendarioAgenda extends Component {
              nombreReservasBaseDatos={nombreReservasBaseDatos}
              reservasFecha={reservasFecha}
              tituloReservaBaseDatos={titulosReuniones}
-             fechaInicioReunion={fechaInicioReunion}
-             fechaFinalReunion={fechaFinalReunion}
+             horaInicioReunion={horaInicioReunion}
+             horaFinalReunion={horaFinalReunion}
              direccionReservaBaseDatos={direccionReservaBaseDatos}
              semana={semana}
              key={hora}

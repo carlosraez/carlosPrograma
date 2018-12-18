@@ -118,8 +118,8 @@ export class InputReserva extends Component {
         minutosTotales, 
         tituloReservaBaseDatos, 
         direccionReservaBaseDatos,
-        fechaInicioReunion, 
-        fechaFinalReunion,
+        horaInicioReunion, 
+        horaFinalReunion,
         nombreReservasBaseDatos,
         recargarComponenteCalendario,
         } = this.props    
@@ -137,8 +137,8 @@ export class InputReserva extends Component {
         tituloReservaBaseDatos={tituloReservaBaseDatos[index]}
         verOcupado={this.verOcupado}
         direccionReservaBaseDatos={direccionReservaBaseDatos[index]} 
-        fechaInicioReunion={fechaInicioReunion[index]}
-        fechaFinalReunion={fechaFinalReunion[index]}
+        horaInicioReunion={horaInicioReunion[index]}
+        horaFinalReunion={horaFinalReunion[index]}
         handleClickBorrarReserva={() => { this.handleClickBorrarReserva(index) }}
         ></Inputhoras>
         </td>
