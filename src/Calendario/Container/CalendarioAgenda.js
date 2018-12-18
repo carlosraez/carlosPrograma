@@ -86,7 +86,6 @@ export class CalendarioAgenda extends Component {
        })
     }
 
-
     reserva = () => {
      const semana = []
      const mesActual = []
@@ -100,59 +99,12 @@ export class CalendarioAgenda extends Component {
      semana.push(dia)
      year.push(ano)
      }
+       
      
-      const horasTotales = []
-      const horaNoMostrar = []
-      for (let index = 8; index <= 22; index++) {
-            let horaVacia = '00:00'
-            let horaSimple = `0${index}`
-            let horaSimpleUnica = `${index}`
-                  if (index <= 9) {
-                    horaVacia = `0${index}:00`
-                    horasTotales.push(horaVacia)
-                    horaNoMostrar.push(`00:${index}`)
-                    for (let index = 0; index < 6; index++) {
-                      let minutos = `${index * 10}`  
-                      if (minutos === '0') {
-                        
-                      }    
-                      else if (minutos === '5') 
-                          {
-                          let horas = `${horaSimple}:05`
-                          horasTotales.push(horas)
-                          horaNoMostrar.push(horas)
-                          } 
-                      else 
-                          {
-                          let horas = `${horaSimple}:${minutos}`
-                          horasTotales.push(horas)
-                          horaNoMostrar.push(horas)
-                          }     
-                    }
-                  } 
-                  else {
-                        horaVacia = `${index}:00`
-                        horasTotales.push(horaVacia)
-                        horaNoMostrar.push(`00:${index}`)
-                          for (let index = 0; index < 6; index++) {
-                            let  minutos = `${index * 10}`
-                            if (minutos === '0') {
-                              
-                            }    
-                        else if (minutos === '5') 
-                            {
-                              let horas = `${horaSimpleUnica}:05`
-                              horasTotales.push(horas)
-                              horaNoMostrar.push(horas)
-                            } 
-                          else 
-                            {
-                              let horas = `${horaSimpleUnica}:${minutos}`
-                              horasTotales.push(horas)
-                              horaNoMostrar.push(horas)
-                            }     
-                        }
-                  }
+      const horasTotales = ['08:00']
+      horasTotales.push(moment(horasTotales, 'h:mm').add(30, 'minutes').format('HH:mm'))
+      for (let index = 1; index < 30; index++) {
+        horasTotales.push(moment(horasTotales[index], 'h:mm').add(30, 'minutes').format('HH:mm'))  
       }
       
       const { reservasFecha , 
@@ -162,7 +114,6 @@ export class CalendarioAgenda extends Component {
           minutosTotales,
           direccionReservaBaseDatos,
           nombreReservasBaseDatos,
-          fechaReserva,
         } = this.state
    
       return (
@@ -181,13 +132,12 @@ export class CalendarioAgenda extends Component {
          <tbody>
         {
           horasTotales.map((hora,i) => {  
+           
             return (
              <ReservasFilas
-             fechaReserva={fechaReserva}
              recargarComponenteCalendario={this.recargarCalendario}
              nombreReservasBaseDatos={nombreReservasBaseDatos}
              reservasFecha={reservasFecha}
-             horaNoMostrar={horaNoMostrar[i]}
              tituloReservaBaseDatos={titulosReuniones}
              fechaInicioReunion={fechaInicioReunion}
              fechaFinalReunion={fechaFinalReunion}
@@ -207,9 +157,7 @@ export class CalendarioAgenda extends Component {
       </table>
      )
    }
-   
- 
-   
+  
 
    render() {             
      return (

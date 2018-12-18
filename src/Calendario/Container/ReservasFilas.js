@@ -6,9 +6,10 @@ import './ReservasFilas.css'
 
 export class ReservasFilas extends Component {
    hora = () => {
-    const { hora, horaNoMostrar  } = this.props
-      
-      if(hora === horaNoMostrar )
+    const { hora } = this.props 
+    const horaNueva = hora.split(':')
+     
+      if(horaNueva[1] === '30')
      {
        return ''
      }
@@ -35,11 +36,9 @@ export class ReservasFilas extends Component {
     
      const diasLaborales = ['lunes','martes','miercoles','jueves','viernes','sabado']
      
-     
-     
      return (
        <tr>
-         <th scope="row">{this.hora()}</th>
+         <th scope="row" className="horaDiseño" >{this.hora()}</th>
          {  
            diasLaborales.map((dia,index) => {
              

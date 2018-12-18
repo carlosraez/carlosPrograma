@@ -91,8 +91,6 @@ export class InputReserva extends Component {
 
    }
 
-
-
    handleClickBorrarReserva = (index) =>{ 
       const ref  = firebaseApp.database().ref('usuarios')
       const user = firebaseApp.auth().currentUser
@@ -113,8 +111,6 @@ export class InputReserva extends Component {
       this.props.recargarComponenteCalendario()
    }
    
-    
-
    reservas = () => {
       const { year,mes,dia, reservasFecha } = this.state
       const { horaReserva , 
@@ -126,19 +122,16 @@ export class InputReserva extends Component {
         nombreReservasBaseDatos,
         recargarComponenteCalendario,
         } = this.props    
-        
-       const index = reservasFecha.indexOf(`${dia}/${mes}/${year} ${horaReserva}`) 
-
        
+       const index = reservasFecha.indexOf(`${dia}/${mes}/${year} ${horaReserva}`) 
       
-       if (index > -1) {          
+       if (index > -1) {     
        return (
         <td>
         <Inputhoras
         recargarComponenteCalendario={recargarComponenteCalendario}
         nombreReservasBaseDatos={nombreReservasBaseDatos[index]}
         minutosTotales={minutosTotales[index]}
-        xInicial={index}
         fecha={reservasFecha[index]}
         tituloReservaBaseDatos={tituloReservaBaseDatos[index]}
         verOcupado={this.verOcupado}
@@ -160,9 +153,6 @@ export class InputReserva extends Component {
        }
              
    }
-
-  
-
 
    render() {     
      const { horaInicio , horaFin ,  fechaReservaModal, } = this.state
