@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { InputReserva } from './InputReserva.js'
 import './ReservasFilas.css'
 
-
-
 export class ReservasFilas extends Component {
    hora = () => {
     const { hora } = this.props 
     const horaNueva = hora.split(':')
-     
+
       if(horaNueva[1] === '30')
      {
        return ''

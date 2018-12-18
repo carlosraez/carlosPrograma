@@ -55,7 +55,7 @@ export class CalendarioAgenda extends Component {
       const minutosTotales = []
       const direcionReserva = []
       const fechaReserva = []
-      ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {
+      ref.child(user.uid).child('reuniones').on('child_added', (sanpshot) => {     
         const reserva = sanpshot.key 
         const fechaInicio = sanpshot.val().fechaReserva	     
         const horaInicial = sanpshot.val().horaInicio	     

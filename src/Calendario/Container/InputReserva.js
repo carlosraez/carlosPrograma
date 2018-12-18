@@ -5,6 +5,7 @@ import { firebaseApp } from '../../index.js'
 import swal from 'sweetalert';
 import moment from 'moment'
 import { Inputhoras } from './InputHoras.js';
+import './InputReservas.css'
 
 export class InputReserva extends Component {
    state = {
@@ -146,7 +147,7 @@ export class InputReserva extends Component {
        
        else {
          return (
-         <td onClick={this.handleClickModalReserva}>
+         <td onClick={this.handleClickModalReserva} className="inputReservar">
          Reserva
          </td> 
          )
