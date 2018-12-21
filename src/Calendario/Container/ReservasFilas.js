@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { InputReserva } from './InputReserva.js'
-import './ReservasFilas.css'
+import './FilaHoras.css'
 
 export class ReservasFilas extends Component {
    hora = () => {

@@ -107,6 +107,7 @@ export class CalendarioAgenda extends Component {
         horasTotales.push(moment(horasTotales[index], 'h:mm').add(30, 'minutes').format('HH:mm'))  
       }
       
+    
       const { reservasFecha , 
         titulosReuniones ,
          horaInicioReunion , 

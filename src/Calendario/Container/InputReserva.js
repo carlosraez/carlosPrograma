@@ -5,7 +5,7 @@ import { firebaseApp } from '../../index.js'
 import swal from 'sweetalert';
 import moment from 'moment'
 import { Inputhoras } from './InputHoras.js';
-import './InputReservas.css'
+import './InputLibreReserva.css'
 
 export class InputReserva extends Component {
    state = {
