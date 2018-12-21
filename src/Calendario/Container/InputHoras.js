@@ -22,9 +22,6 @@ export class Inputhoras extends Component {
      const { movimientoArriba, horaInicioReunion  } = this.state
      const tiempoDeAumento = Math.trunc(movimientoArriba / 2) 
      const horaFinal = moment(horaInicioReunion, 'hh:mm').subtract(tiempoDeAumento, 'minutes').format('HH:mm')
-     console.log(movimientoArriba);
-     console.log(horaInicioReunion);
-     console.log(horaFinal);
      
      return horaFinal
 
@@ -111,7 +108,7 @@ export class Inputhoras extends Component {
    
    
    render() {
-    const { tituloReservaBaseDatos , direccionReservaBaseDatos, horaInicioReunion , horaFinalReunion } = this.state
+    const { tituloReservaBaseDatos , direccionReservaBaseDatos , horaFinalReunion } = this.state
   
    // const {  handleClickBorrarReserva   } = this.props
      return (
@@ -143,7 +140,7 @@ export class Inputhoras extends Component {
       }}
     onResizeStop={this.guardarHorasFirebase}
     >
-    <h5 className="tituloReserva">{/*<span><button type="button" onClick={handleClickBorrarReserva}  className="btn btn-danger btn-sm">Borrar</button></span>*/}{`${horaInicioReunion} - ${horaFinalReunion}`}</h5>
+    <h5 className="tituloReserva">{/*<span><button type="button" onClick={handleClickBorrarReserva}  className="btn btn-danger btn-sm">Borrar</button></span>*/}{`${this.tiempoInicialCalculo()} - ${horaFinalReunion}`}</h5>
     <p onDoubleClick={this.modificarTituloReserva}>{tituloReservaBaseDatos}</p>  
     <p onDoubleClick={this.modificarDireccion}>{direccionReservaBaseDatos}</p> 
     </Rnd>
