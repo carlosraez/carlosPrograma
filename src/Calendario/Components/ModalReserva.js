@@ -23,7 +23,7 @@ function ModalReserva(props) {
        <InputsAgenda
        label={'¿Con quien has Quedado?'}
        type={'text'}
-       placeholder={'Escribe la parsona con la que vas a quedar'}
+       placeholder={'Escribe la persona con la que vas a quedar'}
        id={'tituloReserva'}
        handleChange={handleChange}
        />

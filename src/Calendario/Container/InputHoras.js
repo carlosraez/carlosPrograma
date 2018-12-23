@@ -27,19 +27,30 @@ export class Inputhoras extends Component {
 
   }
 
-  modificacionDiaYTiempo  =  (x,y) => {   
-      const { fecha } =  this.state           
+  tiempoFinalCalculo = () => {
+    const { horaInicioReunion, height, movimientoArriba } = this.state 
+        const tiempoDeAumento = Math.trunc((height - movimientoArriba) / 2)
+        const horaFinal =  moment(horaInicioReunion, 'hh:mm').add(tiempoDeAumento, 'minutes').format('HH:mm')
+        console.log(horaFinal);
+        
+        return horaFinal
+    
+    
+   }
+
+  modificacionDiaYTiempo  =  (x,y) => {    
+      const { fecha  } =  this.state           
       const minutosMovidos = Math.trunc(y / 2)  
       const diasMovidos = Math.trunc(x / 213)  
       const fechaFinal =  moment(fecha, 'DD/MM/YYYY h:mm').add(diasMovidos, 'days').format('DD/MM/YYYY')
-      const horaInicialFinal =  moment(fecha, 'DD/MM/YYYY h:mm').add(minutosMovidos, 'minutes').format('HH:mm');
-      //const horaFinFinal =  moment(horaFinalReunion, 'hh:mm').add(minutosMovidos, 'minutes').format('HH:mm') 
+      const horaInicialFinal =  moment(fecha, 'DD/MM/YYYY h:mm').add(minutosMovidos, 'minutes').format('HH:mm')
+     
       this.setState({ 
           horaInicioReunion: horaInicialFinal, 
-          movimientoArriba:0 , 
-          movimientoAbajo: 0 
+          movimientoArriba:0, 
+          movimientoAbajo: 0,
         })
-
+  
       this.guardarFechasFirebase(fechaFinal)       
           
   }
@@ -52,32 +63,27 @@ export class Inputhoras extends Component {
     const reservaNuevaFecha = { fechaReserva:fechaModificada }
     
     ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaNuevaFecha) 
+
  
 }
 
    guardarHorasFirebase = () => {
     const horaFinal = this.tiempoFinalCalculo()
+    const horaInicial = this.tiempoInicialCalculo()
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser;
     const nombreReserva = this.props.nombreReservasBaseDatos
     const reservaHoraInicio = {
+        horaInicio:horaInicial,
         horaFin: horaFinal,
-   
     }
 
-    ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraInicio) 
-    
-   }
+    ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraInicio)
   
-   tiempoFinalCalculo = () => {
-    const { horaFinalReunion ,movimientoAbajo } = this.state 
-    const tiempoDeAumento = Math.trunc(movimientoAbajo / 1.1)
-    const horaFinal = moment(horaFinalReunion, 'h:mm').add(tiempoDeAumento, 'minutes').format('HH:mm')
-    
-    
-    return horaFinal 
 
    }
+  
+  
 
    modificarTituloReserva = () => {
     const titulo = prompt('Escribe tu nuevo titulo')
@@ -103,14 +109,13 @@ export class Inputhoras extends Component {
    this.props.recargarComponenteCalendario()
    }
 
-   //static getDerivedStateFromProps = (props, state) => { return props }
-   
-   
+
    
    render() {
-    const { tituloReservaBaseDatos , direccionReservaBaseDatos , horaFinalReunion } = this.state
-  
+    const { tituloReservaBaseDatos , direccionReservaBaseDatos } = this.state     
    // const {  handleClickBorrarReserva   } = this.props
+
+
      return (
     <Rnd
     enableResizing={{bottom:true,top:true}}
@@ -128,7 +133,7 @@ export class Inputhoras extends Component {
             this.setState({
                 movimientoArriba: movimientoNuevo ,
                 height: parseInt(ref.style.height,10)
-            },this.tiempoInicialCalculo);           
+            });           
         }
         else {
         const movimientoNuevo = (movimientoAbajo - alturaActualModificada) 
@@ -140,7 +145,7 @@ export class Inputhoras extends Component {
       }}
     onResizeStop={this.guardarHorasFirebase}
     >
-    <h5 className="tituloReserva">{/*<span><button type="button" onClick={handleClickBorrarReserva}  className="btn btn-danger btn-sm">Borrar</button></span>*/}{`${this.tiempoInicialCalculo()} - ${horaFinalReunion}`}</h5>
+    <h5 className="tituloReserva">{/*<span><button type="button" onClick={handleClickBorrarReserva}  className="btn btn-danger btn-sm">Borrar</button></span>*/}{`${this.tiempoInicialCalculo()} - ${this.tiempoFinalCalculo()}`}</h5>
     <p onDoubleClick={this.modificarTituloReserva}>{tituloReservaBaseDatos}</p>  
     <p onDoubleClick={this.modificarDireccion}>{direccionReservaBaseDatos}</p> 
     </Rnd>

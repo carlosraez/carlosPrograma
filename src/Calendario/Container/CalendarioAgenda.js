@@ -160,7 +160,9 @@ export class CalendarioAgenda extends Component {
    }
   
 
-   render() {             
+   render() {   
+     console.log('soy el render del componente Calendario');
+               
      return (
        <div className="row">
        <div className="col-12">
