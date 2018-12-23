@@ -9,11 +9,9 @@ export class Inputhoras extends Component {
    state = {
        height:parseInt(this.props.minutosTotales,10) * 2,
        horaInicioReunion:this.props.horaInicioReunion,
-       horaFinalReunion:this.props.horaFinalReunion,
        tituloReservaBaseDatos: this.props.tituloReservaBaseDatos, 
        direccionReservaBaseDatos: this.props.direccionReservaBaseDatos,
        movimientoArriba:0,
-       movimientoAbajo:0,
        fecha:this.props.fecha
 
    }
@@ -29,12 +27,11 @@ export class Inputhoras extends Component {
 
   tiempoFinalCalculo = () => {
     const { horaInicioReunion, height, movimientoArriba } = this.state 
-        const tiempoDeAumento = Math.trunc((height - movimientoArriba) / 2)
-        const horaFinal =  moment(horaInicioReunion, 'hh:mm').add(tiempoDeAumento, 'minutes').format('HH:mm')
-        console.log(horaFinal);
-        
-        return horaFinal
+            
+     const tiempoDeAumento = Math.trunc((height - movimientoArriba) / 2)
+     const horaFinal =  moment(horaInicioReunion, 'hh:mm').add(tiempoDeAumento, 'minutes').format('HH:mm')
     
+     return horaFinal
     
    }
 
@@ -50,39 +47,39 @@ export class Inputhoras extends Component {
           movimientoArriba:0, 
           movimientoAbajo: 0,
         })
-  
-      this.guardarFechasFirebase(fechaFinal)       
+    
+      this.guardarHorasFirebase(fechaFinal)       
           
   }
    
-  guardarFechasFirebase = (fechaFinal) => {
+
+   guardarHorasFirebase = (fechaFinal) => {
     const ref  = firebaseApp.database().ref('usuarios')
-    const user = firebaseApp.auth().currentUser;
-    const fechaModificada = fechaFinal 
+    const user = firebaseApp.auth().currentUser
     const nombreReserva = this.props.nombreReservasBaseDatos
-    const reservaNuevaFecha = { fechaReserva:fechaModificada }
-    
-    ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaNuevaFecha) 
-
- 
-}
-
-   guardarHorasFirebase = () => {
+    const { fecha  } =  this.state  
     const horaFinal = this.tiempoFinalCalculo()
     const horaInicial = this.tiempoInicialCalculo()
-    const ref  = firebaseApp.database().ref('usuarios')
-    const user = firebaseApp.auth().currentUser;
-    const nombreReserva = this.props.nombreReservasBaseDatos
-    const reservaHoraInicio = {
-        horaInicio:horaInicial,
-        horaFin: horaFinal,
-    }
-
-    ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraInicio)
-  
-
+    const fechaActual = moment(fecha, 'DD/MM/YYYY h:mm').format('DD/MM/YYYY')
+    console.log(fechaActual) 
+    console.log(fechaFinal);
+    if (fechaActual === fechaFinal) {
+        const reservaHoraInicio = {
+            fechaReserva:fechaActual,
+            horaInicio:horaInicial,
+            horaFin: horaFinal,
+        }
+        ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraInicio)
+    } else {
+        const reservaHoraInicio = {
+            fechaReserva:fechaFinal,
+            horaInicio:horaInicial,
+            horaFin: horaFinal,
+        }
+        ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraInicio)
+     }
+ 
    }
-  
   
 
    modificarTituloReserva = () => {
@@ -109,12 +106,10 @@ export class Inputhoras extends Component {
    this.props.recargarComponenteCalendario()
    }
 
-
    
    render() {
     const { tituloReservaBaseDatos , direccionReservaBaseDatos } = this.state     
    // const {  handleClickBorrarReserva   } = this.props
-
 
      return (
     <Rnd
@@ -127,7 +122,7 @@ export class Inputhoras extends Component {
     className='reservaBorder' 
     onResize={(e, direction, ref, delta, position) => {     
     const alturaActualModificada = this.state.height  - parseInt(ref.style.height,10)
-    const { movimientoArriba , movimientoAbajo } = this.state        
+    const { movimientoArriba , } = this.state        
      if (direction === 'top') {
             const movimientoNuevo =  (movimientoArriba - alturaActualModificada) 
             this.setState({
@@ -136,10 +131,8 @@ export class Inputhoras extends Component {
             });           
         }
         else {
-        const movimientoNuevo = (movimientoAbajo - alturaActualModificada) 
         this.setState({
             height: parseInt(ref.style.height,10),
-            movimientoAbajo: movimientoNuevo
         });
         } 
       }}
