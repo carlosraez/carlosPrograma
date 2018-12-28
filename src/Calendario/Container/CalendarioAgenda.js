@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import AgendaComponentLayaout from '../Components/AgendaComponentLayout.js'
 import { ReservasFilas } from './ReservasFilas.js'
 import { firebaseApp } from '../../index.js'
+import Dia from '../Components/Dia.js'
 import moment from 'moment'
 import '../../../src/locale.js'
 
-const DIAS = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sábado']
+const DIAS = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sábado']
 const MESES = ['Enero','Febrero','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
 
 export class CalendarioAgenda extends Component {
@@ -91,7 +92,7 @@ export class CalendarioAgenda extends Component {
      const mesActual = []
      const year = []
      const hoy = moment().format('L')
-     for (var i=0;i < DIAS.length;i++){
+     for (var i=0 ;i < 7; i++){
      var dia = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("DD")
      var mes = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("MM")
      var ano = moment().startOf('week').add(MESES, "month").add(i,"days").add(this.state.siguienteSemana,"week").format("YYYY")
@@ -122,12 +123,21 @@ export class CalendarioAgenda extends Component {
           <thead>
              <tr>
           <th scope="col">Hora</th>
-          <th scope="col">Lunes: {semana[1]} {hoy === `${semana[1]}/${mesActual[1]}/${year[1]}` ? '' : ''}</th>
-          <th scope="col">Martes: {semana[2]} {hoy === `${semana[2]}/${mesActual[2]}/${year[2]}` ? '' : ''}</th>
-          <th scope="col">Miercoles: {semana[3]} {hoy === `${semana[3]}/${mesActual[3]}/${year[3]}` ? '' : ''}</th>
-          <th scope="col">Jueves: {semana[4]} {hoy === `${semana[4]}/${mesActual[4]}/${year[4]}` ? '' : ''}</th>
-          <th scope="col">Viernes: {semana[5]} {hoy === `${semana[5]}/${mesActual[5]}/${year[5]}` ? '' : ''}</th>
-          <th scope="col">Sabado: {semana[6]} {hoy === `${semana[6]}/${mesActual[6]}/${year[6]}` ? '' : ''}</th>
+           {
+              DIAS.map( (dia,i) => {
+                let index = i + 1
+                return (
+                  <Dia
+                  key={dia}
+                  semana={semana[index]}
+                  dia={dia}
+                  year={year[index]}
+                  mesActual={mesActual[index]}
+                  hoy={hoy}
+                  />
+                )
+              })
+           }
            </tr>
             </thead>
          <tbody>

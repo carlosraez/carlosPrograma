@@ -35,50 +35,42 @@ export class Inputhoras extends Component {
     
    }
 
-  modificacionDiaYTiempo  =  (x,y) => {    
+  modificacionDiaYTiempo  =  (x,y) => { 
+      const ref  = firebaseApp.database().ref('usuarios')
+      const user = firebaseApp.auth().currentUser
+      const nombreReserva = this.props.nombreReservasBaseDatos   
       const { fecha  } =  this.state           
       const minutosMovidos = Math.trunc(y / 2)  
-      const diasMovidos = Math.trunc(x / 213)  
+      const diasMovidos = Math.floor(x / 213)  
       const fechaFinal =  moment(fecha, 'DD/MM/YYYY h:mm').add(diasMovidos, 'days').format('DD/MM/YYYY')
       const horaInicialFinal =  moment(fecha, 'DD/MM/YYYY h:mm').add(minutosMovidos, 'minutes').format('HH:mm')
-     
+      console.log(fechaFinal)
       this.setState({ 
           horaInicioReunion: horaInicialFinal, 
           movimientoArriba:0, 
           movimientoAbajo: 0,
         })
-    
-      this.guardarHorasFirebase(fechaFinal)       
+        const reservaFecha = {
+          fechaReserva:fechaFinal,
+          
+        }
+        ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaFecha)
+        this.guardarHorasFirebase()
           
   }
    
 
-   guardarHorasFirebase = (fechaFinal) => {
+   guardarHorasFirebase = () => {
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser
     const nombreReserva = this.props.nombreReservasBaseDatos
-    const { fecha  } =  this.state  
     const horaFinal = this.tiempoFinalCalculo()
-    const horaInicial = this.tiempoInicialCalculo()
-    const fechaActual = moment(fecha, 'DD/MM/YYYY h:mm').format('DD/MM/YYYY')
-    console.log(fechaActual) 
-    console.log(fechaFinal);
-    if (fechaActual === fechaFinal) {
-        const reservaHoraInicio = {
-            fechaReserva:fechaActual,
+    const horaInicial = this.tiempoInicialCalculo()  
+    const reservaHoraInicio = {
             horaInicio:horaInicial,
             horaFin: horaFinal,
         }
         ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraInicio)
-    } else {
-        const reservaHoraInicio = {
-            fechaReserva:fechaFinal,
-            horaInicio:horaInicial,
-            horaFin: horaFinal,
-        }
-        ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraInicio)
-     }
- 
    }
   
 
@@ -120,22 +112,23 @@ export class Inputhoras extends Component {
     dragGrid={[1, 7]}
     onDragStop={ (event,{x,y}) => { this.modificacionDiaYTiempo(x,y) }}
     className='reservaBorder' 
-    onResize={(e, direction, ref, delta, position) => {     
+    onResize={(e, direction, ref, delta, position) => {  
+    console.log(e.pageY) //680 
     const alturaActualModificada = this.state.height  - parseInt(ref.style.height,10)
     const { movimientoArriba , } = this.state        
-     if (direction === 'top') {
-            const movimientoNuevo =  (movimientoArriba - alturaActualModificada) 
+         if (direction === 'top') {
+                const movimientoNuevo =  (movimientoArriba - alturaActualModificada) 
+                this.setState({
+                    movimientoArriba: movimientoNuevo ,
+                    height: parseInt(ref.style.height,10)
+                });           
+            }
+            else {
             this.setState({
-                movimientoArriba: movimientoNuevo ,
-                height: parseInt(ref.style.height,10)
-            });           
-        }
-        else {
-        this.setState({
-            height: parseInt(ref.style.height,10),
-        });
-        } 
-      }}
+                height: parseInt(ref.style.height,10),
+            });
+            } 
+          }}       
     onResizeStop={this.guardarHorasFirebase}
     >
     <h5 className="tituloReserva">{/*<span><button type="button" onClick={handleClickBorrarReserva}  className="btn btn-danger btn-sm">Borrar</button></span>*/}{`${this.tiempoInicialCalculo()} - ${this.tiempoFinalCalculo()}`}</h5>
