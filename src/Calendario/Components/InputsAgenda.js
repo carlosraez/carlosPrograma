@@ -1,7 +1,6 @@
 import React from 'react';
 import './InputsAgenda.css'
 
-
 function InputsAgenda(props) {
    return (
         <div className="form-group">

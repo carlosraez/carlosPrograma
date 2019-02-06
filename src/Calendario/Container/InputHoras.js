@@ -3,6 +3,7 @@ import { Rnd }  from 'react-rnd'
 import './Reservas.css'
 import { firebaseApp } from '../../index.js'
 import moment from 'moment'
+import translatedPosition from 'get-css-translated-position'
 
 
 export class Inputhoras extends Component {
@@ -17,8 +18,9 @@ export class Inputhoras extends Component {
    }
    
   tiempoInicialCalculo = () => {      
-     const { movimientoArriba, horaInicioReunion  } = this.state
+     const { movimientoArriba, horaInicioReunion  } = this.state     
      const tiempoDeAumento = Math.trunc(movimientoArriba / 2) 
+     
      const horaFinal = moment(horaInicioReunion, 'hh:mm').subtract(tiempoDeAumento, 'minutes').format('HH:mm')
      
      return horaFinal
@@ -44,22 +46,20 @@ export class Inputhoras extends Component {
       const diasMovidos = Math.floor(x / 213)  
       const fechaFinal =  moment(fecha, 'DD/MM/YYYY h:mm').add(diasMovidos, 'days').format('DD/MM/YYYY')
       const horaInicialFinal =  moment(fecha, 'DD/MM/YYYY h:mm').add(minutosMovidos, 'minutes').format('HH:mm')
-      console.log(fechaFinal)
       this.setState({ 
           horaInicioReunion: horaInicialFinal, 
           movimientoArriba:0, 
           movimientoAbajo: 0,
         })
         const reservaFecha = {
-          fechaReserva:fechaFinal,
-          
+          fechaReserva:fechaFinal, 
         }
         ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaFecha)
         this.guardarHorasFirebase()
           
   }
    
-
+  
    guardarHorasFirebase = () => {
     const ref  = firebaseApp.database().ref('usuarios')
     const user = firebaseApp.auth().currentUser
@@ -73,6 +73,27 @@ export class Inputhoras extends Component {
         ref.child(user.uid).child('reuniones').child(nombreReserva).update(reservaHoraInicio)
    }
   
+    getComputedTranslateXY = (obj) => {
+    //guias de stylo del componente
+    const transArr = [];
+    console.log(translatedPosition(obj))
+    
+    if(!window.getComputedStyle) {
+        return false
+    }
+    const style = obj.style
+    
+    const transform = style.transform || style.webkitTransform || style.mozTransform
+    //let mat = transform.match(/^matrix3d(.+)(.+)$/)  //expresiones regulares
+    
+    console.log(transform);
+    
+    /*if(mat) return parseFloat(mat[1].split(', ')[13]);
+    mat = transform.match(/^matrix(.+)(.+)$/) //expresiones regulares
+    mat ? transArr.push(parseFloat(mat[1].split(', ')[4])) : 0;
+    mat ? transArr.push(parseFloat(mat[1].split(', ')[5])) : 0;*/
+    return transArr
+  }
 
    modificarTituloReserva = () => {
     const titulo = prompt('Escribe tu nuevo titulo')
@@ -98,24 +119,37 @@ export class Inputhoras extends Component {
    this.props.recargarComponenteCalendario()
    }
 
-   
    render() {
     const { tituloReservaBaseDatos , direccionReservaBaseDatos } = this.state     
    // const {  handleClickBorrarReserva   } = this.props
-
      return (
     <Rnd
-    enableResizing={{bottom:true,top:true}}
+    enableResizing={{bottom:true,top:true}}//activar siempre que la pagina sea mayor
     disableDragging={false}
     size={{ height: this.state.height, width:213 }}
     minHeight={66}
     dragGrid={[1, 7]}
-    onDragStop={ (event,{x,y}) => { this.modificacionDiaYTiempo(x,y) }}
+    onDragStop={ (event,{x,y}) => { 
+    const translate =  this.getComputedTranslateXY(event.target)
+    if (translate.length > 0) {
+        const positionX = translate[0]
+        const positionY = translate[1]
+  
+        
+     }
+    if (event.pageX <  218) {
+       //colocarlo a la derecha para que no se salga del calendario 
+    }
+    else {
+        this.modificacionDiaYTiempo(x,y) 
+       
+    }   
+    }}
     className='reservaBorder' 
-    onResize={(e, direction, ref, delta, position) => {  
-    console.log(e.pageY) //680 
+    onResize={(e, direction, ref, delta, position) => {    
+    if (e.pageY >= 680 && e.pageY <= 2538) {  
     const alturaActualModificada = this.state.height  - parseInt(ref.style.height,10)
-    const { movimientoArriba , } = this.state        
+    const { movimientoArriba  } = this.state        
          if (direction === 'top') {
                 const movimientoNuevo =  (movimientoArriba - alturaActualModificada) 
                 this.setState({
@@ -128,7 +162,8 @@ export class Inputhoras extends Component {
                 height: parseInt(ref.style.height,10),
             });
             } 
-          }}       
+          }} 
+        }      
     onResizeStop={this.guardarHorasFirebase}
     >
     <h5 className="tituloReserva">{/*<span><button type="button" onClick={handleClickBorrarReserva}  className="btn btn-danger btn-sm">Borrar</button></span>*/}{`${this.tiempoInicialCalculo()} - ${this.tiempoFinalCalculo()}`}</h5>

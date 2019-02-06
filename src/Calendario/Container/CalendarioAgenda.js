@@ -5,6 +5,7 @@ import { firebaseApp } from '../../index.js'
 import Dia from '../Components/Dia.js'
 import moment from 'moment'
 import '../../../src/locale.js'
+import './Calendario.css'
 
 const DIAS = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sábado']
 const MESES = ['Enero','Febrero','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
@@ -119,7 +120,7 @@ export class CalendarioAgenda extends Component {
         } = this.state
    
       return (
-         <table className="table table-bordered table-hover table-sm">
+         <table className="table table-bordered table-hover table-sm tableNew">
           <thead>
              <tr>
           <th scope="col">Hora</th>
@@ -171,7 +172,6 @@ export class CalendarioAgenda extends Component {
   
 
    render() {   
-     console.log('soy el render del componente Calendario');
                
      return (
        <div className="row">
